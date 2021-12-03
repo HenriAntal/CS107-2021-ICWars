@@ -1,20 +1,16 @@
-package ch.epfl.cs107.play.game.icwars.area.Levels;
+package ch.epfl.cs107.play.game.icwars.area;
 
 import ch.epfl.cs107.play.game.areagame.actor.Background;
 import ch.epfl.cs107.play.game.areagame.actor.Foreground;
+import ch.epfl.cs107.play.game.icwars.area.ICWarsArea;
 import ch.epfl.cs107.play.game.tutosSolution.area.Tuto2Area;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 
-public class Level0 {
-    // TODO update to Level0
-    /**
-     * Specific area
-     */
-    public class Ferme extends Tuto2Area {
+    public class Level0 extends ICWarsArea {
 
         @Override
         public String getTitle() {
-            return "zelda/Ferme";
+            return "ICWars/Level0";
         }
 
         @Override
@@ -29,4 +25,4 @@ public class Level0 {
         }
 
     }
-}
+

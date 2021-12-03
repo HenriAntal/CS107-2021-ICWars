@@ -3,20 +3,18 @@ package ch.epfl.cs107.play.game.icwars;
 import ch.epfl.cs107.play.game.areagame.AreaGame;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.icwars.actor.RealPlayer;
-import ch.epfl.cs107.play.game.tutosSolution.actor.GhostPlayer;
-import ch.epfl.cs107.play.game.tutosSolution.area.Tuto2Area;
-import ch.epfl.cs107.play.game.tutosSolution.area.tuto2.Ferme;
-import ch.epfl.cs107.play.game.tutosSolution.area.tuto2.Village;
+import ch.epfl.cs107.play.game.icwars.area.ICWarsArea;
+import ch.epfl.cs107.play.game.icwars.area.Level0;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Window;
 
 public class ICWars extends AreaGame{
 //TODO it's file from tuto2 make it fit ICWars.
-        public final static float CAMERA_SCALE_FACTOR = 13.f;
+        public final static float CAMERA_SCALE_FACTOR = 10.f;
 
         private RealPlayer player;
-        private final String[] areas = {"zelda/Ferme", "zelda/Village"};
+        private final String[] areas = {"icwars/Level0", "icwars/Level1"};
 
         private int areaIndex;
         /**
@@ -24,9 +22,8 @@ public class ICWars extends AreaGame{
          */
         private void createAreas(){
 
-            addArea(new Ferme());
-            addArea(new Village());
-//haha
+            addArea(new Level0());
+            addArea(new Level1());
         }
 
         @Override
@@ -44,9 +41,9 @@ public class ICWars extends AreaGame{
 
         private void initArea(String areaKey) {
 
-            Tuto2Area area = (Tuto2Area)setCurrentArea(areaKey, true);
+            ICWarsArea area = (ICWarsArea) setCurrentArea(areaKey, true);
             DiscreteCoordinates coords = area.getPlayerSpawnPosition();
-            player = new GhostPlayer(area, Orientation.DOWN, coords,"ghost.1");
+            player = new RealPlayer(area, Orientation.DOWN, coords,"ghost.1");
             player.enterArea(area, coords);
             player.centerCamera();
 
@@ -75,7 +72,7 @@ public class ICWars extends AreaGame{
 
             areaIndex = (areaIndex==0) ? 1 : 0;
 
-            Tuto2Area currentArea = (Tuto2Area)setCurrentArea(areas[areaIndex], false);
+            ICWarsArea currentArea = (ICWarsArea) setCurrentArea(areas[areaIndex], false);
             player.enterArea(currentArea, currentArea.getPlayerSpawnPosition());
 
             player.strengthen();
