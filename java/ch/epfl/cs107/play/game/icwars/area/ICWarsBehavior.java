@@ -96,7 +96,7 @@ public class ICWarsBehavior extends AreaBehavior {
             // TODO France check french on page 31 TUTO
             @Override
             protected boolean canEnter(Interactable entity) {
-                if (getCurrentCells().isEmpty()) {
+                if (entity.takeCellSpace() && isCellInteractable()) {
                     return true;
                 } else {
                     return false;
