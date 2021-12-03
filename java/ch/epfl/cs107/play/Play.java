@@ -35,10 +35,11 @@ public class Play {
 		//final Game game = new ICWars();
 		final Game game = new Tuto2();
 
+
 		// Use Swing display
 		final Window window = new SwingWindow(game.getTitle(), fileSystem, WINDOW_WIDTH, WINDOW_HEIGHT);
 		window.registerFonts(ResourcePath.FONTS);
-		
+
 	//	Recorder recorder = new Recorder(window);
 	//	RecordReplayer replayer = new RecordReplayer(window);
 		try {
