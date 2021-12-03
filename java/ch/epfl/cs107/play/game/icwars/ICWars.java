@@ -26,7 +26,7 @@ public class ICWars extends AreaGame{
 
             addArea(new Ferme());
             addArea(new Village());
-
+//haha
         }
 
         @Override
