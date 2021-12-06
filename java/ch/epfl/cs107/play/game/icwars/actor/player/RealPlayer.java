@@ -1,4 +1,4 @@
-package ch.epfl.cs107.play.game.icwars.actor;
+package ch.epfl.cs107.play.game.icwars.actor.player;
 
 
 import java.awt.Color;
@@ -11,6 +11,8 @@ import ch.epfl.cs107.play.game.areagame.actor.MovableAreaEntity;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.areagame.actor.Sprite;
 import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
+import ch.epfl.cs107.play.game.icwars.actor.player.ICWarsPlayer;
+import ch.epfl.cs107.play.game.icwars.area.ICWarsArea;
 import ch.epfl.cs107.play.game.tutosSolution.area.Tuto2Area;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.math.Vector;
@@ -18,9 +20,7 @@ import ch.epfl.cs107.play.window.Button;
 import ch.epfl.cs107.play.window.Canvas;
 import ch.epfl.cs107.play.window.Keyboard;
 
-public class RealPlayer extends MovableAreaEntity {
-    private float hp;
-    private TextGraphics message;
+public class RealPlayer extends ICWarsPlayer {
     private Sprite sprite;
     /// Animation duration in frame number
     private final static int MOVE_DURATION = 8;
@@ -28,16 +28,18 @@ public class RealPlayer extends MovableAreaEntity {
      * Demo actor
      *
      */
-    public RealPlayer(Area owner, Orientation orientation, DiscreteCoordinates coordinates, String spriteName) {
-        super(owner, orientation, coordinates);
-        this.hp = 10;
-        message = new TextGraphics(Integer.toString((int)hp), 0.4f, Color.BLUE);
-        message.setParent(this);
-        message.setAnchor(new Vector(-0.3f, 0.1f));
-        sprite = new Sprite(spriteName, 1.f, 1.f,this);
+    public RealPlayer(Area owner, Orientation orientation, DiscreteCoordinates coordinates, String belongs) {
+        super(owner, orientation, coordinates, belongs);
 
+        if (belongs.equals("ally")) {
+            Sprite sprite = new Sprite("icwars / allyCursor" , 1.f, 1.f, this, null, new Vector(-0.25f, -0.25f));
+        } else {
+            Sprite sprite = new Sprite("icwars / enemyCursor" , 1.f, 1.f, this, null, new Vector(-0.25f, -0.25f));
+        }
         resetMotion();
     }
+
+
 
     /**
      * Center the camera on the player
@@ -48,11 +50,6 @@ public class RealPlayer extends MovableAreaEntity {
 
     @Override
     public void update(float deltaTime) {
-        if (hp > 0) {
-
-            message.setText(Integer.toString((int)hp));
-        }
-        if (hp < 0) hp = 0.f;
         Keyboard keyboard= getOwnerArea().getKeyboard();
 
         moveIfPressed(Orientation.LEFT, keyboard.get(Keyboard.LEFT));
@@ -100,16 +97,8 @@ public class RealPlayer extends MovableAreaEntity {
     @Override
     public void draw(Canvas canvas) {
         sprite.draw(canvas);
-        message.draw(canvas);
     }
 
-    public boolean isWeak() {
-        return (hp <= 0.f);
-    }
-
-    public void strengthen() {
-        hp = 10;
-    }
 
     ///Ghost implements Interactable
 

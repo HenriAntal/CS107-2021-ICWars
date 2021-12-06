@@ -1,12 +1,13 @@
-package ch.epfl.cs107.play.game.icwars.actor;
+package ch.epfl.cs107.play.game.icwars.actor.player;
 
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.areagame.actor.Sprite;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.math.Vector;
+import ch.epfl.cs107.play.window.Canvas;
 
-public class Unit extends ICWarsActor{
+public class Unit extends ICWarsActor {
 
     String name;
     int Hp;
@@ -20,8 +21,6 @@ public class Unit extends ICWarsActor{
         this.name = name;
         // somehow need to include damage taken (- Hp)
         // also need to include healing (+ Hp)
-
-
 
     }
     public String getName() {
@@ -64,6 +63,12 @@ public class Unit extends ICWarsActor{
             return super.getDamage();
         }
 
+
+        // maybe no draw Canvas. i don't know if this is correct
+        public void draw(Canvas canvas) {
+            sprite.draw(canvas);
+        }
+
     }
 
     public class Tank extends Unit{
@@ -90,6 +95,10 @@ public class Unit extends ICWarsActor{
         @Override
         public int getDamage() {
             return super.getDamage();
+        }
+
+        public void draw(Canvas canvas) {
+            sprite.draw(canvas);
         }
 
     }

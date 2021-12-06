@@ -1,12 +1,10 @@
 package ch.epfl.cs107.play.game.icwars;
 
 import ch.epfl.cs107.play.game.areagame.AreaGame;
-import ch.epfl.cs107.play.game.areagame.actor.Orientation;
-import ch.epfl.cs107.play.game.icwars.actor.RealPlayer;
+import ch.epfl.cs107.play.game.icwars.actor.player.RealPlayer;
 import ch.epfl.cs107.play.game.icwars.area.ICWarsArea;
 import ch.epfl.cs107.play.game.icwars.area.Level0;
 import ch.epfl.cs107.play.game.icwars.area.Level1;
-import ch.epfl.cs107.play.game.tutosSolution.area.tuto2.Village;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Window;
@@ -45,16 +43,14 @@ public class ICWars extends AreaGame{
 
             ICWarsArea area = (ICWarsArea) setCurrentArea(areaKey, true);
             DiscreteCoordinates coords = area.getPlayerSpawnPosition();
-            player = new RealPlayer(area, Orientation.DOWN, coords,"ghost.1");
+            // TODO adjust
+            // player = new RealPlayer(area, Orientation.DOWN, coords,"ghost.1");
             player.enterArea(area, coords);
             player.centerCamera();
 
         }
         @Override
         public void update(float deltaTime) {
-            if(player.isWeak()){
-                switchArea();
-            }
             super.update(deltaTime);
 
         }
@@ -77,7 +73,6 @@ public class ICWars extends AreaGame{
             ICWarsArea currentArea = (ICWarsArea) setCurrentArea(areas[areaIndex], false);
             player.enterArea(currentArea, currentArea.getPlayerSpawnPosition());
 
-            player.strengthen();
         }
 
     }
