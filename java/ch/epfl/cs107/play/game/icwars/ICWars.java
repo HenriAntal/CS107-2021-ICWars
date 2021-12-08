@@ -1,16 +1,23 @@
 package ch.epfl.cs107.play.game.icwars;
 
 import ch.epfl.cs107.play.game.areagame.AreaGame;
+import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.icwars.actor.player.RealPlayer;
 import ch.epfl.cs107.play.game.icwars.area.ICWarsArea;
 import ch.epfl.cs107.play.game.icwars.area.Level0;
 import ch.epfl.cs107.play.game.icwars.area.Level1;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
+import ch.epfl.cs107.play.window.Button;
+import ch.epfl.cs107.play.window.Keyboard;
 import ch.epfl.cs107.play.window.Window;
 
+import java.security.Key;
+
+import static ch.epfl.cs107.play.game.areagame.actor.Orientation.UP;
+
 public class ICWars extends AreaGame{
-//TODO it's file from tuto2 make it fit ICWars.
+
         public final static float CAMERA_SCALE_FACTOR = 10.f;
 
         private RealPlayer player;
@@ -39,21 +46,54 @@ public class ICWars extends AreaGame{
             return false;
         }
 
+
+
+        // N and R to restart or skip levels
+        public final Keyboard getKeyboard () {
+            return super.getWindow().getKeyboard();
+        }
+
+        @Override
+        public void update(float deltaTime) {
+            Keyboard keyboard = getKeyboard();
+
+            moveIfPressed("R", keyboard.get(Keyboard.R));
+            moveIfPressed("N", keyboard.get(Keyboard.N));
+
+
+        super.update(deltaTime);
+
+        }
+
+        private void moveIfPressed(String letter, Button b){
+            if(b.isDown() && (letter.equals("R"))) {
+                begin(getWindow(), getFileSystem());
+            }
+
+            if(b.isDown() && (letter.equals("N"))){
+                switchArea();
+            }
+        }
+
         private void initArea(String areaKey) {
 
             ICWarsArea area = (ICWarsArea) setCurrentArea(areaKey, true);
             DiscreteCoordinates coords = area.getPlayerSpawnPosition();
             // TODO adjust
-            // player = new RealPlayer(area, Orientation.DOWN, coords,"ghost.1");
+            player = new RealPlayer(area, UP, coords,"ally");
             player.enterArea(area, coords);
             player.centerCamera();
 
         }
+
+        /*
+
         @Override
         public void update(float deltaTime) {
             super.update(deltaTime);
 
         }
+        */
 
         @Override
         public void end() {
@@ -68,10 +108,17 @@ public class ICWars extends AreaGame{
 
             player.leaveArea();
 
-            areaIndex = (areaIndex==0) ? 1 : 0;
+            if(areaIndex == areas.length) {
+                System.out.println("GAME OVER BABEEEE");
+                end();
+            } else {
+                areaIndex += 1;
+            }
+
 
             ICWarsArea currentArea = (ICWarsArea) setCurrentArea(areas[areaIndex], false);
             player.enterArea(currentArea, currentArea.getPlayerSpawnPosition());
+
 
         }
 

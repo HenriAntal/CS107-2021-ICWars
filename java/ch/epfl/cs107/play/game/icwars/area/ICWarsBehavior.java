@@ -7,18 +7,11 @@ import ch.epfl.cs107.play.game.icwars.area.ICWarsBehavior;
 import ch.epfl.cs107.play.window.Window;
 
 public class ICWarsBehavior extends AreaBehavior {
-    //TODO update to fit ICWars.
 
         public enum ICWarsCellType{
             //https://stackoverflow.com/questions/25761438/understanding-bufferedimage-getrgb-output-values
-            NULL(0, false),
-            WALL(-16777216, false),
-            IMPASSABLE(-8750470, false),
-            INTERACT(-256, true),
-            DOOR(-195580, true),
-            WALKABLE(-1, true),;
 
-            /*
+
             NONE(0,0), // Should never be used except
             // in the toType method
             ROAD(-16777216, 0), // the second value is the number
@@ -29,16 +22,13 @@ public class ICWarsBehavior extends AreaBehavior {
             MOUNTAIN(-256, 4),
             CITY(-1,2);
 
-            gets added later
-            */
-
 
             final int type;
-            final boolean isWalkable;
+            final int stars;
 
-            ICWarsCellType(int type, boolean isWalkable){
+            ICWarsCellType(int type, int stars){
                 this.type = type;
-                this.isWalkable = isWalkable;
+                this.stars = stars;
             }
 
             public static ICWarsBehavior.ICWarsCellType toType(int type){
@@ -48,7 +38,7 @@ public class ICWarsBehavior extends AreaBehavior {
                 }
                 // When you add a new color, you can print the int value here before assign it to a type
                 System.out.println(type);
-                return NULL;
+                return NONE;
             }
         }
 
@@ -93,7 +83,6 @@ public class ICWarsBehavior extends AreaBehavior {
             }
 
 
-            // TODO France check french on page 31 TUTO
             @Override
             protected boolean canEnter(Interactable entity) {
                 if (entity.takeCellSpace() && isCellInteractable()) {

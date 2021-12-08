@@ -9,10 +9,8 @@ import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Window;
 
 public abstract class ICWarsArea extends Area{
-// TODO also taken from tuto 2 make it fit ICWars (check imports)
-        private ICWarsBehavior behavior;
 
-        /**
+    /**
          * Create the area by adding it all actors
          * called by begin method
          * Note it set the Behavior as needed !
@@ -34,7 +32,7 @@ public abstract class ICWarsArea extends Area{
         public boolean begin(Window window, FileSystem fileSystem) {
             if (super.begin(window, fileSystem)) {
                 // Set the behavior map
-                behavior = new ICWarsBehavior(window, getTitle());
+                ICWarsBehavior behavior = new ICWarsBehavior(window, getTitle());
                 setBehavior(behavior);
                 createArea();
                 return true;

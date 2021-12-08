@@ -8,14 +8,21 @@ import ch.epfl.cs107.play.math.DiscreteCoordinates;
 public class ICWarsPlayer extends ICWarsActor{
 
         private Sprite sprite;
-
+        //TODO
         public ICWarsPlayer(Area owner, Orientation orientation, DiscreteCoordinates coordinates, String belongs ){
             super(owner, orientation, coordinates, belongs);
 
 
 
         }
+    public void centerCamera() {
+        getOwnerArea().setViewCandidate(this);
+    }
 
+    @Override
+    public boolean takeCellSpace() {
+        return false;
+    }
 
 
     }

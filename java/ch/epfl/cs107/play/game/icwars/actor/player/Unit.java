@@ -69,6 +69,11 @@ public class Unit extends ICWarsActor {
             sprite.draw(canvas);
         }
 
+        @Override
+        public boolean takeCellSpace() {
+            return true;
+        }
+
     }
 
     public class Tank extends Unit{
@@ -99,6 +104,11 @@ public class Unit extends ICWarsActor {
 
         public void draw(Canvas canvas) {
             sprite.draw(canvas);
+        }
+
+        @Override
+        public boolean takeCellSpace() {
+            return true;
         }
 
     }

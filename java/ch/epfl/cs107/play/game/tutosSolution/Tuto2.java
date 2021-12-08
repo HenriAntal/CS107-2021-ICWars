@@ -8,6 +8,8 @@ import ch.epfl.cs107.play.game.tutosSolution.area.tuto2.Ferme;
 import ch.epfl.cs107.play.game.tutosSolution.area.tuto2.Village;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
+import ch.epfl.cs107.play.window.Button;
+import ch.epfl.cs107.play.window.Keyboard;
 import ch.epfl.cs107.play.window.Window;
 
 public class Tuto2 extends AreaGame {
@@ -50,14 +52,38 @@ public class Tuto2 extends AreaGame {
 	      player.centerCamera();
 		 
 	 }
+
+	// N and R to restart or skip levels
+	public final Keyboard getKeyboard () {
+		return super.getWindow().getKeyboard();
+	}
+
 	@Override
 	public void update(float deltaTime) {
-		if(player.isWeak()){
-			switchArea();         
-		}
+		Keyboard keyboard = getKeyboard();
+
+		moveIfPressed("R", keyboard.get(Keyboard.R));
+		moveIfPressed("N", keyboard.get(Keyboard.N));
+
+
 		super.update(deltaTime);
+		if(player.isWeak()){
+			switchArea();
+		}
 
 	}
+
+	private void moveIfPressed(String letter, Button b){
+		if(b.isDown() && (letter.equals("R"))) {
+			begin(getWindow(), getFileSystem());
+		}
+
+		if(b.isDown() && (letter.equals("N"))){
+			switchArea();
+		}
+	}
+
+
 
 	@Override
 	public void end() {

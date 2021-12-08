@@ -53,7 +53,16 @@ public class ICWarsActor extends MovableAreaEntity{
 
     }
 
-// TODO pretty sure this is wrong.
+    public void enterArea(Area area, DiscreteCoordinates position){
+        area.registerActor(this);
+        setOwnerArea(area);
+        setCurrentPosition(position.toVector());
+    }
+
+    public void leaveArea(){
+        getOwnerArea().unregisterActor(this);
+    }
+
     @Override
     public void draw(Canvas canvas) {
 
