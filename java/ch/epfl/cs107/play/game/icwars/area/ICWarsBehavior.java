@@ -93,10 +93,15 @@ public class ICWarsBehavior extends AreaBehavior {
             }
 
 
-            // TODO France check french on page 31 TUTO
+
+            // TODO Henri double check after France check (French)
+            /**
+             * // TODO France check french on page 31 TUTO
+             * p.6 icwars says return false if not traversable
+             */
             @Override
             protected boolean canEnter(Interactable entity) {
-                if (entity.takeCellSpace() && isCellInteractable()) {
+                if (entity.takeCellSpace() || isCellInteractable()) {
                     return true;
                 } else {
                     return false;
