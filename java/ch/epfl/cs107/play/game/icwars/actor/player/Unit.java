@@ -44,11 +44,10 @@ public class Unit extends ICWarsActor {
             super.attackDamage = 2;
             super.Hp = 5;
             if (belongs.equals("ally")) {
-                Sprite sprite = new Sprite("icwars / friendlySoldier" , 1.f, 1.f, this, null, new Vector(-0.25f, -0.25f));
+                Sprite sprite = new Sprite(name, 1.f, 1.f, this, null, new Vector(-0.25f, -0.25f));
             } else {
-                Sprite sprite = new Sprite("icwars / enemySoldier" , 1.f, 1.f, this, null, new Vector(-0.25f, -0.25f));
+                Sprite sprite = new Sprite(name , 1.f, 1.f, this, null, new Vector(-0.25f, -0.25f));
             }
-
 
         }
 
@@ -56,6 +55,10 @@ public class Unit extends ICWarsActor {
         @Override
         public int getHp() {
             return super.getHp();
+        }
+
+        public String getNameSoldier() {
+            return super.getName();
         }
 
         @Override

@@ -40,4 +40,5 @@ public abstract class ICWarsArea extends Area{
             return false;
         }
     }
+    // store unit list in: ICWars,  ICWarsArea, ICWarsPlayer
 

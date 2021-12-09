@@ -1,8 +1,8 @@
 package ch.epfl.cs107.play.game.icwars;
 
 import ch.epfl.cs107.play.game.areagame.AreaGame;
-import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.icwars.actor.player.RealPlayer;
+import ch.epfl.cs107.play.game.icwars.actor.player.Unit;
 import ch.epfl.cs107.play.game.icwars.area.ICWarsArea;
 import ch.epfl.cs107.play.game.icwars.area.Level0;
 import ch.epfl.cs107.play.game.icwars.area.Level1;
@@ -11,8 +11,6 @@ import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Button;
 import ch.epfl.cs107.play.window.Keyboard;
 import ch.epfl.cs107.play.window.Window;
-
-import java.security.Key;
 
 import static ch.epfl.cs107.play.game.areagame.actor.Orientation.UP;
 
@@ -79,8 +77,9 @@ public class ICWars extends AreaGame{
 
             ICWarsArea area = (ICWarsArea) setCurrentArea(areaKey, true);
             DiscreteCoordinates coords = area.getPlayerSpawnPosition();
-            // TODO adjust
             player = new RealPlayer(area, UP, coords,"ally");
+            player = new Unit.Soldier(area, coords, "ally");
+
             player.enterArea(area, coords);
             player.centerCamera();
 

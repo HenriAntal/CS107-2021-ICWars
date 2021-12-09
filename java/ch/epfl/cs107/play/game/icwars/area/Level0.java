@@ -1,5 +1,6 @@
 package ch.epfl.cs107.play.game.icwars.area;
 
+import ch.epfl.cs107.play.game.actor.Actor;
 import ch.epfl.cs107.play.game.areagame.actor.Background;
 import ch.epfl.cs107.play.game.areagame.actor.Foreground;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
@@ -7,8 +8,11 @@ import ch.epfl.cs107.play.game.icwars.actor.player.Unit;
 import ch.epfl.cs107.play.game.icwars.area.ICWarsArea;
 import ch.epfl.cs107.play.game.tutosSolution.area.Tuto2Area;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
+import ch.epfl.cs107.play.math.Vector;
 
-    public class Level0 extends ICWarsArea {
+import static ch.epfl.cs107.play.game.areagame.actor.Orientation.UP;
+
+public class Level0 extends ICWarsArea {
 
         @Override
         public String getTitle() {
@@ -34,7 +38,10 @@ import ch.epfl.cs107.play.math.DiscreteCoordinates;
             // Base
             registerActor(new Background(this));
             registerActor(new Foreground(this));
+            registerActor(new Unit.Soldier("icwars/friendlySoldier" , this, UP,  ,"ally");
         }
+
+
 
     }
 
