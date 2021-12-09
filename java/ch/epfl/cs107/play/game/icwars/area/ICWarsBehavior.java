@@ -85,11 +85,14 @@ public class ICWarsBehavior extends AreaBehavior {
 
             @Override
             protected boolean canEnter(Interactable entity) {
-                if (entity.takeCellSpace() && isCellInteractable()) {
-                    return true;
-                } else {
-                    return false;
+                if (entity.takeCellSpace()) {
+                    for (Interactable otherEntity : entities) {
+                        if (otherEntity.takeCellSpace()) {
+                            return false;
+                        }
+                    }
                 }
+                return true;
             }
 
 
