@@ -17,7 +17,7 @@ import ch.epfl.cs107.play.window.Keyboard;
 public class RealPlayer extends ICWarsPlayer {
     private Sprite sprite;
     /// Animation duration in frame number
-    private final static int MOVE_DURATION = 8;
+    private final static int MOVE_DURATION = 2;
     /**
      * Demo actor
      *
@@ -26,9 +26,9 @@ public class RealPlayer extends ICWarsPlayer {
         super(owner, coordinates, belongs);
 
         if (belongs.equals("ally")) {
-            Sprite sprite = new Sprite("icwars/allyCursor" , 1.f, 1.f, this, null, new Vector(-0.25f, -0.25f));
+            sprite = new Sprite("icwars/allyCursor" , 1.f, 1.f, this, null, new Vector(0f, 0f));
         } else {
-            Sprite sprite = new Sprite("icwars/enemyCursor" , 1.f, 1.f, this, null, new Vector(-0.25f, -0.25f));
+            sprite = new Sprite("icwars/enemyCursor" , 1.f, 1.f, this, null, new Vector(0f, 0f));
         }
         resetMotion();
     }

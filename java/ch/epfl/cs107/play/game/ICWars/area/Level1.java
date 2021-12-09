@@ -8,7 +8,7 @@ public class Level1 extends ICWarsArea {
 
     @Override
     public String getTitle() {
-        return "ICWars/Level1";
+        return "icwars/Level1";
     }
 
     @Override

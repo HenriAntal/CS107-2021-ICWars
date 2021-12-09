@@ -12,7 +12,7 @@ public class Level0 extends ICWarsArea {
         }
 
         @Override
-        public DiscreteCoordinates getPlayerSpawnPosition() {return new DiscreteCoordinates(1,1);}
+        public DiscreteCoordinates getPlayerSpawnPosition() {return new DiscreteCoordinates(0,0);}
 
 
         /*

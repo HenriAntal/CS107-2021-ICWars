@@ -1,8 +1,9 @@
 package ch.epfl.cs107.play.game.ICWars;
 
+import ch.epfl.cs107.play.game.ICWars.actor.player.Soldier;
+import ch.epfl.cs107.play.game.ICWars.actor.player.Tank;
 import ch.epfl.cs107.play.game.areagame.AreaGame;
 import ch.epfl.cs107.play.game.ICWars.actor.player.RealPlayer;
-import ch.epfl.cs107.play.game.ICWars.actor.player.Unit;
 import ch.epfl.cs107.play.game.ICWars.area.ICWarsArea;
 import ch.epfl.cs107.play.game.ICWars.area.Level0;
 import ch.epfl.cs107.play.game.ICWars.area.Level1;
@@ -19,7 +20,8 @@ public class ICWars extends AreaGame{
         public final static float CAMERA_SCALE_FACTOR = 10.f;
 
         private RealPlayer player;
-        private Unit.Soldier soldier;
+        private Soldier soldier;
+        private Tank tank;
         private final String[] areas = {"icwars/Level0", "icwars/Level1"};
 
         private int areaIndex;
@@ -34,8 +36,6 @@ public class ICWars extends AreaGame{
 
         @Override
         public boolean begin(Window window, FileSystem fileSystem) {
-
-
             if (super.begin(window, fileSystem)) {
                 createAreas();
                 areaIndex = 0;
@@ -78,7 +78,7 @@ public class ICWars extends AreaGame{
 
             ICWarsArea area = (ICWarsArea) setCurrentArea(areaKey, true);
             DiscreteCoordinates coords = area.getPlayerSpawnPosition();
-            player = new RealPlayer(area, UP, coords,"ally");
+            player = new RealPlayer(area, coords,"ally");
             //soldier = new Unit.Soldier(area, UP,  coords, "ally");
             player.enterArea(area, coords);
             player.centerCamera();
@@ -112,6 +112,7 @@ public class ICWars extends AreaGame{
                 end();
             } else {
                 areaIndex += 1;
+                initArea(areas[areaIndex]);
             }
 
 
