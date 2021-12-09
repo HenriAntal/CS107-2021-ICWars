@@ -5,6 +5,7 @@ import ch.epfl.cs107.play.game.areagame.actor.MovableAreaEntity;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
+import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Canvas;
 
 import java.util.Collections;
@@ -14,8 +15,8 @@ public class ICWarsActor extends MovableAreaEntity{
 
     String belongs;
 
-    public ICWarsActor(Area owner, Orientation orientation, DiscreteCoordinates coordinates, String belongs){
-        super(owner, orientation, coordinates);
+    public ICWarsActor(Area owner, DiscreteCoordinates coordinates, String belongs){
+        super(owner, Orientation.UP, coordinates);
 
         if(belongs.equals("ally")){
             this.belongs = "ally";
@@ -26,7 +27,6 @@ public class ICWarsActor extends MovableAreaEntity{
         // Orientation has to be up so 0
 
     }
-
 
     @Override
     public List<DiscreteCoordinates> getCurrentCells() {

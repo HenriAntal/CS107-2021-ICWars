@@ -32,8 +32,8 @@ public class RealPlayer extends ICWarsPlayer {
      * Demo actor
      *
      */
-    public RealPlayer(Area owner, Orientation orientation, DiscreteCoordinates coordinates, String belongs) {
-        super(owner, orientation, coordinates, belongs);
+    public RealPlayer(Area owner, DiscreteCoordinates coordinates, String belongs) {
+        super(owner, coordinates, belongs);
 
         if (belongs.equals("ally")) {
             Sprite sprite = new Sprite("icwars / allyCursor" , 1.f, 1.f, this, null, new Vector(-0.25f, -0.25f));

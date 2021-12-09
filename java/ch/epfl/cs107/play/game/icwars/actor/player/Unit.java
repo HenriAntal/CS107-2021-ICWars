@@ -14,8 +14,8 @@ public class Unit extends ICWarsActor {
     int attackDamage;
     int maxRadius;
 
-    public Unit(Area owner, Orientation orientation, DiscreteCoordinates coordinates, String belongs ){
-        super(owner, orientation, coordinates, belongs);
+    public Unit(Area owner, DiscreteCoordinates coordinates, String belongs ){
+        super(owner, coordinates, belongs);
 
         // somehow need to include damage taken (- Hp)
         // also need to include healing (+ Hp)
@@ -43,8 +43,8 @@ public class Unit extends ICWarsActor {
 
     public class Soldier extends Unit{
 
-        Soldier(Area owner, Orientation orientation, DiscreteCoordinates coordinates, String belongs) {
-            super(owner, orientation, coordinates, belongs);
+        Soldier(Area owner, DiscreteCoordinates coordinates, String belongs) {
+            super(owner, coordinates, belongs);
             super.maxRadius = 2;
             super.attackDamage = 2;
             super.Hp = 5;
@@ -81,8 +81,8 @@ public class Unit extends ICWarsActor {
 
     public class Tank extends Unit{
 
-        Tank(Area owner, Orientation orientation, DiscreteCoordinates coordinates, String belongs) {
-            super(owner, orientation, coordinates, belongs);
+        Tank(Area owner, DiscreteCoordinates coordinates, String belongs) {
+            super(owner, coordinates, belongs);
             super.maxRadius = 4;
             super.attackDamage = 7;
             super.Hp = 10;

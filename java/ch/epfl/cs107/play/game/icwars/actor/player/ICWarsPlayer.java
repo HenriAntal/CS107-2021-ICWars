@@ -9,8 +9,8 @@ public class ICWarsPlayer extends ICWarsActor{
 
         private Sprite sprite;
         //TODO
-        public ICWarsPlayer(Area owner, Orientation orientation, DiscreteCoordinates coordinates, String belongs ){
-            super(owner, orientation, coordinates, belongs);
+        public ICWarsPlayer(Area owner, DiscreteCoordinates coordinates, String belongs ){
+            super(owner, coordinates, belongs);
 
 
 
