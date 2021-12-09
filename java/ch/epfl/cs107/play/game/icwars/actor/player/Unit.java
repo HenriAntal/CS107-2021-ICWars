@@ -9,23 +9,28 @@ import ch.epfl.cs107.play.window.Canvas;
 
 public class Unit extends ICWarsActor {
 
-    String name;
     int Hp;
     private Sprite sprite;
     int attackDamage;
     int maxRadius;
 
-    public Unit(String name, Area owner, Orientation orientation, DiscreteCoordinates coordinates, String belongs ){
+    public Unit(Area owner, Orientation orientation, DiscreteCoordinates coordinates, String belongs ){
         super(owner, orientation, coordinates, belongs);
 
-        this.name = name;
         // somehow need to include damage taken (- Hp)
         // also need to include healing (+ Hp)
 
     }
-    public String getName() {
-        return name;
+
+
+    @Override
+    public void draw(Canvas canvas) {
+        super.draw(canvas);
     }
+
+    public int damageTaken(){ return Hp-attackDamage;} //TODO Attack Damage of other unit is the correct variable
+
+    public int healing() { return 1;} // we don't know the healing amount yet.
 
     public int getHp() {
         return Hp;
@@ -38,38 +43,33 @@ public class Unit extends ICWarsActor {
 
     public class Soldier extends Unit{
 
-        Soldier(String name, Area owner, Orientation orientation, DiscreteCoordinates coordinates, String belongs) {
-            super(name, owner, orientation, coordinates, belongs);
+        Soldier(Area owner, Orientation orientation, DiscreteCoordinates coordinates, String belongs) {
+            super(owner, orientation, coordinates, belongs);
             super.maxRadius = 2;
             super.attackDamage = 2;
             super.Hp = 5;
-            if (belongs.equals("ally")) {
-                Sprite sprite = new Sprite(name, 1.f, 1.f, this, null, new Vector(-0.25f, -0.25f));
+            String name;
+
+            if (belongs.equals("ally")){
+                name = "icwars / friendlySoldier";
             } else {
-                Sprite sprite = new Sprite(name , 1.f, 1.f, this, null, new Vector(-0.25f, -0.25f));
+                name = "icwars / enemySoldier";
             }
+
+            Sprite sprite = new Sprite(name, 1.f, 1.f, this, null, new Vector(-0.25f, -0.25f));
 
         }
 
         // TODO not sure if these 2 methods below work.
         @Override
         public int getHp() {
-            return super.getHp();
+            return Hp;
         }
 
-        public String getNameSoldier() {
-            return super.getName();
-        }
 
         @Override
         public int getDamage() {
-            return super.getDamage();
-        }
-
-
-        // maybe no draw Canvas. i don't know if this is correct
-        public void draw(Canvas canvas) {
-            sprite.draw(canvas);
+            return attackDamage;
         }
 
         @Override
@@ -81,8 +81,8 @@ public class Unit extends ICWarsActor {
 
     public class Tank extends Unit{
 
-        Tank(String name, Area owner, Orientation orientation, DiscreteCoordinates coordinates, String belongs) {
-            super(name, owner, orientation, coordinates, belongs);
+        Tank(Area owner, Orientation orientation, DiscreteCoordinates coordinates, String belongs) {
+            super(owner, orientation, coordinates, belongs);
             super.maxRadius = 4;
             super.attackDamage = 7;
             super.Hp = 10;
@@ -97,16 +97,12 @@ public class Unit extends ICWarsActor {
         // TODO not sure if these 2 methods below work.
         @Override
         public int getHp() {
-            return super.getHp();
+            return Hp;
         }
 
         @Override
         public int getDamage() {
-            return super.getDamage();
-        }
-
-        public void draw(Canvas canvas) {
-            sprite.draw(canvas);
+            return attackDamage;
         }
 
         @Override

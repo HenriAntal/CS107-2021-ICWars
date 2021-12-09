@@ -78,7 +78,7 @@ public class ICWars extends AreaGame{
             ICWarsArea area = (ICWarsArea) setCurrentArea(areaKey, true);
             DiscreteCoordinates coords = area.getPlayerSpawnPosition();
             player = new RealPlayer(area, UP, coords,"ally");
-            player = new Unit.Soldier(area, coords, "ally");
+            //player = new Unit.Soldier(area, coords, "ally");
 
             player.enterArea(area, coords);
             player.centerCamera();

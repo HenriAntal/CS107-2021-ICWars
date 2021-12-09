@@ -38,7 +38,7 @@ public class Level0 extends ICWarsArea {
             // Base
             registerActor(new Background(this));
             registerActor(new Foreground(this));
-            registerActor(new Unit.Soldier("icwars/friendlySoldier" , this, UP,  ,"ally");
+            //registerActor(new Unit.Soldier("icwars/friendlySoldier" , this, UP,  ,"ally");
         }
 
 
