@@ -1,28 +1,18 @@
-package ch.epfl.cs107.play.game.icwars.area;
+package ch.epfl.cs107.play.game.ICWars.area;
 
-import ch.epfl.cs107.play.game.actor.Actor;
 import ch.epfl.cs107.play.game.areagame.actor.Background;
 import ch.epfl.cs107.play.game.areagame.actor.Foreground;
-import ch.epfl.cs107.play.game.areagame.actor.Orientation;
-import ch.epfl.cs107.play.game.icwars.actor.player.Unit;
-import ch.epfl.cs107.play.game.icwars.area.ICWarsArea;
-import ch.epfl.cs107.play.game.tutosSolution.area.Tuto2Area;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
-import ch.epfl.cs107.play.math.Vector;
-
-import static ch.epfl.cs107.play.game.areagame.actor.Orientation.UP;
 
 public class Level0 extends ICWarsArea {
 
         @Override
         public String getTitle() {
-            return "ICWars/Level0";
+            return "icwars/Level0";
         }
 
         @Override
-        public DiscreteCoordinates getPlayerSpawnPosition() {
-            return new DiscreteCoordinates(0,0);
-        }
+        public DiscreteCoordinates getPlayerSpawnPosition() {return new DiscreteCoordinates(1,1);}
 
 
         /*

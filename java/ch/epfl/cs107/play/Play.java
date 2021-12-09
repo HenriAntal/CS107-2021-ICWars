@@ -1,6 +1,7 @@
 package ch.epfl.cs107.play;
 
 import ch.epfl.cs107.play.game.Game;
+import ch.epfl.cs107.play.game.ICWars.ICWars;
 import ch.epfl.cs107.play.game.areagame.io.ResourcePath;
 import ch.epfl.cs107.play.game.tutosSolution.Tuto2;
 import ch.epfl.cs107.play.io.DefaultFileSystem;

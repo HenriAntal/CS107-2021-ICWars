@@ -1,29 +1,19 @@
-package ch.epfl.cs107.play.game.icwars.actor.player;
+package ch.epfl.cs107.play.game.ICWars.actor.player;
 
 
-import java.awt.Color;
 import java.util.Collections;
 import java.util.List;
 
-import ch.epfl.cs107.play.game.actor.TextGraphics;
 import ch.epfl.cs107.play.game.areagame.Area;
-import ch.epfl.cs107.play.game.areagame.actor.MovableAreaEntity;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.areagame.actor.Sprite;
 import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
-import ch.epfl.cs107.play.game.icwars.actor.player.ICWarsPlayer;
-import ch.epfl.cs107.play.game.icwars.area.ICWarsArea;
-import ch.epfl.cs107.play.game.icwars.area.Level0;
-import ch.epfl.cs107.play.game.icwars.area.Level1;
-import ch.epfl.cs107.play.game.tutosSolution.area.Tuto2Area;
-import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Button;
 import ch.epfl.cs107.play.window.Canvas;
 import ch.epfl.cs107.play.window.Keyboard;
-import ch.epfl.cs107.play.window.Window;
-import ch.epfl.cs107.play.game.icwars.ICWars;
+
 public class RealPlayer extends ICWarsPlayer {
     private Sprite sprite;
     /// Animation duration in frame number
@@ -36,9 +26,9 @@ public class RealPlayer extends ICWarsPlayer {
         super(owner, coordinates, belongs);
 
         if (belongs.equals("ally")) {
-            Sprite sprite = new Sprite("icwars / allyCursor" , 1.f, 1.f, this, null, new Vector(-0.25f, -0.25f));
+            Sprite sprite = new Sprite("icwars/allyCursor" , 1.f, 1.f, this, null, new Vector(-0.25f, -0.25f));
         } else {
-            Sprite sprite = new Sprite("icwars / enemyCursor" , 1.f, 1.f, this, null, new Vector(-0.25f, -0.25f));
+            Sprite sprite = new Sprite("icwars/enemyCursor" , 1.f, 1.f, this, null, new Vector(-0.25f, -0.25f));
         }
         resetMotion();
     }

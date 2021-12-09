@@ -1,24 +1,25 @@
-package ch.epfl.cs107.play.game.icwars;
+package ch.epfl.cs107.play.game.ICWars;
 
 import ch.epfl.cs107.play.game.areagame.AreaGame;
-import ch.epfl.cs107.play.game.icwars.actor.player.RealPlayer;
-import ch.epfl.cs107.play.game.icwars.actor.player.Unit;
-import ch.epfl.cs107.play.game.icwars.area.ICWarsArea;
-import ch.epfl.cs107.play.game.icwars.area.Level0;
-import ch.epfl.cs107.play.game.icwars.area.Level1;
+import ch.epfl.cs107.play.game.ICWars.actor.player.RealPlayer;
+import ch.epfl.cs107.play.game.ICWars.actor.player.Unit;
+import ch.epfl.cs107.play.game.ICWars.area.ICWarsArea;
+import ch.epfl.cs107.play.game.ICWars.area.Level0;
+import ch.epfl.cs107.play.game.ICWars.area.Level1;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Button;
 import ch.epfl.cs107.play.window.Keyboard;
 import ch.epfl.cs107.play.window.Window;
 
-import static ch.epfl.cs107.play.game.areagame.actor.Orientation.UP;
+import static ch.epfl.cs107.play.game.areagame.actor.Orientation.*;
 
 public class ICWars extends AreaGame{
 
         public final static float CAMERA_SCALE_FACTOR = 10.f;
 
         private RealPlayer player;
+        private Unit.Soldier soldier;
         private final String[] areas = {"icwars/Level0", "icwars/Level1"};
 
         private int areaIndex;
@@ -78,8 +79,7 @@ public class ICWars extends AreaGame{
             ICWarsArea area = (ICWarsArea) setCurrentArea(areaKey, true);
             DiscreteCoordinates coords = area.getPlayerSpawnPosition();
             player = new RealPlayer(area, UP, coords,"ally");
-            //player = new Unit.Soldier(area, coords, "ally");
-
+            //soldier = new Unit.Soldier(area, UP,  coords, "ally");
             player.enterArea(area, coords);
             player.centerCamera();
 
@@ -107,7 +107,7 @@ public class ICWars extends AreaGame{
 
             player.leaveArea();
 
-            if(areaIndex == areas.length) {
+            if(areaIndex > areas.length) {
                 System.out.println("GAME OVER BABEEEE");
                 end();
             } else {
@@ -117,7 +117,6 @@ public class ICWars extends AreaGame{
 
             ICWarsArea currentArea = (ICWarsArea) setCurrentArea(areas[areaIndex], false);
             player.enterArea(currentArea, currentArea.getPlayerSpawnPosition());
-
 
         }
 

@@ -1,9 +1,8 @@
-package ch.epfl.cs107.play.game.icwars.area;
+package ch.epfl.cs107.play.game.ICWars.area;
 
 import ch.epfl.cs107.play.game.areagame.AreaBehavior;
 import ch.epfl.cs107.play.game.areagame.actor.Interactable;
 import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
-import ch.epfl.cs107.play.game.icwars.area.ICWarsBehavior;
 import ch.epfl.cs107.play.window.Window;
 
 public class ICWarsBehavior extends AreaBehavior {
@@ -32,7 +31,7 @@ public class ICWarsBehavior extends AreaBehavior {
             }
 
             public static ICWarsBehavior.ICWarsCellType toType(int type){
-                for(ICWarsBehavior.ICWarsCellType ict : ch.epfl.cs107.play.game.icwars.area.ICWarsBehavior.ICWarsCellType.values()){
+                for(ICWarsBehavior.ICWarsCellType ict : ch.epfl.cs107.play.game.ICWars.area.ICWarsBehavior.ICWarsCellType.values()){
                     if(ict.type == type)
                         return ict;
                 }
@@ -53,8 +52,8 @@ public class ICWarsBehavior extends AreaBehavior {
             int width = getWidth();
             for(int y = 0; y < height; y++) {
                 for (int x = 0; x < width ; x++) {
-                    ch.epfl.cs107.play.game.icwars.area.ICWarsBehavior.ICWarsCellType color = ch.epfl.cs107.play.game.icwars.area.ICWarsBehavior.ICWarsCellType.toType(getRGB(height-1-y, x));
-                    setCell(x,y, new ch.epfl.cs107.play.game.icwars.area.ICWarsBehavior.ICWarsCell(x,y,color));
+                    ch.epfl.cs107.play.game.ICWars.area.ICWarsBehavior.ICWarsCellType color = ch.epfl.cs107.play.game.ICWars.area.ICWarsBehavior.ICWarsCellType.toType(getRGB(height-1-y, x));
+                    setCell(x,y, new ch.epfl.cs107.play.game.ICWars.area.ICWarsBehavior.ICWarsCell(x,y,color));
                 }
             }
         }
@@ -72,7 +71,7 @@ public class ICWarsBehavior extends AreaBehavior {
              * @param y (int): y coordinate of the cell
              * @param type (EnigmeCellType), not null
              */
-            public  ICWarsCell(int x, int y, ch.epfl.cs107.play.game.icwars.area.ICWarsBehavior.ICWarsCellType type){
+            public  ICWarsCell(int x, int y, ch.epfl.cs107.play.game.ICWars.area.ICWarsBehavior.ICWarsCellType type){
                 super(x, y);
                 this.type = type;
             }

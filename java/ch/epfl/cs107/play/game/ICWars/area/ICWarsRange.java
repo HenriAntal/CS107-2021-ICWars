@@ -1,4 +1,4 @@
-package ch.epfl.cs107.play.game.icwars.area;
+package ch.epfl.cs107.play.game.ICWars.area;
 
 import ch.epfl.cs107.play.game.actor.Graphics;
 import ch.epfl.cs107.play.game.actor.ImageGraphics;
