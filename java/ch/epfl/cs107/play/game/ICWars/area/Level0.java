@@ -1,8 +1,11 @@
 package ch.epfl.cs107.play.game.ICWars.area;
 
+import ch.epfl.cs107.play.game.ICWars.actor.player.Soldier;
+import ch.epfl.cs107.play.game.ICWars.actor.player.Tank;
 import ch.epfl.cs107.play.game.areagame.actor.Background;
 import ch.epfl.cs107.play.game.areagame.actor.Foreground;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
+import ch.epfl.cs107.play.math.Vector;
 
 public class Level0 extends ICWarsArea {
 
@@ -23,12 +26,16 @@ public class Level0 extends ICWarsArea {
 
          */
 
+    @Override
+    public DiscreteCoordinates getRelativeMouseCoordinates() {
+        return super.getRelativeMouseCoordinates();
+    }
 
-        protected void createArea() {
+    protected void createArea() {
             // Base
             registerActor(new Background(this));
-            registerActor(new Foreground(this));
-            //registerActor(new Unit.Soldier("icwars/friendlySoldier" , this, UP,  ,"ally");
+            registerActor(new Soldier(this , new DiscreteCoordinates(3,5),"ally"));
+            //registerActor(new Tank(this , new DiscreteCoordinates(3,5),"ally"));
         }
 
 

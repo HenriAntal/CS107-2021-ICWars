@@ -124,6 +124,8 @@ public abstract class Area implements Playable, PauseMenu.Pausable {
      */
     public final boolean registerActor(Actor a){
         // TODO if actor can be registered: It is this Area decision, implement a strategy
+
+
         return registeredActors.add(a);
     }
 

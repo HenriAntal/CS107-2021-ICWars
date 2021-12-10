@@ -3,14 +3,17 @@ package ch.epfl.cs107.play.game.ICWars.actor.player;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.areagame.actor.Sprite;
+import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Canvas;
 
-abstract class Unit extends ICWarsActor {
+import java.util.Collections;
+import java.util.List;
+
+public abstract class Unit extends ICWarsActor {
 
     int Hp;
-    private Sprite sprite;
     int attackDamage;
     int maxRadius;
 
@@ -20,12 +23,6 @@ abstract class Unit extends ICWarsActor {
         // somehow need to include damage taken (- Hp)
         // also need to include healing (+ Hp)
 
-    }
-
-
-    @Override
-    public void draw(Canvas canvas) {
-        super.draw(canvas);
     }
 
     public int damageTaken(){ return Hp-attackDamage;} //TODO Attack Damage of other unit is the correct variable
@@ -40,5 +37,29 @@ abstract class Unit extends ICWarsActor {
         return attackDamage;
     }
 
+
+    @Override
+    public boolean takeCellSpace() {
+        return true;
+    }
+
+    @Override
+    public boolean isCellInteractable() {
+        return true;
+    }
+
+    @Override
+    public boolean isViewInteractable() {
+        return true;
+    }
+
+    @Override
+    public List<DiscreteCoordinates> getCurrentCells() {
+        return Collections.singletonList(getCurrentMainCellCoordinates());
+    }
+
+    @Override
+    public void acceptInteraction(AreaInteractionVisitor v) {
+    }
 
 }

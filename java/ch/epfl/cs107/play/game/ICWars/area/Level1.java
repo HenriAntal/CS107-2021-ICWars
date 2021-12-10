@@ -19,7 +19,7 @@ public class Level1 extends ICWarsArea {
     protected void createArea() {
         // Base
         registerActor(new Background(this));
-        registerActor(new Foreground(this));
+        //  registerActor(new Foreground(this));
     }
 
 }
