@@ -4,19 +4,25 @@ import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.Sprite;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.math.Vector;
+import ch.epfl.cs107.play.window.Canvas;
 
 public class Tank extends Unit{
+    private String name;
+    private Sprite sprite;
 
-    Tank(Area owner, DiscreteCoordinates coordinates, String belongs) {
+    public Tank(Area owner, DiscreteCoordinates coordinates, String belongs) {
         super(owner, coordinates, belongs);
-        super.maxRadius = 4;
-        super.attackDamage = 7;
-        super.Hp = 10;
+        this.maxRange = 4;
+        this.attackDamage = 7;
+        this.Hp = 10;
+
         if (belongs.equals("ally")) {
-            Sprite sprite = new Sprite("icwars / friendlyTank" , 1.f, 1.f, this, null, new Vector(-0.25f, -0.25f));
+            name = "icwars/friendlyTank";
         } else {
-            Sprite sprite = new Sprite("icwars / enemyTank" , 1.f, 1.f, this, null, new Vector(-0.25f, -0.25f));
+            name = "icwars/enemyTank";
         }
+        this.sprite = new Sprite(name, 1.5f, 1.5f, this, null, new Vector(-0.25f, -0.25f));
+
 
     }
 
@@ -24,6 +30,16 @@ public class Tank extends Unit{
     @Override
     public int getHp() {
         return Hp;
+    }
+
+    @Override
+    public void draw(Canvas canvas) {
+        sprite.draw(canvas);
+    }
+
+    @Override
+    public void update(float deltaTime) {
+
     }
 
     @Override

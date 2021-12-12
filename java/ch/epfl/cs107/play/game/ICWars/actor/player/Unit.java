@@ -1,12 +1,8 @@
 package ch.epfl.cs107.play.game.ICWars.actor.player;
 
 import ch.epfl.cs107.play.game.areagame.Area;
-import ch.epfl.cs107.play.game.areagame.actor.Orientation;
-import ch.epfl.cs107.play.game.areagame.actor.Sprite;
 import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
-import ch.epfl.cs107.play.math.Vector;
-import ch.epfl.cs107.play.window.Canvas;
 
 import java.util.Collections;
 import java.util.List;
@@ -15,7 +11,7 @@ public abstract class Unit extends ICWarsActor {
 
     int Hp;
     int attackDamage;
-    int maxRadius;
+    int maxRange;
 
     public Unit(Area owner, DiscreteCoordinates coordinates, String belongs ){
         super(owner, coordinates, belongs);

@@ -20,11 +20,9 @@ import static ch.epfl.cs107.play.game.areagame.actor.Orientation.*;
 
 public class ICWars extends AreaGame {
 
-    public final static float CAMERA_SCALE_FACTOR = 10.f;
+    public final static float CAMERA_SCALE_FACTOR = 14.f;
 
     private RealPlayer player;
-    private Soldier soldier;
-    private Tank tank;
     private final String[] areas = {"icwars/Level0", "icwars/Level1"};
 
     private int areaIndex;
@@ -60,6 +58,8 @@ public class ICWars extends AreaGame {
 
         moveIfPressed("R", keyboard.get(Keyboard.R));
         moveIfPressed("N", keyboard.get(Keyboard.N));
+
+       //
 
 
         super.update(deltaTime);

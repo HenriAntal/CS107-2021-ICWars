@@ -13,7 +13,7 @@ public class Soldier extends Unit {
 
     public Soldier(Area owner, DiscreteCoordinates coordinates, String belongs) {
         super(owner, coordinates, belongs);
-        this.maxRadius = 2;
+        this.maxRange = 2;
         this.attackDamage = 2;
         this.Hp = 5;
 
@@ -22,8 +22,7 @@ public class Soldier extends Unit {
         } else {
             name = "icwars/enemySoldier";
         }
-        this.sprite = new Sprite(name, 1.f, 1.f, this, null, new Vector(0f, 0f));
-
+        this.sprite = new Sprite(name, 1.5f, 1.5f, this, null, new Vector(-0.25f, -0.25f));
     }
 
     // TODO not sure if these 2 methods below work.
@@ -41,6 +40,8 @@ public class Soldier extends Unit {
     public void update(float deltaTime) {
 
     }
+
+
 
     @Override
     public int getDamage() {

@@ -35,7 +35,7 @@ public class Level0 extends ICWarsArea {
             // Base
             registerActor(new Background(this));
             registerActor(new Soldier(this , new DiscreteCoordinates(3,5),"ally"));
-            //registerActor(new Tank(this , new DiscreteCoordinates(3,5),"ally"));
+            registerActor(new Tank(this , new DiscreteCoordinates(2,5),"ally"));
         }
 
 
