@@ -1,16 +1,10 @@
 package ch.epfl.cs107.play.game.ICWars.area;
 
-import ch.epfl.cs107.play.game.ICWars.actor.player.ICWarsActor;
-import ch.epfl.cs107.play.game.ICWars.actor.player.Soldier;
-import ch.epfl.cs107.play.game.actor.Actor;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.ICWars.ICWars;
-import ch.epfl.cs107.play.game.areagame.actor.Sprite;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Window;
-
-import java.util.ArrayList;
 
 public abstract class ICWarsArea extends Area {
 

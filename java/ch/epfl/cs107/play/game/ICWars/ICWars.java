@@ -1,10 +1,7 @@
 package ch.epfl.cs107.play.game.ICWars;
 
-import ch.epfl.cs107.play.game.ICWars.actor.player.Soldier;
-import ch.epfl.cs107.play.game.ICWars.actor.player.Tank;
-import ch.epfl.cs107.play.game.ICWars.actor.player.Unit;
 import ch.epfl.cs107.play.game.areagame.AreaGame;
-import ch.epfl.cs107.play.game.ICWars.actor.player.RealPlayer;
+import ch.epfl.cs107.play.game.ICWars.actor.players.RealPlayer;
 import ch.epfl.cs107.play.game.ICWars.area.ICWarsArea;
 import ch.epfl.cs107.play.game.ICWars.area.Level0;
 import ch.epfl.cs107.play.game.ICWars.area.Level1;
@@ -13,10 +10,6 @@ import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Button;
 import ch.epfl.cs107.play.window.Keyboard;
 import ch.epfl.cs107.play.window.Window;
-
-import java.util.Arrays;
-
-import static ch.epfl.cs107.play.game.areagame.actor.Orientation.*;
 
 public class ICWars extends AreaGame {
 

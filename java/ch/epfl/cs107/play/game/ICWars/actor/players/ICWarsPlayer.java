@@ -1,4 +1,4 @@
-package ch.epfl.cs107.play.game.ICWars.actor.player;
+package ch.epfl.cs107.play.game.ICWars.actor.players;
 
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.Sprite;

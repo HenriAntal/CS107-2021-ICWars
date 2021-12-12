@@ -1,4 +1,4 @@
-package ch.epfl.cs107.play.game.ICWars.actor.player;
+package ch.epfl.cs107.play.game.ICWars.actor.players;
 
 
 import java.util.Collections;
