@@ -16,6 +16,7 @@ public class Tank extends Unit{
         this.attackDamage = 7;
         this.Hp = 10;
 
+
         if (belongs.equals("ally")) {
             name = "icwars/friendlyTank";
         } else {
