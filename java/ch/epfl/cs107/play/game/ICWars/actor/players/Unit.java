@@ -22,6 +22,13 @@ public abstract class Unit extends ICWarsActor {
 
     public Unit(Area owner, DiscreteCoordinates coordinates, String belongs ){
         super(owner, coordinates, belongs);
+
+        if(belongs.equals("ally")){
+            allyList.add(this);
+        } else {
+            enemyList.add(this);
+        }
+
         range = new ICWarsRange(owner, coordinates, maxRange);
 
         // somehow need to include damage taken (- Hp)
@@ -79,8 +86,7 @@ public abstract class Unit extends ICWarsActor {
                 range.shortestPath(getCurrentMainCellCoordinates(), destination);
         //Draw path only if it exists (destination inside the range)
         if (path != null){
-            new Path(getCurrentMainCellCoordinates().toVector(),
-                    path).draw(canvas);
+            new Path(getCurrentMainCellCoordinates().toVector(), path).draw(canvas);
         }
     }
 

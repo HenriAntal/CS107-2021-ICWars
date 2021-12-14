@@ -3,15 +3,20 @@ package ch.epfl.cs107.play.game.ICWars.actor.players;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.MovableAreaEntity;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
+import ch.epfl.cs107.play.game.areagame.actor.Sprite;
 import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Canvas;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ICWarsActor extends MovableAreaEntity{
 
     String belongs;
+    public ArrayList<Unit> allyList = new ArrayList<Unit>();
+    public ArrayList<Unit> enemyList = new ArrayList<Unit>();
+
 
     public ICWarsActor(Area owner, DiscreteCoordinates coordinates, String belongs){
         super(owner, Orientation.UP, coordinates);

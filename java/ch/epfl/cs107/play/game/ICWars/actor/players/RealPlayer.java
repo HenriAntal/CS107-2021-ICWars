@@ -4,6 +4,7 @@ package ch.epfl.cs107.play.game.ICWars.actor.players;
 import java.util.Collections;
 import java.util.List;
 
+import ch.epfl.cs107.play.game.ICWars.gui.ICWarsPlayerGUI;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.areagame.actor.Sprite;
@@ -18,6 +19,8 @@ public class RealPlayer extends ICWarsPlayer {
     private Sprite sprite;
     /// Animation duration in frame number
     private final static int MOVE_DURATION = 2;
+    private ICWarsPlayerGUI gui;
+
     /**
      * Demo actor
      *
@@ -51,7 +54,7 @@ public class RealPlayer extends ICWarsPlayer {
         moveIfPressed(Orientation.RIGHT, keyboard.get(Keyboard.RIGHT));
         moveIfPressed(Orientation.DOWN, keyboard.get(Keyboard.DOWN));
 
-        
+
 
         super.update(deltaTime);
 
@@ -93,6 +96,7 @@ public class RealPlayer extends ICWarsPlayer {
     @Override
     public void draw(Canvas canvas) {
         sprite.draw(canvas);
+        gui.draw(canvas);
     }
 
 

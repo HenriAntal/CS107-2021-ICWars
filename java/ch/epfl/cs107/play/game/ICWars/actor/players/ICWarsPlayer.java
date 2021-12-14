@@ -9,9 +9,18 @@ import java.util.ArrayList;
 public class ICWarsPlayer extends ICWarsActor{
 
     private Sprite sprite;
-        //TODO
-        public ICWarsPlayer(Area owner, DiscreteCoordinates coordinates, String belongs ){
+    private ArrayList<Unit> playerList;
+
+    //TODO
+        public ICWarsPlayer(Area owner, DiscreteCoordinates coordinates, String belongs){
             super(owner, coordinates, belongs);
+
+            if(belongs.equals("ally")){
+                playerList = allyList;
+            } else {
+                this.belongs = "enemy";
+                playerList = enemyList;
+            }
 
         }
     public void centerCamera() {
@@ -32,12 +41,9 @@ public class ICWarsPlayer extends ICWarsActor{
         return true;
     }
 
-    public ArrayList<ICWarsPlayer> playerList = new ArrayList<ICWarsPlayer>();
-
-    public void actorAdder(ICWarsPlayer player) {
+    /*public void actorAdder(ICWarsPlayer player) {
         playerList.add(player);
-    }
-
+    }*/
 
 
 }
