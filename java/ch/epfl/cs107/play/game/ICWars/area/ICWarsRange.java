@@ -2,6 +2,8 @@ package ch.epfl.cs107.play.game.ICWars.area;
 
 import ch.epfl.cs107.play.game.actor.Graphics;
 import ch.epfl.cs107.play.game.actor.ImageGraphics;
+import ch.epfl.cs107.play.game.areagame.Area;
+import ch.epfl.cs107.play.game.areagame.AreaBehavior;
 import ch.epfl.cs107.play.game.areagame.AreaGraph;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.areagame.actor.Path;
@@ -17,8 +19,13 @@ import java.util.Queue;
  */
 public class ICWarsRange extends AreaGraph implements Graphics {
 
+    public ICWarsRange(Area owner, DiscreteCoordinates coordinates, int maxRange) {
+
+    }
+
     @Override
     public void addNode(DiscreteCoordinates coordinates, boolean hasLeftEdge, boolean hasUpEdge, boolean hasRightEdge, boolean hasDownEdge) {
+        if (hasLeftEdge && hasUpEdge && hasRightEdge && hasDownEdge)
         getNodes().putIfAbsent(coordinates, new RangeNode(coordinates, hasLeftEdge, hasUpEdge, hasRightEdge, hasDownEdge));
     }
 
@@ -89,6 +96,7 @@ public class ICWarsRange extends AreaGraph implements Graphics {
      * @param destination path destination
      * @param canvas      canvas
      */
+    /*
     public void drawRangeAndPathTo(DiscreteCoordinates destination, Canvas canvas) {
 
         ICWarsRange range = null;
@@ -100,7 +108,7 @@ public class ICWarsRange extends AreaGraph implements Graphics {
 
         if (path != null) {new Path(getCurrentMainCellCoordinates().toVector(), path).draw(canvas);
         }
-    }
+    }*/
 
     private DiscreteCoordinates getCurrentMainCellCoordinates() {
 
