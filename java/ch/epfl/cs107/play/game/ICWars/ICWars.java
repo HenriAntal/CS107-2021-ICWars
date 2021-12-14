@@ -1,5 +1,8 @@
 package ch.epfl.cs107.play.game.ICWars;
 
+import ch.epfl.cs107.play.game.ICWars.actor.players.Soldier;
+import ch.epfl.cs107.play.game.ICWars.actor.players.Tank;
+import ch.epfl.cs107.play.game.ICWars.actor.players.Unit;
 import ch.epfl.cs107.play.game.areagame.AreaGame;
 import ch.epfl.cs107.play.game.ICWars.actor.players.RealPlayer;
 import ch.epfl.cs107.play.game.ICWars.area.ICWarsArea;
@@ -11,9 +14,13 @@ import ch.epfl.cs107.play.window.Button;
 import ch.epfl.cs107.play.window.Keyboard;
 import ch.epfl.cs107.play.window.Window;
 
+import java.util.ArrayList;
+
 public class ICWars extends AreaGame {
 
     public final static float CAMERA_SCALE_FACTOR = 14.f;
+    public Unit[] units1 = new Unit[2];
+    //public ArrayList<Unit> units2 = new ArrayList<Unit>();
 
     private RealPlayer player;
     private final String[] areas = {"icwars/Level0", "icwars/Level1"};
@@ -73,8 +80,19 @@ public class ICWars extends AreaGame {
 
         ICWarsArea area = (ICWarsArea) setCurrentArea(areaKey, true);
         DiscreteCoordinates coords = area.getPlayerSpawnPosition();
-        player = new RealPlayer(area, coords, "ally");
-        //soldier = new Unit.Soldier(area, UP,  coords, "ally");
+        units1[0] = new Soldier(area , new DiscreteCoordinates(3,5),"ally");
+        units1[1] = new Tank(area , new DiscreteCoordinates(2,5),"ally");
+
+        /*if (areaKey.equals("icwars/Level0")){
+            s1 = new Soldier(this , new DiscreteCoordinates(3,5),"ally");
+            t1 = new Tank(this , new DiscreteCoordinates(2,5),"ally");
+        } else {
+            s1 = new Soldier(this , new DiscreteCoordinates(3,5),"ally");
+            t1 = new Tank(this , new DiscreteCoordinates(2,5),"ally");
+
+        }*/
+
+        player = new RealPlayer(area, coords, "ally", units1);
         player.enterArea(area, coords);
         player.centerCamera();
 
@@ -103,12 +121,13 @@ public class ICWars extends AreaGame {
 
         } else {
             areaIndex += 1;
-
+            for (int i = 0; i < units1.length; ++i) {
+                units1[i].leaveArea();
+            }
+            initArea(areas[areaIndex]);
         }
 
 
-        ICWarsArea currentArea = (ICWarsArea) setCurrentArea(areas[areaIndex], false);
-        player.enterArea(currentArea, currentArea.getPlayerSpawnPosition());
 
     }
 

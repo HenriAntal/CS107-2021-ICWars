@@ -19,13 +19,6 @@ import java.util.Queue;
  */
 public class ICWarsRange extends AreaGraph implements Graphics {
 
-    public ICWarsRange(Area owner, DiscreteCoordinates coordinates, int maxRange) {
-        for (DiscreteCoordinates dc : owner) {
-            boolean left, up, right, down;
-            if ()
-            addNode(dc, left, up, right, down);
-        }
-    }
 
     @Override
     public void addNode(DiscreteCoordinates coordinates, boolean hasLeftEdge, boolean hasUpEdge, boolean hasRightEdge, boolean hasDownEdge) {

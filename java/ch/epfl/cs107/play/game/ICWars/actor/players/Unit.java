@@ -29,7 +29,12 @@ public abstract class Unit extends ICWarsActor {
             enemyList.add(this);
         }
 
-        range = new ICWarsRange(owner, coordinates, maxRange);
+//        range = new ICWarsRange(coordinates, maxRange);
+//        for (int x = -maxRange+1; x < maxRange; ++x) {
+//            for (int y = -maxRange +1; y < maxRange; ++y) {
+//
+//            }
+//        }
 
         // somehow need to include damage taken (- Hp)
         // also need to include healing (+ Hp)

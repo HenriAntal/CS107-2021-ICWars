@@ -9,18 +9,20 @@ import java.util.ArrayList;
 public class ICWarsPlayer extends ICWarsActor{
 
     private Sprite sprite;
-    private ArrayList<Unit> playerList;
+    private ArrayList<Unit> units;
 
     //TODO
-        public ICWarsPlayer(Area owner, DiscreteCoordinates coordinates, String belongs){
+        public ICWarsPlayer(Area owner, DiscreteCoordinates coordinates, String belongs, Unit... units){
             super(owner, coordinates, belongs);
-
-            if(belongs.equals("ally")){
+            for (int i = 0; i < units.length; ++i) {
+//                this.units.add(unit);
+                owner.registerActor(units[i]);
+            }
+            /*if(belongs.equals("ally")){
                 playerList = allyList;
             } else {
-                this.belongs = "enemy";
                 playerList = enemyList;
-            }
+            }*/
 
         }
     public void centerCamera() {
@@ -34,11 +36,15 @@ public class ICWarsPlayer extends ICWarsActor{
 
 
     public boolean playerWon() {
-        if (playerList.size() == 0){
-            System.out.println("Player1 or 2 lost no more Units");
+        if (allyList.isEmpty()) {
+            System.out.println("Allies lost, you lost!");
             return false;
+        } else if (enemyList.isEmpty()) {
+            System.out.println("Enemies lost, you won!");
+            return false;
+        } else {
+            return true;
         }
-        return true;
     }
 
     /*public void actorAdder(ICWarsPlayer player) {

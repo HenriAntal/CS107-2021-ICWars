@@ -1,6 +1,7 @@
 package ch.epfl.cs107.play.game.ICWars.actor.players;
 
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -25,8 +26,8 @@ public class RealPlayer extends ICWarsPlayer {
      * Demo actor
      *
      */
-    public RealPlayer(Area owner, DiscreteCoordinates coordinates, String belongs) {
-        super(owner, coordinates, belongs);
+    public RealPlayer(Area owner, DiscreteCoordinates coordinates, String belongs, Unit... units) {
+        super(owner, coordinates, belongs, units);
 
         if (belongs.equals("ally")) {
             sprite = new Sprite("icwars/allyCursor" , 1.f, 1.f, this, null, new Vector(0f, 0f));
@@ -96,7 +97,6 @@ public class RealPlayer extends ICWarsPlayer {
     @Override
     public void draw(Canvas canvas) {
         sprite.draw(canvas);
-        gui.draw(canvas);
     }
 
 
