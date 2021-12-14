@@ -22,7 +22,6 @@ public class ICWarsRange extends AreaGraph implements Graphics {
 
     @Override
     public void addNode(DiscreteCoordinates coordinates, boolean hasLeftEdge, boolean hasUpEdge, boolean hasRightEdge, boolean hasDownEdge) {
-        if (hasLeftEdge && hasUpEdge && hasRightEdge && hasDownEdge)
         getNodes().putIfAbsent(coordinates, new RangeNode(coordinates, hasLeftEdge, hasUpEdge, hasRightEdge, hasDownEdge));
     }
 

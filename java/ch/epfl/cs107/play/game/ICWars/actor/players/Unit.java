@@ -2,6 +2,7 @@ package ch.epfl.cs107.play.game.ICWars.actor.players;
 
 import ch.epfl.cs107.play.game.ICWars.area.ICWarsRange;
 import ch.epfl.cs107.play.game.areagame.Area;
+import ch.epfl.cs107.play.game.areagame.actor.MovableAreaEntity;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.areagame.actor.Path;
 import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
@@ -29,12 +30,20 @@ public abstract class Unit extends ICWarsActor {
             enemyList.add(this);
         }
 
-//        range = new ICWarsRange(coordinates, maxRange);
-//        for (int x = -maxRange+1; x < maxRange; ++x) {
-//            for (int y = -maxRange +1; y < maxRange; ++y) {
-//
-//            }
-//        }
+        ICWarsRange range = null;
+        for (int x = -maxRange+1; x < maxRange; ++x) {
+            for (int y = -maxRange +1; y < maxRange; ++y) {
+                int newX = coordinates.x + x;
+                int newY = coordinates.y + y;
+                if (newY < 0) { continue; }
+                if (newX > owner.getWidth()) { continue; }
+                if (newY > owner.getHeight()) { continue; }
+                if (newX < 0) { continue; }
+
+                range.addNode(new DiscreteCoordinates(newX, newY),
+                        true, true, true, true);
+            }
+        }
 
         // somehow need to include damage taken (- Hp)
         // also need to include healing (+ Hp)
