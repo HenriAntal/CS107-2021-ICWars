@@ -89,26 +89,6 @@ public class ICWarsRange extends AreaGraph implements Graphics {
         }
     }
 
-    /**
-     * Draw the unit's range and a path from the unit position to
-     * destination
-     *
-     * @param destination path destination
-     * @param canvas      canvas
-     */
-    /*
-    public void drawRangeAndPathTo(DiscreteCoordinates destination, Canvas canvas) {
-
-        ICWarsRange range = null;
-        assert range != null;
-        range.draw(canvas);
-        Queue<Orientation> path = range.shortestPath(getCurrentMainCellCoordinates(), destination);
-
-//Draw path only if it exists (destination inside the range)
-
-        if (path != null) {new Path(getCurrentMainCellCoordinates().toVector(), path).draw(canvas);
-        }
-    }*/
 
     private DiscreteCoordinates getCurrentMainCellCoordinates() {
 
