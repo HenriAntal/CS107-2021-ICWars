@@ -18,8 +18,7 @@ public abstract class Unit extends ICWarsActor {
     int Hp;
     int attackDamage;
     int maxRange;
-
-    ICWarsRange range;
+    ICWarsRange range = null;
 
     public Unit(Area owner, DiscreteCoordinates coordinates, String belongs ){
         super(owner, coordinates, belongs);
@@ -30,7 +29,7 @@ public abstract class Unit extends ICWarsActor {
             enemyList.add(this);
         }
 
-        ICWarsRange range = null;
+
         for (int x = -maxRange+1; x < maxRange; ++x) {
             for (int y = -maxRange +1; y < maxRange; ++y) {
                 int newX = coordinates.x + x;
@@ -40,8 +39,7 @@ public abstract class Unit extends ICWarsActor {
                 if (newY > owner.getHeight()) { continue; }
                 if (newX < 0) { continue; }
 
-                range.addNode(new DiscreteCoordinates(newX, newY),
-                        true, true, true, true);
+                range.addNode(new DiscreteCoordinates(newX, newY), true, true, true, true);
             }
         }
 
@@ -93,8 +91,8 @@ public abstract class Unit extends ICWarsActor {
      * @param destination path destination
      * @param canvas canvas
      */
-    public void drawRangeAndPathTo(DiscreteCoordinates destination ,
-                                   Canvas canvas) {
+    public static void drawRangeAndPathTo(DiscreteCoordinates destination,
+                                          Canvas canvas) {
         range.draw(canvas);
         Queue<Orientation> path =
                 range.shortestPath(getCurrentMainCellCoordinates(), destination);

@@ -11,6 +11,7 @@ import ch.epfl.cs107.play.game.ICWars.area.Level1;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Button;
+import ch.epfl.cs107.play.window.Canvas;
 import ch.epfl.cs107.play.window.Keyboard;
 import ch.epfl.cs107.play.window.Window;
 
@@ -26,6 +27,7 @@ public class ICWars extends AreaGame {
     private final String[] areas = {"icwars/Level0", "icwars/Level1"};
 
     private int areaIndex;
+    Canvas canvas;
 
     /**
      * Add all the areas
@@ -58,6 +60,7 @@ public class ICWars extends AreaGame {
 
         moveIfPressed("R", keyboard.get(Keyboard.R));
         moveIfPressed("N", keyboard.get(Keyboard.N));
+        moveIfPressed("U", keyboard.get(Keyboard.U));
 
        //
 
@@ -73,6 +76,11 @@ public class ICWars extends AreaGame {
 
         if (b.isPressed() && (letter.equals("N"))) {
             switchArea();
+        }
+
+        if(b.isReleased() && (letter.equals("U"))) {
+            ((RealPlayer)player).selectUnit (1) ; // 0, 1 ...
+            Unit.drawRangeAndPathTo(new DiscreteCoordinates(2,3), canvas);
         }
     }
 
