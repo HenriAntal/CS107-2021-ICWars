@@ -56,41 +56,29 @@ public class ICWars extends AreaGame {
     public void update(float deltaTime) {
         Keyboard keyboard = getKeyboard();
 
-        moveIfPressed("R", keyboard.get(Keyboard.R));
-        moveIfPressed("N", keyboard.get(Keyboard.N));
-
-       //
-
-
-        super.update(deltaTime);
-
-    }
-
-    private void moveIfPressed(String letter, Button b) {
-        if (b.isPressed() && (letter.equals("R"))) {
+        if (keyboard.get(Keyboard.R).isReleased()) {
             begin(getWindow(), getFileSystem());
         }
 
-        if (b.isPressed() && (letter.equals("N"))) {
+        if (keyboard.get(Keyboard.N).isReleased()) {
             switchArea();
         }
+
+        if (keyboard.get(Keyboard.U).isReleased()) {
+            ((RealPlayer)player).selectUnit (1); // 0, 1 ...
+        }
+
+        super.update(deltaTime);
+
     }
 
     private void initArea(String areaKey) {
 
         ICWarsArea area = (ICWarsArea) setCurrentArea(areaKey, true);
         DiscreteCoordinates coords = area.getPlayerSpawnPosition();
+
         units1[0] = new Soldier(area , new DiscreteCoordinates(3,5),"ally");
         units1[1] = new Tank(area , new DiscreteCoordinates(2,5),"ally");
-
-        /*if (areaKey.equals("icwars/Level0")){
-            s1 = new Soldier(this , new DiscreteCoordinates(3,5),"ally");
-            t1 = new Tank(this , new DiscreteCoordinates(2,5),"ally");
-        } else {
-            s1 = new Soldier(this , new DiscreteCoordinates(3,5),"ally");
-            t1 = new Tank(this , new DiscreteCoordinates(2,5),"ally");
-
-        }*/
 
         player = new RealPlayer(area, coords, "ally", units1);
         player.enterArea(area, coords);

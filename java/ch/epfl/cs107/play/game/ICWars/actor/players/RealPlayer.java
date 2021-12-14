@@ -20,7 +20,8 @@ public class RealPlayer extends ICWarsPlayer {
     private Sprite sprite;
     /// Animation duration in frame number
     private final static int MOVE_DURATION = 2;
-    private ICWarsPlayerGUI gui;
+    private Keyboard keyboard;
+    private ICWarsPlayerGUI gui = new ICWarsPlayerGUI(getOwnerArea().getCameraScaleFactor(), this);
 
     /**
      * Demo actor
@@ -48,7 +49,7 @@ public class RealPlayer extends ICWarsPlayer {
 
     @Override
     public void update(float deltaTime) {
-        Keyboard keyboard= getOwnerArea().getKeyboard();
+        Keyboard keyboard = getOwnerArea().getKeyboard();
 
         moveIfPressed(Orientation.LEFT, keyboard.get(Keyboard.LEFT));
         moveIfPressed(Orientation.UP, keyboard.get(Keyboard.UP));
@@ -97,6 +98,7 @@ public class RealPlayer extends ICWarsPlayer {
     @Override
     public void draw(Canvas canvas) {
         sprite.draw(canvas);
+        gui.draw(canvas);
     }
 
 
@@ -123,5 +125,10 @@ public class RealPlayer extends ICWarsPlayer {
 
     @Override
     public void acceptInteraction(AreaInteractionVisitor v) {
+    }
+
+    public Unit selectUnit(int order) {
+        return (super.units)[order];
+
     }
 }

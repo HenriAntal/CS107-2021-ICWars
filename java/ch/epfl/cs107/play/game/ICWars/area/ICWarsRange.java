@@ -85,9 +85,4 @@ public class ICWarsRange extends AreaGraph implements Graphics {
         }
     }
 
-
-    private DiscreteCoordinates getCurrentMainCellCoordinates() {
-
-        return null;
-    }
 }

@@ -9,13 +9,13 @@ import java.util.ArrayList;
 public class ICWarsPlayer extends ICWarsActor{
 
     private Sprite sprite;
-    private ArrayList<Unit> units;
+    protected Unit[] units = new Unit[2];
 
     //TODO
         public ICWarsPlayer(Area owner, DiscreteCoordinates coordinates, String belongs, Unit... units){
             super(owner, coordinates, belongs);
             for (int i = 0; i < units.length; ++i) {
-//                this.units.add(unit);
+                (this.units)[i] = units[i];
                 owner.registerActor(units[i]);
             }
             /*if(belongs.equals("ally")){
