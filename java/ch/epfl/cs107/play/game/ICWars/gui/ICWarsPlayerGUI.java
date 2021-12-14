@@ -17,6 +17,6 @@ public class ICWarsPlayerGUI implements Graphics {
 
     @Override
     public void draw(Canvas canvas) {
-        unit.drawRangeAndPathTo(player.getCurrentCells().get(0), canvas);
+        unit.drawRangeAndPathTo(player, canvas);
     }
 }

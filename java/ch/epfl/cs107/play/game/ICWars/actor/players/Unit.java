@@ -91,11 +91,9 @@ public abstract class Unit extends ICWarsActor {
      * @param destination path destination
      * @param canvas canvas
      */
-    public static void drawRangeAndPathTo(DiscreteCoordinates destination,
-                                          Canvas canvas) {
+    public void drawRangeAndPathTo(DiscreteCoordinates destination, Canvas canvas) {
         range.draw(canvas);
-        Queue<Orientation> path =
-                range.shortestPath(getCurrentMainCellCoordinates(), destination);
+        Queue<Orientation> path = range.shortestPath(getCurrentMainCellCoordinates(), destination);
         //Draw path only if it exists (destination inside the range)
         if (path != null){
             new Path(getCurrentMainCellCoordinates().toVector(), path).draw(canvas);
