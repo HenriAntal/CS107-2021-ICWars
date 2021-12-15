@@ -98,6 +98,7 @@ public class RealPlayer extends ICWarsPlayer {
     @Override
     public void draw(Canvas canvas) {
         sprite.draw(canvas);
+//        ICWarsPlayerGUI.draw(canvas);
         gui.draw(canvas);
     }
 
