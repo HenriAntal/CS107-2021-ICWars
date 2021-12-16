@@ -1,4 +1,4 @@
-//package ch.epfl.cs107.play.game.icwars.gui;
+//package ch.epfl.cs107.play.game.ICWars.gui;
 //
 //import ch.epfl.cs107.play.game.actor.Graphics;
 //import ch.epfl.cs107.play.game.actor.ShapeGraphics;
@@ -16,7 +16,7 @@
 //
 //
 //public class ICWarsActionsPanel implements Graphics {
-//	
+//
 //    private final float fontSize;
 //
 //    private List<Action> actions;
@@ -71,6 +71,6 @@
 //            text.setRelativeTransform(textTransform);
 //            text.draw(canvas);
 //        }
-////    }
+//    }
 //
 //}

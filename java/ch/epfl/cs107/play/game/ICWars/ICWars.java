@@ -80,6 +80,7 @@ public class ICWars extends AreaGame {
 
         if (keyboard.get(Keyboard.ENTER).isReleased()) {
             ((RealPlayer)player).selectUnit(0); // 0, 1 ...
+            player.gogoSetter();
         }
 
         super.update(deltaTime);

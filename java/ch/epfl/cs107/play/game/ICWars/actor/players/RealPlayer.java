@@ -24,6 +24,7 @@ public class RealPlayer extends ICWarsPlayer {
     private Canvas canvas;
     private ICWarsPlayerGUI gui = new ICWarsPlayerGUI(getOwnerArea().getCameraScaleFactor(), this);
     private int order;
+    private int gogo = 0;
 
     /**
      * Demo actor
@@ -97,12 +98,16 @@ public class RealPlayer extends ICWarsPlayer {
         resetMotion();
     }
 
+    public void gogoSetter(){
+        this.gogo += 1;
+    }
+
     @Override
     public void draw(Canvas canvas) {
         sprite.draw(canvas);
         this.canvas = canvas;
 //        ICWarsPlayerGUI.draw(canvas);
-        if (selectUnit(order) != null) {
+        if (selectUnit(order) != null && (gogo%2) == 1) {
             gui.draw(canvas);
         }
     }
