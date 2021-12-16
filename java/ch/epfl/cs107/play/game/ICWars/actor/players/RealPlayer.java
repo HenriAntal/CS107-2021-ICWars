@@ -98,6 +98,12 @@ public class RealPlayer extends ICWarsPlayer {
         resetMotion();
     }
 
+    public void gogoReset(){
+        if(!playerOnUnit() && (gogo%2) ==1){
+            gogo = 0;
+        }
+    }
+
     public void gogoSetter(){
         if(playerOnUnit()){
             this.gogo += 1;
@@ -142,7 +148,7 @@ public class RealPlayer extends ICWarsPlayer {
 
     private boolean playerOnUnit(){
         if(getCurrentMainCellCoordinates().equals(units[0].getCurrentCells().get(0))){ return true;}
-        if(getCurrentMainCellCoordinates().equals(units[0].getCurrentCells().get(0))){ return true;}
+        if(getCurrentMainCellCoordinates().equals(units[1].getCurrentCells().get(0))){ return true;}
 
 
         return false;
