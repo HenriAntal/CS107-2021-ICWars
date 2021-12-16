@@ -16,8 +16,16 @@ public abstract class Unit extends ICWarsActor {
 
     int Hp;
     int attackDamage;
-    int maxRange = 3;
+    int maxRange = rangeIdentifier();
     ICWarsRange range = new ICWarsRange();
+
+    public  int rangeIdentifier(){
+        if(Hp == 4){    // needs to be changed with getCurrentMainCellCoordinates().equals(units[0].getCurrentCells().get(0))
+                        // it checks for the position of units and also the position of the player.
+            return Tank.getRange();
+        }
+        return Soldier.getRange();
+    }
 
     public Unit(Area owner, DiscreteCoordinates coordinates, String belongs ){
         super(owner, coordinates, belongs);

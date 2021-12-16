@@ -7,6 +7,7 @@ import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Canvas;
 
 public class Soldier extends Unit {
+    private static int maxRange;
     private String name;
     private Sprite sprite;
 
@@ -41,7 +42,9 @@ public class Soldier extends Unit {
 
     }
 
-
+    public static int getRange() {
+        return maxRange;
+    }
 
     @Override
     public int getDamage() {

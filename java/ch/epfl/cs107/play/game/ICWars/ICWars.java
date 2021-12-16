@@ -82,7 +82,6 @@ public class ICWars extends AreaGame {
             ((RealPlayer)player).selectUnit(0); // 0, 1 ...
             player.gogoSetter();
         }
-
         super.update(deltaTime);
 
     }

@@ -7,6 +7,7 @@ import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Canvas;
 
 public class Tank extends Unit{
+    static int maxRange;
     private String name;
     private Sprite sprite;
 
@@ -43,10 +44,9 @@ public class Tank extends Unit{
 
     }
 
-//    @Override
-//    public int getRange() {
-//        return maxRange;
-//    }
+    public static int getRange() {
+        return maxRange;
+    }
 
     @Override
     public int getDamage() {
