@@ -16,7 +16,7 @@ public abstract class Unit extends ICWarsActor {
 
     int Hp;
     int attackDamage;
-    int maxRange = 3;
+    int maxRange;
     ICWarsRange range = new ICWarsRange();
 
 //    public  int rangeIdentifier(){
@@ -30,15 +30,10 @@ public abstract class Unit extends ICWarsActor {
     public Unit(Area owner, DiscreteCoordinates coordinates, String belongs ){
         super(owner, coordinates, belongs);
 
-        if(belongs.equals("ally")){
-            allyList.add(this);
-        } else {
-            enemyList.add(this);
-        }
 
 //        range.addNode(new DiscreteCoordinates(6,4), true, true, true, true);
 
-        createRange(owner, coordinates);
+//        createRange(owner, coordinates);
 
 
         // somehow need to include damage taken (- Hp)
@@ -46,7 +41,7 @@ public abstract class Unit extends ICWarsActor {
 
     }
 
-    public void createRange(Area owner, DiscreteCoordinates coordinates) {
+    public void createRange(Area owner, DiscreteCoordinates coordinates, int maxRange) {
         for (int x = -maxRange; x <= maxRange; ++x) {
             for (int y = -maxRange; y <= maxRange; ++y) {
                 int newX = coordinates.x + x;

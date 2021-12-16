@@ -18,6 +18,8 @@ public class Soldier extends Unit {
         attackDamage = 2;
         Hp = 5;
 
+        createRange(owner, coordinates, maxRange);
+
         if (belongs.equals("ally")) {
             name = "icwars/friendlySoldier";
         } else {

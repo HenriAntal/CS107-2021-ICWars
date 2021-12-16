@@ -13,9 +13,11 @@ public class Tank extends Unit{
 
     public Tank(Area owner, DiscreteCoordinates coordinates, String belongs) {
         super(owner, coordinates, belongs);
-        maxRange = 4;
-        attackDamage = 7;
+        int maxRange = 4;
+        int attackDamage = 7;
         Hp = 10;
+
+        createRange(owner, coordinates, maxRange);
 
 
         if (belongs.equals("ally")) {
