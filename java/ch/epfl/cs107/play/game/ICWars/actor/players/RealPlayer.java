@@ -103,7 +103,7 @@ public class RealPlayer extends ICWarsPlayer {
         this.canvas = canvas;
 //        ICWarsPlayerGUI.draw(canvas);
         if (selectUnit(order) != null) {
-            gui.draw(canvas, selectUnit(order));
+            gui.draw(canvas);
         }
     }
 
@@ -135,8 +135,19 @@ public class RealPlayer extends ICWarsPlayer {
 
     public Unit selectUnit(int order) {
 //        this.getCurrentMainCellCoordinates();
-        this.order = order;
-        return (super.units)[order];
-
+        if (getCurrentMainCellCoordinates().equals(units[0].getCurrentCells().get(0))) {
+            // Soldier
+            this.order = 0;
+        } else if (getCurrentMainCellCoordinates().equals(units[1].getCurrentCells().get(0))) {
+            // Tank
+            this.order = 1;
+        }
+        if (order == 0 || order == 1) {
+//            gui.draw(canvas, (super.units)[this.order]);
+            gui.setSelectedUnit((super.units)[this.order]);
+            return (super.units)[this.order];
+        } else {
+            return null;
+        }
     }
 }

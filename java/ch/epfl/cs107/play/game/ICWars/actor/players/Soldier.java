@@ -13,9 +13,9 @@ public class Soldier extends Unit {
 
     public Soldier(Area owner, DiscreteCoordinates coordinates, String belongs) {
         super(owner, coordinates, belongs);
-        this.maxRange = 2;
-        this.attackDamage = 2;
-        this.Hp = 5;
+        maxRange = 2;
+        attackDamage = 2;
+        Hp = 5;
 
         if (belongs.equals("ally")) {
             name = "icwars/friendlySoldier";

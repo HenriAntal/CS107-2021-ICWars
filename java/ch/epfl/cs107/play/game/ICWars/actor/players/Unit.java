@@ -2,7 +2,6 @@ package ch.epfl.cs107.play.game.ICWars.actor.players;
 
 import ch.epfl.cs107.play.game.ICWars.area.ICWarsRange;
 import ch.epfl.cs107.play.game.areagame.Area;
-import ch.epfl.cs107.play.game.areagame.actor.MovableAreaEntity;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.areagame.actor.Path;
 import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
@@ -17,7 +16,7 @@ public abstract class Unit extends ICWarsActor {
 
     int Hp;
     int attackDamage;
-    int maxRange;
+    int maxRange = 3;
     ICWarsRange range = new ICWarsRange();
 
     public Unit(Area owner, DiscreteCoordinates coordinates, String belongs ){
@@ -46,27 +45,15 @@ public abstract class Unit extends ICWarsActor {
                 int newY = coordinates.y + y;
 
                 if (newX < 0) { continue; }
-                if (newY > owner.getHeight()) { continue; }
-                if (newX > owner.getWidth()) { continue; }
+                if (newY > owner.getHeight() - 1) { continue; }
+                if (newX > owner.getWidth() - 1) { continue; }
                 if (newY < 0) { continue; }
 
-                boolean left, up, right, down;
-                if (newX > 0)
-                    left = true;
-                else
-                    left = false;
-                if (newY < owner.getHeight())
-                    up = true;
-                else
-                    up = false;
-                if (newX < owner.getWidth())
-                    right = true;
-                else
-                    right = false;
-                if (newY > 0)
-                    down = true;
-                else
-                    down = false;
+                boolean left = true, up = true, right = true, down = true;
+                if (newX == 0 || x == -maxRange) { left = false; }
+                if (newY == owner.getHeight() - 1 || y == maxRange) { up = false; }
+                if (newX == owner.getWidth() - 1 || x == maxRange) { right = false; }
+                if (newY == 0 || y == -maxRange) { down = false; }
 
                 System.out.println("added");
                 range.addNode(new DiscreteCoordinates(coordinates.x + x, coordinates.y + y),

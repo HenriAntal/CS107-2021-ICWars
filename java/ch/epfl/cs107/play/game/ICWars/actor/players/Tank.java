@@ -12,9 +12,9 @@ public class Tank extends Unit{
 
     public Tank(Area owner, DiscreteCoordinates coordinates, String belongs) {
         super(owner, coordinates, belongs);
-        this.maxRange = 4;
-        this.attackDamage = 7;
-        this.Hp = 10;
+        maxRange = 4;
+        attackDamage = 7;
+        Hp = 10;
 
 
         if (belongs.equals("ally")) {
@@ -42,6 +42,11 @@ public class Tank extends Unit{
     public void update(float deltaTime) {
 
     }
+
+//    @Override
+//    public int getRange() {
+//        return maxRange;
+//    }
 
     @Override
     public int getDamage() {

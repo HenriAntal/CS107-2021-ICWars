@@ -57,8 +57,8 @@ public class ICWars extends AreaGame {
         ICWarsArea area = (ICWarsArea) setCurrentArea(areaKey, true);
         DiscreteCoordinates coords = area.getPlayerSpawnPosition();
 
-        units1[0] = new Soldier(area , new DiscreteCoordinates(3,5),"ally");
-        units1[1] = new Tank(area , new DiscreteCoordinates(2,5),"ally");
+        units1[0] = new Soldier(area , new DiscreteCoordinates(8,4),"ally");
+        units1[1] = new Tank(area , new DiscreteCoordinates(8,7),"ally");
 
         player = new RealPlayer(area, coords, "ally", units1);
         player.enterArea(area, coords);
@@ -79,7 +79,7 @@ public class ICWars extends AreaGame {
         }
 
         if (keyboard.get(Keyboard.ENTER).isReleased()) {
-            ((RealPlayer)player).selectUnit (1); // 0, 1 ...
+            ((RealPlayer)player).selectUnit(0); // 0, 1 ...
         }
 
         super.update(deltaTime);

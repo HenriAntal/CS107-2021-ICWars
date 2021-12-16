@@ -10,15 +10,18 @@ import ch.epfl.cs107.play.window.Canvas;
 public class ICWarsPlayerGUI implements Graphics {
 
     private ICWarsPlayer player;
+    private Unit selectedUnit;
 
     public ICWarsPlayerGUI (float cameraScaleFactor, ICWarsPlayer player) {
         this.player = player;
     }
 
-    @Override
-    public void draw (Canvas canvas) {}
+    public void setSelectedUnit(Unit selectedUnit) {
+        this.selectedUnit = selectedUnit;
+    }
 
-    public void draw(Canvas canvas, Unit unit) {
-        unit.drawRangeAndPathTo(player.getCurrentCells().get(0), canvas);
+    @Override
+    public void draw (Canvas canvas) {
+        selectedUnit.drawRangeAndPathTo(player.getCurrentCells().get(0), canvas);
     }
 }

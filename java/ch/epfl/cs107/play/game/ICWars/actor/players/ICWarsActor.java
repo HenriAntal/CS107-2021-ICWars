@@ -11,7 +11,7 @@ import ch.epfl.cs107.play.window.Canvas;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ICWarsActor extends MovableAreaEntity{
+public abstract class ICWarsActor extends MovableAreaEntity{
 
     String belongs;
     public ArrayList<Unit> allyList = new ArrayList<Unit>();
