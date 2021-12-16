@@ -99,7 +99,9 @@ public class RealPlayer extends ICWarsPlayer {
     }
 
     public void gogoSetter(){
-        this.gogo += 1;
+        if(playerOnUnit()){
+            this.gogo += 1;
+        }
     }
 
     @Override
@@ -136,6 +138,14 @@ public class RealPlayer extends ICWarsPlayer {
 
     @Override
     public void acceptInteraction(AreaInteractionVisitor v) {
+    }
+
+    private boolean playerOnUnit(){
+        if(getCurrentMainCellCoordinates().equals(units[0].getCurrentCells().get(0))){ return true;}
+        if(getCurrentMainCellCoordinates().equals(units[0].getCurrentCells().get(0))){ return true;}
+
+
+        return false;
     }
 
     public Unit selectUnit(int order) {
