@@ -18,7 +18,7 @@ public abstract class Unit extends ICWarsActor {
     int Hp;
     int attackDamage;
     int maxRange;
-    ICWarsRange range = null;
+    ICWarsRange range = new ICWarsRange();
 
     public Unit(Area owner, DiscreteCoordinates coordinates, String belongs ){
         super(owner, coordinates, belongs);
@@ -29,23 +29,50 @@ public abstract class Unit extends ICWarsActor {
             enemyList.add(this);
         }
 
+//        range.addNode(new DiscreteCoordinates(6,4), true, true, true, true);
 
-        for (int x = -maxRange+1; x < maxRange; ++x) {
-            for (int y = -maxRange +1; y < maxRange; ++y) {
-                int newX = coordinates.x + x;
-                int newY = coordinates.y + y;
-                if (newY < 0) { continue; }
-                if (newX > owner.getWidth()) { continue; }
-                if (newY > owner.getHeight()) { continue; }
-                if (newX < 0) { continue; }
+        createRange(owner, coordinates);
 
-                range.addNode(new DiscreteCoordinates(newX, newY), true, true, true, true);
-            }
-        }
 
         // somehow need to include damage taken (- Hp)
         // also need to include healing (+ Hp)
 
+    }
+
+    public void createRange(Area owner, DiscreteCoordinates coordinates) {
+        for (int x = -maxRange; x <= maxRange; ++x) {
+            for (int y = -maxRange; y <= maxRange; ++y) {
+                int newX = coordinates.x + x;
+                int newY = coordinates.y + y;
+
+                if (newX < 0) { continue; }
+                if (newY > owner.getHeight()) { continue; }
+                if (newX > owner.getWidth()) { continue; }
+                if (newY < 0) { continue; }
+
+                boolean left, up, right, down;
+                if (newX > 0)
+                    left = true;
+                else
+                    left = false;
+                if (newY < owner.getHeight())
+                    up = true;
+                else
+                    up = false;
+                if (newX < owner.getWidth())
+                    right = true;
+                else
+                    right = false;
+                if (newY > 0)
+                    down = true;
+                else
+                    down = false;
+
+                System.out.println("added");
+                range.addNode(new DiscreteCoordinates(coordinates.x + x, coordinates.y + y),
+                        left, up, right, down);
+            }
+        }
     }
 
     public int damageTaken(){ return Hp-attackDamage;} //TODO Attack Damage of other unit is the correct variable

@@ -21,7 +21,9 @@ public class RealPlayer extends ICWarsPlayer {
     /// Animation duration in frame number
     private final static int MOVE_DURATION = 2;
     private Keyboard keyboard;
+    private Canvas canvas;
     private ICWarsPlayerGUI gui = new ICWarsPlayerGUI(getOwnerArea().getCameraScaleFactor(), this);
+    private int order;
 
     /**
      * Demo actor
@@ -98,8 +100,11 @@ public class RealPlayer extends ICWarsPlayer {
     @Override
     public void draw(Canvas canvas) {
         sprite.draw(canvas);
+        this.canvas = canvas;
 //        ICWarsPlayerGUI.draw(canvas);
-        gui.draw(canvas);
+        if (selectUnit(order) != null) {
+            gui.draw(canvas, selectUnit(order));
+        }
     }
 
 
@@ -129,6 +134,8 @@ public class RealPlayer extends ICWarsPlayer {
     }
 
     public Unit selectUnit(int order) {
+//        this.getCurrentMainCellCoordinates();
+        this.order = order;
         return (super.units)[order];
 
     }

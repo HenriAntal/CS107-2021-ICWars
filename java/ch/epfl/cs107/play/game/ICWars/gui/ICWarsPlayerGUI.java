@@ -9,7 +9,6 @@ import ch.epfl.cs107.play.window.Canvas;
 
 public class ICWarsPlayerGUI implements Graphics {
 
-    private Unit unit;
     private ICWarsPlayer player;
 
     public ICWarsPlayerGUI (float cameraScaleFactor, ICWarsPlayer player) {
@@ -17,7 +16,9 @@ public class ICWarsPlayerGUI implements Graphics {
     }
 
     @Override
-    public void draw(Canvas canvas) {
-        unit.drawRangeAndPathTo(new DiscreteCoordinates(3,5), canvas);
+    public void draw (Canvas canvas) {}
+
+    public void draw(Canvas canvas, Unit unit) {
+        unit.drawRangeAndPathTo(player.getCurrentCells().get(0), canvas);
     }
 }
