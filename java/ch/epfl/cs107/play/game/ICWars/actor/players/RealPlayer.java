@@ -21,9 +21,9 @@ public class RealPlayer extends ICWarsPlayer {
     /// Animation duration in frame number
     private final static int MOVE_DURATION = 2;
     private ICWarsPlayerGUI gui = new ICWarsPlayerGUI(getOwnerArea().getCameraScaleFactor(), this);
-    private int order = 2;
+    private int order;
     // henri is stupid
-    private int gogo = 0;
+    private int gogoCase = 0;
 
     /**
      * Demo actor
@@ -60,26 +60,33 @@ public class RealPlayer extends ICWarsPlayer {
             moveIfPressed(Orientation.DOWN, keyboard.get(Keyboard.DOWN));
         }
 
+
         switch (s) {
-            case IDLE: {}
+            case IDLE: {
+
+            }
             case NORMAL: {
-                if (keyboard.get(Keyboard.ENTER).isReleased()) {
+                if (keyboard.get(Keyboard.ENTER).isReleased() && playerOnUnit() && gogoCase == 0) {
 //                    Vector originalUnitCoords = new Vector(getCurrentMainCellCoordinates().x, getCurrentMainCellCoordinates().y);
+                    gogoCase = 1;
                     s = State.SELECT_CELL;
                 } else if (keyboard.get(Keyboard.TAB).isReleased()) {
                     s = State.IDLE;
                 }
             }
             case SELECT_CELL:
-                if (!playerOnUnit()){
+                if (keyboard.get(Keyboard.TAB).isReleased()){
+                    gogoCase = 0;
                     s = State.NORMAL;
-                } else {
+                } else if (gogoCase == 1){
                     selectUnit();
+                    gogoCase = 2;
                     s = State.MOVE_UNIT;
                 }
             case MOVE_UNIT:
-                if (keyboard.get(Keyboard.ENTER).isReleased()) {
+                if (keyboard.get(Keyboard.ENTER).isReleased() && !playerOnUnit() && gogoCase == 2) {
                     units[order].changePosition(getCurrentMainCellCoordinates());
+                    gogoCase = 0;
                     s = State.NORMAL;
                 }
             case ACTION_SELECTION: {}
@@ -123,23 +130,16 @@ public class RealPlayer extends ICWarsPlayer {
         resetMotion();
     }
 
-    public void gogoReset(){
-        if(!playerOnUnit() && (gogo%2) ==1){
-            gogo = 0;
-        }
+    public void gogoInRange(){
+        if(super.no
     }
 
-    public void gogoSetter(){
-        if(playerOnUnit()){
-            this.gogo += 1;
-        }
-    }
 
     @Override
     public void draw(Canvas canvas) {
         sprite.draw(canvas);
 //        step1
-//        if (selectUnit(order) != null && (gogo%2) == 1) {
+//        if (selectUnit(order) != null && (gogoCase%2) == 1) {
         if (s.equals(State.MOVE_UNIT)) {
             gui.draw(canvas);
         }

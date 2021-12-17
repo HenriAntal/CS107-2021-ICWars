@@ -63,6 +63,7 @@ public class ICWars extends AreaGame {
         player = new RealPlayer(area, coords, "ally", units1);
         player.enterArea(area, coords);
         player.centerCamera();
+        player.startNormal();
 
     }
 
@@ -83,8 +84,6 @@ public class ICWars extends AreaGame {
 //            player.gogoSetter();
 //            player.gogoReset();
 //        }
-
-        player.startTurn();
 
         super.update(deltaTime);
 

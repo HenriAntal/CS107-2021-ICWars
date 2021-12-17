@@ -71,6 +71,10 @@ public class ICWarsPlayer extends ICWarsActor{
         }
     }
 
+    public void startNormal() {
+        s = State.NORMAL;
+    }
+
 }
 
 
