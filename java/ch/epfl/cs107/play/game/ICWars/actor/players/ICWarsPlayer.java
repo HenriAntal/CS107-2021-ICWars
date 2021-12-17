@@ -60,12 +60,12 @@ public class ICWarsPlayer extends ICWarsActor{
 
     @Override
     public void onLeaving(List<DiscreteCoordinates> coordinates) {
-        super.onLeaving(coordinates);
-        if (haveSelectedUnit == null)
-            s = State.NORMAL;
+//        super.onLeaving(coordinates);
+//        if (haveSelectedUnit == null)
+//            s = State.NORMAL;
     }
 
-    public void starTurn() {
+    public void startTurn() {
         if (s.equals(State.IDLE)) {
             s = State.NORMAL;
         }

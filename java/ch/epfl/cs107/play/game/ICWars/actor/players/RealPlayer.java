@@ -21,7 +21,7 @@ public class RealPlayer extends ICWarsPlayer {
     /// Animation duration in frame number
     private final static int MOVE_DURATION = 2;
     private ICWarsPlayerGUI gui = new ICWarsPlayerGUI(getOwnerArea().getCameraScaleFactor(), this);
-    private int order;
+    private int order = 2;
     private int gogo = 0;
 
     /**
@@ -62,21 +62,19 @@ public class RealPlayer extends ICWarsPlayer {
         switch (s) {
             case IDLE: {}
             case NORMAL: {
-                if (keyboard.get(Keyboard.ENTER).isReleased() || playerOnUnit()) {
-                    Vector originalUnitCoords = new Vector(getCurrentMainCellCoordinates().x, getCurrentMainCellCoordinates().y);
+                if (keyboard.get(Keyboard.ENTER).isReleased()) {
+//                    Vector originalUnitCoords = new Vector(getCurrentMainCellCoordinates().x, getCurrentMainCellCoordinates().y);
                     s = State.SELECT_CELL;
                 } else if (keyboard.get(Keyboard.TAB).isReleased()) {
                     s = State.IDLE;
                 }
             }
             case SELECT_CELL:
-                if(keyboard.get(Keyboard.TAB).isReleased()){
+                if (!playerOnUnit()){
                     s = State.NORMAL;
-                }else if (keyboard.get(Keyboard.ENTER).isReleased() && !playerOnUnit()) {
-                    Vector unitMovesHere = new Vector(getCurrentMainCellCoordinates().x, getCurrentMainCellCoordinates().y)
+                } else {
+                    selectUnit();
                     s = State.MOVE_UNIT;
-                }else if (keyboard.get(Keyboard.ENTER).isReleased() && playerOnUnit()) {
-                    s = State.NORMAL;
                 }
             case MOVE_UNIT:
                 if (keyboard.get(Keyboard.ENTER).isReleased()) {
@@ -139,7 +137,6 @@ public class RealPlayer extends ICWarsPlayer {
     @Override
     public void draw(Canvas canvas) {
         sprite.draw(canvas);
-        this.canvas = canvas;
 //        step1
 //        if (selectUnit(order) != null && (gogo%2) == 1) {
         if (s.equals(State.MOVE_UNIT)) {
