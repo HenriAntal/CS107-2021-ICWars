@@ -18,6 +18,7 @@ public abstract class Unit extends ICWarsActor {
     int attackDamage;
     int maxRange;
     ICWarsRange range = new ICWarsRange();
+    int coordsX, coordsY;
 
 //    public  int rangeIdentifier(){
 //        if(Hp == 4){    // needs to be changed with getCurrentMainCellCoordinates().equals(units[0].getCurrentCells().get(0))
@@ -29,6 +30,8 @@ public abstract class Unit extends ICWarsActor {
 
     public Unit(Area owner, DiscreteCoordinates coordinates, String belongs ){
         super(owner, coordinates, belongs);
+        coordsX = coordinates.x;
+        coordsY = coordinates.y;
 
 
 //        range.addNode(new DiscreteCoordinates(6,4), true, true, true, true);
@@ -41,7 +44,7 @@ public abstract class Unit extends ICWarsActor {
 
     }
 
-    public void createRange(Area owner, DiscreteCoordinates coordinates, int maxRange, ICWarsRange range) {
+    public ICWarsRange createRange(Area owner, DiscreteCoordinates coordinates, int maxRange, ICWarsRange range) {
 
         for (int x = -maxRange; x <= maxRange; ++x) {
             for (int y = -maxRange; y <= maxRange; ++y) {
@@ -64,6 +67,7 @@ public abstract class Unit extends ICWarsActor {
                         left, up, right, down);
             }
         }
+        return range;
     }
 
     public int damageTaken(){ return Hp-attackDamage;} //TODO Attack Damage of other unit is the correct variable
@@ -101,6 +105,20 @@ public abstract class Unit extends ICWarsActor {
 
     @Override
     public void acceptInteraction(AreaInteractionVisitor v) {
+    }
+
+    @Override
+    public boolean changePosition(DiscreteCoordinates newPosition) {
+        if (!range.nodeExists(newPosition) || !super.changePosition(newPosition)) {
+            return false;
+        } else {
+            ICWarsRange newRange = new ICWarsRange();
+            newRange = createRange(getOwnerArea(), newPosition, maxRange, newRange);
+            range = newRange;
+            coordsX = newPosition.x;
+            coordsY = newPosition.y;
+            return true;
+        }
     }
 
     /**
