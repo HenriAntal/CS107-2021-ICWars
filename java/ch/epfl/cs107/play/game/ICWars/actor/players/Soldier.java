@@ -7,18 +7,17 @@ import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Canvas;
 
 public class Soldier extends Unit {
-    private static int maxRange;
     private String name;
     private Sprite sprite;
 
 
     public Soldier(Area owner, DiscreteCoordinates coordinates, String belongs) {
         super(owner, coordinates, belongs);
-        maxRange = 2;
+        super.maxRange = 2;
         attackDamage = 2;
         Hp = 5;
 
-        createRange(owner, coordinates, maxRange);
+        createRange(owner, coordinates, super.maxRange, range);
 
         if (belongs.equals("ally")) {
             name = "icwars/friendlySoldier";
@@ -37,15 +36,6 @@ public class Soldier extends Unit {
     @Override
     public void draw(Canvas canvas) {
         sprite.draw(canvas);
-    }
-
-    @Override
-    public void update(float deltaTime) {
-
-    }
-
-    public static int getRange() {
-        return maxRange;
     }
 
     @Override

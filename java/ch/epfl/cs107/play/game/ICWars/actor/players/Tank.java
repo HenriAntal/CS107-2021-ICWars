@@ -7,17 +7,17 @@ import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Canvas;
 
 public class Tank extends Unit{
-    static int maxRange;
+
     private String name;
     private Sprite sprite;
 
     public Tank(Area owner, DiscreteCoordinates coordinates, String belongs) {
         super(owner, coordinates, belongs);
-        int maxRange = 4;
+        super.maxRange = 4;
         int attackDamage = 7;
         Hp = 10;
 
-        createRange(owner, coordinates, maxRange);
+        createRange(owner, coordinates, super.maxRange, range);
 
 
         if (belongs.equals("ally")) {
@@ -46,9 +46,6 @@ public class Tank extends Unit{
 
     }
 
-    public static int getRange() {
-        return maxRange;
-    }
 
     @Override
     public int getDamage() {

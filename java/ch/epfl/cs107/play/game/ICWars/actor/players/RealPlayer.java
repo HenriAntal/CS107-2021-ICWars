@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import ch.epfl.cs107.play.game.ICWars.area.ICWarsRange;
 import ch.epfl.cs107.play.game.ICWars.gui.ICWarsPlayerGUI;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
@@ -75,10 +76,7 @@ public class RealPlayer extends ICWarsPlayer {
                 }
             }
             case SELECT_CELL:
-                if (keyboard.get(Keyboard.TAB).isReleased()){
-                    gogoCase = 0;
-                    s = State.NORMAL;
-                } else if (gogoCase == 1){
+             if (gogoCase == 1){
                     selectUnit();
                     gogoCase = 2;
                     s = State.MOVE_UNIT;
@@ -86,8 +84,13 @@ public class RealPlayer extends ICWarsPlayer {
             case MOVE_UNIT:
                 if (keyboard.get(Keyboard.ENTER).isReleased() && !playerOnUnit() && gogoCase == 2) {
                     units[order].changePosition(getCurrentMainCellCoordinates());
+                    ICWarsRange newRange = new ICWarsRange();
+                    units[order].createRange(getOwnerArea(),getCurrentMainCellCoordinates(), units[order].maxRange, newRange);
+                    units[order].range = newRange;
 
-                    units[order].createRange(getOwnerArea(),getCurrentMainCellCoordinates(), units[order].maxRange);
+                    gogoCase = 0;
+                    s = State.NORMAL;
+                } else if(keyboard.get(Keyboard.TAB).isReleased()){
                     gogoCase = 0;
                     s = State.NORMAL;
                 }

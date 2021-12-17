@@ -41,7 +41,8 @@ public abstract class Unit extends ICWarsActor {
 
     }
 
-    public void createRange(Area owner, DiscreteCoordinates coordinates, int maxRange) {
+    public void createRange(Area owner, DiscreteCoordinates coordinates, int maxRange, ICWarsRange range) {
+
         for (int x = -maxRange; x <= maxRange; ++x) {
             for (int y = -maxRange; y <= maxRange; ++y) {
                 int newX = coordinates.x + x;
