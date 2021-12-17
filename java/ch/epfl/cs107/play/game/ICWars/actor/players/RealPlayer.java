@@ -22,6 +22,7 @@ public class RealPlayer extends ICWarsPlayer {
     private final static int MOVE_DURATION = 2;
     private ICWarsPlayerGUI gui = new ICWarsPlayerGUI(getOwnerArea().getCameraScaleFactor(), this);
     private int order = 2;
+    // henri is stupid
     private int gogo = 0;
 
     /**
