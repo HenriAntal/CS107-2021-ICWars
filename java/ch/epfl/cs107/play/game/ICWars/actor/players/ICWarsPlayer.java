@@ -5,15 +5,22 @@ import ch.epfl.cs107.play.game.areagame.actor.Sprite;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ICWarsPlayer extends ICWarsActor{
 
     private Sprite sprite;
     protected Unit[] units = new Unit[2];
+    public enum State {IDLE, NORMAL, SELECT_CELL, MOVE_UNIT, ACTION_SELECTION, ACTION}
+    public State s;
+
 
     //TODO
         public ICWarsPlayer(Area owner, DiscreteCoordinates coordinates, String belongs, Unit... units){
             super(owner, coordinates, belongs);
+
+            s = State.IDLE;
+
             for (int i = 0; i < units.length; ++i) {
                 (this.units)[i] = units[i];
                 owner.registerActor(units[i]);
@@ -51,6 +58,18 @@ public class ICWarsPlayer extends ICWarsActor{
         playerList.add(player);
     }*/
 
+    @Override
+    public void onLeaving(List<DiscreteCoordinates> coordinates) {
+        super.onLeaving(coordinates);
+        if (haveSelectedUnit == null)
+            s = State.NORMAL;
+    }
+
+    public void starTurn() {
+        if (s.equals(State.IDLE)) {
+            s = State.NORMAL;
+        }
+    }
 
 }
 

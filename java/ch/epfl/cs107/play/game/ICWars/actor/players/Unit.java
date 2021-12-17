@@ -58,7 +58,7 @@ public abstract class Unit extends ICWarsActor {
                 if (newX == owner.getWidth() - 1 || x == maxRange) { right = false; }
                 if (newY == 0 || y == -maxRange) { down = false; }
 
-                System.out.println("added");
+//                System.out.println("added");
                 range.addNode(new DiscreteCoordinates(coordinates.x + x, coordinates.y + y),
                         left, up, right, down);
             }

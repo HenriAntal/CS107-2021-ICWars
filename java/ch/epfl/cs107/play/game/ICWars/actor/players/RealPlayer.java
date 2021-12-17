@@ -54,12 +54,36 @@ public class RealPlayer extends ICWarsPlayer {
     public void update(float deltaTime) {
         Keyboard keyboard = getOwnerArea().getKeyboard();
 
-        moveIfPressed(Orientation.LEFT, keyboard.get(Keyboard.LEFT));
-        moveIfPressed(Orientation.UP, keyboard.get(Keyboard.UP));
-        moveIfPressed(Orientation.RIGHT, keyboard.get(Keyboard.RIGHT));
-        moveIfPressed(Orientation.DOWN, keyboard.get(Keyboard.DOWN));
+        if (s.equals(State.NORMAL) || s.equals(State.SELECT_CELL) || s.equals(State.MOVE_UNIT)) {
+            moveIfPressed(Orientation.LEFT, keyboard.get(Keyboard.LEFT));
+            moveIfPressed(Orientation.UP, keyboard.get(Keyboard.UP));
+            moveIfPressed(Orientation.RIGHT, keyboard.get(Keyboard.RIGHT));
+            moveIfPressed(Orientation.DOWN, keyboard.get(Keyboard.DOWN));
+        }
 
-
+        switch (s) {
+            case IDLE: {}
+            case NORMAL: {
+                if (keyboard.get(Keyboard.ENTER).isReleased()) {
+                    s = State.SELECT_CELL;
+                } else if (keyboard.get(Keyboard.TAB).isReleased()) {
+                    s = State.IDLE;
+                }
+            }
+            case SELECT_CELL:
+//                if (haveSelectedUnit()) {
+//                    s = State.MOVE_UNIT;
+//                } else {
+//                    selectUnit();
+//                }
+            case MOVE_UNIT:
+//                if (keyboard.get(Keyboard.ENTER).isReleased()) {
+//                    moveUnit(); // mark as used
+//                    s = State.NORMAL;
+//                }
+            case ACTION_SELECTION: {}
+            case ACTION: {}
+        }
 
         super.update(deltaTime);
 
@@ -114,8 +138,9 @@ public class RealPlayer extends ICWarsPlayer {
     public void draw(Canvas canvas) {
         sprite.draw(canvas);
         this.canvas = canvas;
-//        ICWarsPlayerGUI.draw(canvas);
-        if (selectUnit(order) != null && (gogo%2) == 1) {
+//        step1
+//        if (selectUnit(order) != null && (gogo%2) == 1) {
+        if (s.equals(State.MOVE_UNIT)) {
             gui.draw(canvas);
         }
     }
