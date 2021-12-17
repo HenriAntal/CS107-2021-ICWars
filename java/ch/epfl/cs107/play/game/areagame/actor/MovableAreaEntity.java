@@ -105,6 +105,8 @@ public abstract class MovableAreaEntity extends AreaEntity {
      * @param newPosition new unit's position
      * @return true if the move was successful, false otherwise
      */
+
+
     public boolean changePosition(DiscreteCoordinates newPosition) {
         if (newPosition.equals(getCurrentMainCellCoordinates()))
             return true;

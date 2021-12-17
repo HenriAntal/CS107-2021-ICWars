@@ -86,6 +86,8 @@ public class RealPlayer extends ICWarsPlayer {
             case MOVE_UNIT:
                 if (keyboard.get(Keyboard.ENTER).isReleased() && !playerOnUnit() && gogoCase == 2) {
                     units[order].changePosition(getCurrentMainCellCoordinates());
+
+                    units[order].createRange(getOwnerArea(),getCurrentMainCellCoordinates(), units[order].maxRange);
                     gogoCase = 0;
                     s = State.NORMAL;
                 }
@@ -128,10 +130,6 @@ public class RealPlayer extends ICWarsPlayer {
         setOwnerArea(area);
         setCurrentPosition(position.toVector());
         resetMotion();
-    }
-
-    public void gogoInRange(){
-        if(super.no
     }
 
 
