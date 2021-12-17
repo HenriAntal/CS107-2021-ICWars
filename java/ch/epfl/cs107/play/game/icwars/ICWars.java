@@ -1,20 +1,17 @@
-package ch.epfl.cs107.play.game.ICWars;
+package ch.epfl.cs107.play.game.icwars;
 
-import ch.epfl.cs107.play.game.ICWars.actor.players.Soldier;
-import ch.epfl.cs107.play.game.ICWars.actor.players.Tank;
-import ch.epfl.cs107.play.game.ICWars.actor.players.Unit;
+import ch.epfl.cs107.play.game.icwars.actor.players.Soldier;
+import ch.epfl.cs107.play.game.icwars.actor.players.Tank;
+import ch.epfl.cs107.play.game.icwars.actor.players.Unit;
 import ch.epfl.cs107.play.game.areagame.AreaGame;
-import ch.epfl.cs107.play.game.ICWars.actor.players.RealPlayer;
-import ch.epfl.cs107.play.game.ICWars.area.ICWarsArea;
-import ch.epfl.cs107.play.game.ICWars.area.Level0;
-import ch.epfl.cs107.play.game.ICWars.area.Level1;
+import ch.epfl.cs107.play.game.icwars.actor.players.RealPlayer;
+import ch.epfl.cs107.play.game.icwars.area.ICWarsArea;
+import ch.epfl.cs107.play.game.icwars.area.Level0;
+import ch.epfl.cs107.play.game.icwars.area.Level1;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
-import ch.epfl.cs107.play.window.Button;
 import ch.epfl.cs107.play.window.Keyboard;
 import ch.epfl.cs107.play.window.Window;
-
-import java.util.ArrayList;
 
 public class ICWars extends AreaGame {
 

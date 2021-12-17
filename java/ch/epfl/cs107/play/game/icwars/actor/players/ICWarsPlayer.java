@@ -1,10 +1,9 @@
-package ch.epfl.cs107.play.game.ICWars.actor.players;
+package ch.epfl.cs107.play.game.icwars.actor.players;
 
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.Sprite;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ICWarsPlayer extends ICWarsActor{

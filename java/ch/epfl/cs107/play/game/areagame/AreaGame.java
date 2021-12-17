@@ -1,7 +1,7 @@
 package ch.epfl.cs107.play.game.areagame;
 
 import ch.epfl.cs107.play.game.Game;
-import ch.epfl.cs107.play.game.ICWars.ICWars;
+import ch.epfl.cs107.play.game.icwars.ICWars;
 import ch.epfl.cs107.play.game.PauseMenu;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.window.Window;

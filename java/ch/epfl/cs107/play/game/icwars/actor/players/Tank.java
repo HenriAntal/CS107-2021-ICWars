@@ -1,4 +1,4 @@
-package ch.epfl.cs107.play.game.ICWars.actor.players;
+package ch.epfl.cs107.play.game.icwars.actor.players;
 
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.Sprite;
@@ -6,25 +6,28 @@ import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Canvas;
 
-public class Soldier extends Unit {
+public class Tank extends Unit{
+
     private String name;
     private Sprite sprite;
 
-
-    public Soldier(Area owner, DiscreteCoordinates coordinates, String belongs) {
+    public Tank(Area owner, DiscreteCoordinates coordinates, String belongs) {
         super(owner, coordinates, belongs);
-        super.maxRange = 2;
-        attackDamage = 2;
-        Hp = 5;
+        super.maxRange = 4;
+        int attackDamage = 7;
+        Hp = 10;
 
         createRange(owner, coordinates, super.maxRange, range);
 
+
         if (belongs.equals("ally")) {
-            name = "icwars/friendlySoldier";
+            name = "icwars/friendlyTank";
         } else {
-            name = "icwars/enemySoldier";
+            name = "icwars/enemyTank";
         }
         this.sprite = new Sprite(name, 1.5f, 1.5f, this, null, new Vector(-0.25f, -0.25f));
+
+
     }
 
     // TODO not sure if these 2 methods below work.
@@ -39,6 +42,12 @@ public class Soldier extends Unit {
     }
 
     @Override
+    public void update(float deltaTime) {
+
+    }
+
+
+    @Override
     public int getDamage() {
         return attackDamage;
     }
@@ -49,5 +58,3 @@ public class Soldier extends Unit {
     }
 
 }
-
-

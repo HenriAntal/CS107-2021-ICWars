@@ -1,16 +1,16 @@
-package ch.epfl.cs107.play.game.ICWars.actor.players;
+package ch.epfl.cs107.play.game.icwars.actor.players;
 
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import ch.epfl.cs107.play.game.ICWars.area.ICWarsRange;
-import ch.epfl.cs107.play.game.ICWars.gui.ICWarsPlayerGUI;
+import ch.epfl.cs107.play.game.icwars.gui.ICWarsPlayerGUI;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.areagame.actor.Sprite;
 import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
+import ch.epfl.cs107.play.game.icwars.handler.ICWarsInteractionVisitor;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Button;
@@ -232,5 +232,9 @@ public class RealPlayer extends ICWarsPlayer {
             gui.setSelectedUnit((super.units)[this.order]);
             return (super.units)[this.order];
 
+    }
+
+    private class ICWarsPlayerInteractionHandler implements ICWarsInteractionVisitor{
+        int i = 3;
     }
 }

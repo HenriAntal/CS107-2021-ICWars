@@ -1,6 +1,6 @@
-package ch.epfl.cs107.play.game.ICWars.actor.players;
+package ch.epfl.cs107.play.game.icwars.actor.players;
 
-import ch.epfl.cs107.play.game.ICWars.area.ICWarsRange;
+import ch.epfl.cs107.play.game.icwars.area.ICWarsRange;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.areagame.actor.Path;

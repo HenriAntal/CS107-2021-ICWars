@@ -1,11 +1,7 @@
-package ch.epfl.cs107.play.game.ICWars.area;
+package ch.epfl.cs107.play.game.icwars.area;
 
-import ch.epfl.cs107.play.game.ICWars.actor.players.Soldier;
-import ch.epfl.cs107.play.game.ICWars.actor.players.Tank;
 import ch.epfl.cs107.play.game.areagame.actor.Background;
-import ch.epfl.cs107.play.game.areagame.actor.Foreground;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
-import ch.epfl.cs107.play.math.Vector;
 
 public class Level0 extends ICWarsArea {
 
