@@ -20,8 +20,6 @@ public class RealPlayer extends ICWarsPlayer {
     private Sprite sprite;
     /// Animation duration in frame number
     private final static int MOVE_DURATION = 2;
-    private Keyboard keyboard;
-    private Canvas canvas;
     private ICWarsPlayerGUI gui = new ICWarsPlayerGUI(getOwnerArea().getCameraScaleFactor(), this);
     private int order;
     private int gogo = 0;
@@ -64,23 +62,27 @@ public class RealPlayer extends ICWarsPlayer {
         switch (s) {
             case IDLE: {}
             case NORMAL: {
-                if (keyboard.get(Keyboard.ENTER).isReleased()) {
+                if (keyboard.get(Keyboard.ENTER).isReleased() || playerOnUnit()) {
+                    Vector originalUnitCoords = new Vector(getCurrentMainCellCoordinates().x, getCurrentMainCellCoordinates().y);
                     s = State.SELECT_CELL;
                 } else if (keyboard.get(Keyboard.TAB).isReleased()) {
                     s = State.IDLE;
                 }
             }
             case SELECT_CELL:
-//                if (haveSelectedUnit()) {
-//                    s = State.MOVE_UNIT;
-//                } else {
-//                    selectUnit();
-//                }
+                if(keyboard.get(Keyboard.TAB).isReleased()){
+                    s = State.NORMAL;
+                }else if (keyboard.get(Keyboard.ENTER).isReleased() && !playerOnUnit()) {
+                    Vector unitMovesHere = new Vector(getCurrentMainCellCoordinates().x, getCurrentMainCellCoordinates().y)
+                    s = State.MOVE_UNIT;
+                }else if (keyboard.get(Keyboard.ENTER).isReleased() && playerOnUnit()) {
+                    s = State.NORMAL;
+                }
             case MOVE_UNIT:
-//                if (keyboard.get(Keyboard.ENTER).isReleased()) {
-//                    moveUnit(); // mark as used
-//                    s = State.NORMAL;
-//                }
+                if (keyboard.get(Keyboard.ENTER).isReleased()) {
+                    units[order].changePosition(getCurrentMainCellCoordinates());
+                    s = State.NORMAL;
+                }
             case ACTION_SELECTION: {}
             case ACTION: {}
         }
@@ -179,7 +181,7 @@ public class RealPlayer extends ICWarsPlayer {
         return false;
     }
 
-    public Unit selectUnit(int order) {
+    public Unit selectUnit() {
 //        this.getCurrentMainCellCoordinates();
         if (getCurrentMainCellCoordinates().equals(units[0].getCurrentCells().get(0))) {
             // Soldier

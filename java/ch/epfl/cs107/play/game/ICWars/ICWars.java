@@ -79,11 +79,11 @@ public class ICWars extends AreaGame {
             switchArea();
         }
 
-        if (keyboard.get(Keyboard.U).isReleased()) {
-            ((RealPlayer)player).selectUnit(0); // 0, 1 ...
-            player.gogoSetter();
-            player.gogoReset();
-        }
+//        if (keyboard.get(Keyboard.U).isReleased()) {
+//            ((RealPlayer)player).selectUnit(0); // 0, 1 ...
+//            player.gogoSetter();
+//            player.gogoReset();
+//        }
         super.update(deltaTime);
 
     }
