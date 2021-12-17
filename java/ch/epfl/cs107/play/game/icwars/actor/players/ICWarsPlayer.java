@@ -1,12 +1,14 @@
 package ch.epfl.cs107.play.game.icwars.actor.players;
 
 import ch.epfl.cs107.play.game.areagame.Area;
+import ch.epfl.cs107.play.game.areagame.actor.Interactable;
+import ch.epfl.cs107.play.game.areagame.actor.Interactor;
 import ch.epfl.cs107.play.game.areagame.actor.Sprite;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 
 import java.util.List;
 
-public class ICWarsPlayer extends ICWarsActor{
+public class ICWarsPlayer extends ICWarsActor implements Interactor, Interactable {
 
     private Sprite sprite;
     protected Unit[] units = new Unit[2];
@@ -19,6 +21,7 @@ public class ICWarsPlayer extends ICWarsActor{
             super(owner, coordinates, belongs);
 
             s = State.IDLE;
+
 
             for (int i = 0; i < units.length; ++i) {
                 (this.units)[i] = units[i];
@@ -74,6 +77,28 @@ public class ICWarsPlayer extends ICWarsActor{
         s = State.NORMAL;
     }
 
+
+    //Interactor
+    @Override
+    public List<DiscreteCoordinates> getFieldOfViewCells() {
+        return null;
+    }
+
+    @Override
+    public boolean wantsCellInteraction() {
+        return true;
+    }
+
+    @Override
+    public boolean wantsViewInteraction() {
+        return false;
+    }
+
+    @Override
+    public void interactWith(Interactable other) {
+
+    }
+    //Interactor methods end
 }
 
 

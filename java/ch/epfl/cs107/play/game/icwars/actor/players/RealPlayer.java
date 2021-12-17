@@ -23,6 +23,7 @@ public class RealPlayer extends ICWarsPlayer {
     private final static int MOVE_DURATION = 2;
     private ICWarsPlayerGUI gui = new ICWarsPlayerGUI(getOwnerArea().getCameraScaleFactor(), this);
     private int order;
+    private Unit selectedUnit;
     // henri is stupid
     ArrayList<Unit> usedNumbers = new ArrayList<>();
 
@@ -61,10 +62,9 @@ public class RealPlayer extends ICWarsPlayer {
             moveIfPressed(Orientation.DOWN, keyboard.get(Keyboard.DOWN));
         }
 
-
         switch (s) {
             case IDLE:
-
+                //TODO later
                 break;
             case NORMAL:
                 if (keyboard.get(Keyboard.ENTER).isReleased() && playerOnUnit()) {
@@ -77,13 +77,13 @@ public class RealPlayer extends ICWarsPlayer {
                 break;
             case SELECT_CELL:
                 getUnitNr();
-             if (alreadyUsed(units[order])){
+                if (alreadyUsed(units[order])){
                     selectUnit();
                     s = State.MOVE_UNIT;
                 }
-             if(!playerOnUnit()){
+                if(!playerOnUnit()) {
                  s = State.NORMAL;
-             }
+                }
                 break;
             case MOVE_UNIT:
                 if (keyboard.get(Keyboard.ENTER).isReleased() && !playerOnUnit() && gogoInRange()) {
@@ -99,10 +99,10 @@ public class RealPlayer extends ICWarsPlayer {
                 }
                 break;
             case ACTION_SELECTION:
-
+                //TODO later
                 break;
             case ACTION:
-
+                //TODO later
                 break;
         }
 
@@ -235,6 +235,25 @@ public class RealPlayer extends ICWarsPlayer {
     }
 
     private class ICWarsPlayerInteractionHandler implements ICWarsInteractionVisitor{
-        int i = 3;
+
+        @Override
+        public void interactWith(RealPlayer realPlayer) {
+            if (!isDisplacementOccurs()) {
+                //TODO sth
+            }
+        }
+
+        @Override
+        public void interactWith(Unit unit) {
+            if (s.equals(State.SELECT_CELL) && belongs.equals(unit.belongs)) {
+                selectedUnit = selectUnit();
+                gui.setSelectedUnit(selectedUnit);
+            }
+        }
+
+//        @Override
+        public void acceptInteraction() {
+
+        }
     }
 }
