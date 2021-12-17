@@ -19,6 +19,7 @@ public abstract class Unit extends ICWarsActor {
     int maxRange;
     ICWarsRange range = new ICWarsRange();
     int coordsX, coordsY;
+    boolean used = false;
 
 //    public  int rangeIdentifier(){
 //        if(Hp == 4){    // needs to be changed with getCurrentMainCellCoordinates().equals(units[0].getCurrentCells().get(0))
