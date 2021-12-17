@@ -24,7 +24,7 @@ public class RealPlayer extends ICWarsPlayer {
     private ICWarsPlayerGUI gui = new ICWarsPlayerGUI(getOwnerArea().getCameraScaleFactor(), this);
     private int order;
     // henri is stupid
-    private int gogoCase = 0;
+    ArrayList<Unit> usedNumbers = new ArrayList<>();
 
     /**
      * Demo actor
@@ -63,39 +63,47 @@ public class RealPlayer extends ICWarsPlayer {
 
 
         switch (s) {
-            case IDLE: {
+            case IDLE:
 
-            }
-            case NORMAL: {
-                if (keyboard.get(Keyboard.ENTER).isReleased() && playerOnUnit() && gogoCase == 0) {
-//                    Vector originalUnitCoords = new Vector(getCurrentMainCellCoordinates().x, getCurrentMainCellCoordinates().y);
-                    gogoCase = 1;
+                break;
+            case NORMAL:
+                if (keyboard.get(Keyboard.ENTER).isReleased() && playerOnUnit()) {
                     s = State.SELECT_CELL;
                 } else if (keyboard.get(Keyboard.TAB).isReleased()) {
                     s = State.IDLE;
+                } else if (keyboard.get(Keyboard.ENTER).isReleased() && !playerOnUnit()) {
+                    s = State.NORMAL;
                 }
-            }
+                break;
             case SELECT_CELL:
-             if (gogoCase == 1){
+                getUnitNr();
+             if (alreadyUsed(units[order])){
                     selectUnit();
-                    gogoCase = 2;
                     s = State.MOVE_UNIT;
                 }
+             if(!playerOnUnit()){
+                 s = State.NORMAL;
+             }
+                break;
             case MOVE_UNIT:
-                if (keyboard.get(Keyboard.ENTER).isReleased() && !playerOnUnit() && gogoCase == 2) {
+                if (keyboard.get(Keyboard.ENTER).isReleased() && !playerOnUnit() && gogoInRange()) {
                     units[order].changePosition(getCurrentMainCellCoordinates());
+                    s = State.NORMAL;
 //                    ICWarsRange newRange = new ICWarsRange();
 //                    units[order].createRange(getOwnerArea(),getCurrentMainCellCoordinates(), units[order].maxRange, newRange);
 //                    units[order].range = newRange;
 
-                    gogoCase = 0;
-                    s = State.NORMAL;
                 } else if(keyboard.get(Keyboard.TAB).isReleased()){
-                    gogoCase = 0;
                     s = State.NORMAL;
+                    usedNumbers.remove(usedNumbers.size()-1);
                 }
-            case ACTION_SELECTION: {}
-            case ACTION: {}
+                break;
+            case ACTION_SELECTION:
+
+                break;
+            case ACTION:
+
+                break;
         }
 
         super.update(deltaTime);
@@ -172,16 +180,43 @@ public class RealPlayer extends ICWarsPlayer {
     public void acceptInteraction(AreaInteractionVisitor v) {
     }
 
+    public boolean gogoInRange(){
+        if(selectUnit().range.nodeExists(getCurrentMainCellCoordinates())){
+            return true;
+        }
+        return false;
+    }
+
     private boolean playerOnUnit(){
         if(getCurrentMainCellCoordinates().equals(units[0].getCurrentCells().get(0))){ return true;}
         if(getCurrentMainCellCoordinates().equals(units[1].getCurrentCells().get(0))){ return true;}
 
-
         return false;
     }
 
-    public Unit selectUnit() {
-//        this.getCurrentMainCellCoordinates();
+    public boolean alreadyUsed(Unit unit){
+        if(usedNumbers.size() == 0){
+            usedNumbers.add(unit);
+            return true;
+        }
+        usedNumbers.add(unit);
+        if(doubleUsed(unit)){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean doubleUsed(Unit unit){
+        for(int k = 0; k < usedNumbers.size()-1; ++k){
+            if(unit == usedNumbers.get(k)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void getUnitNr(){
+        //        this.getCurrentMainCellCoordinates();
         if (getCurrentMainCellCoordinates().equals(units[0].getCurrentCells().get(0))) {
             // Soldier
             this.order = 0;
@@ -189,12 +224,13 @@ public class RealPlayer extends ICWarsPlayer {
             // Tank
             this.order = 1;
         }
-        if (order == 0 || order == 1) {
+    }
+
+    public Unit selectUnit() {
+
 //            gui.draw(canvas, (super.units)[this.order]);
             gui.setSelectedUnit((super.units)[this.order]);
             return (super.units)[this.order];
-        } else {
-            return null;
-        }
+
     }
 }
