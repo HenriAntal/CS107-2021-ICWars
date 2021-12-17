@@ -1,15 +1,13 @@
 package ch.epfl.cs107.play.game.icwars;
 
-import ch.epfl.cs107.play.game.icwars.actor.players.Soldier;
-import ch.epfl.cs107.play.game.icwars.actor.players.Tank;
-import ch.epfl.cs107.play.game.icwars.actor.players.Unit;
+import ch.epfl.cs107.play.game.icwars.actor.players.*;
 import ch.epfl.cs107.play.game.areagame.AreaGame;
-import ch.epfl.cs107.play.game.icwars.actor.players.RealPlayer;
 import ch.epfl.cs107.play.game.icwars.area.ICWarsArea;
 import ch.epfl.cs107.play.game.icwars.area.Level0;
 import ch.epfl.cs107.play.game.icwars.area.Level1;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
+import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Keyboard;
 import ch.epfl.cs107.play.window.Window;
 
@@ -17,9 +15,11 @@ public class ICWars extends AreaGame {
 
     public final static float CAMERA_SCALE_FACTOR = 14.f;
     public Unit[] units1 = new Unit[2];
+    public Unit[] units2 = new Unit[2];
     //public ArrayList<Unit> units2 = new ArrayList<Unit>();
 
-    private RealPlayer player;
+    private RealPlayer [] player = new RealPlayer[2];
+
     private final String[] areas = {"icwars/Level0", "icwars/Level1"};
 
     private int areaIndex;
@@ -53,15 +53,22 @@ public class ICWars extends AreaGame {
 
         ICWarsArea area = (ICWarsArea) setCurrentArea(areaKey, true);
         DiscreteCoordinates coords = area.getPlayerSpawnPosition();
+        DiscreteCoordinates enemyCoords = area.getEnemySpawnPosition();
 
         units1[0] = new Soldier(area , new DiscreteCoordinates(3,5),"ally");
         units1[1] = new Tank(area , new DiscreteCoordinates(2,5),"ally");
 
-        player = new RealPlayer(area, coords, "ally", units1);
-        player.enterArea(area, coords);
-        player.centerCamera();
-        player.startNormal();
+        units2[0] = new Soldier(area, new DiscreteCoordinates(8, 5), "enemy");
+        units2[1] = new Tank(area, new DiscreteCoordinates(9, 5), "enemy");
 
+        player[0] = new RealPlayer(area, coords, "ally", units1);
+        player[1] = new RealPlayer(area, enemyCoords, "enemy" ,units2);
+
+        player[0].enterArea(area, coords);
+        //player[1].enterArea(area, enemyCoords);
+
+        player[0].centerCamera();
+        player[0].s = ICWarsPlayer.State.IDLE;
     }
 
     @Override
@@ -82,6 +89,13 @@ public class ICWars extends AreaGame {
 //            player.gogoReset();
 //        }
 
+        if(units1.length == 0){
+            System.out.println("Enemy Won!");
+        }
+        if(units2.length == 0){
+
+        }
+
         super.update(deltaTime);
 
     }
@@ -99,7 +113,8 @@ public class ICWars extends AreaGame {
 
     protected void switchArea() {
 
-        player.leaveArea();
+        player[0].leaveArea();
+        player[1].leaveArea();
 
         if (areaIndex == areas.length - 1) {
             System.out.println("GAME OVER BABEEEE");

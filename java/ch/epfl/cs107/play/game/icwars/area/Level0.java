@@ -5,13 +5,20 @@ import ch.epfl.cs107.play.math.DiscreteCoordinates;
 
 public class Level0 extends ICWarsArea {
 
-        @Override
-        public String getTitle() {
-            return "icwars/Level0";
-        }
+    @Override
+    public String getTitle() {
+        return "icwars/Level0";
+    }
 
-        @Override
-        public DiscreteCoordinates getPlayerSpawnPosition() {return new DiscreteCoordinates(0,0);}
+    @Override
+    public DiscreteCoordinates getPlayerSpawnPosition() {
+        return new DiscreteCoordinates(0, 0);
+    }
+
+    @Override
+    public DiscreteCoordinates getEnemySpawnPosition() {
+        return new DiscreteCoordinates(7, 4);
+    }
 
 
         /*
@@ -28,11 +35,10 @@ public class Level0 extends ICWarsArea {
     }
 
     protected void createArea() {
-            // Base
-            registerActor(new Background(this));
-        }
-
-
-
+        // Base
+        registerActor(new Background(this));
     }
+
+
+}
 

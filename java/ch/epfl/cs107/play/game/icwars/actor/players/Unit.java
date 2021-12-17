@@ -135,5 +135,4 @@ public abstract class Unit extends ICWarsActor {
             new Path(getCurrentMainCellCoordinates().toVector(), path).draw(canvas);
         }
     }
-
 }

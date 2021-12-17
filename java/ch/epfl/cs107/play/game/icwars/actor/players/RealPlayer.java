@@ -178,6 +178,12 @@ public class RealPlayer extends ICWarsPlayer {
 
     @Override
     public void acceptInteraction(AreaInteractionVisitor v) {
+
+    }
+
+
+    public void interactWith(){
+
     }
 
     public boolean gogoInRange(){

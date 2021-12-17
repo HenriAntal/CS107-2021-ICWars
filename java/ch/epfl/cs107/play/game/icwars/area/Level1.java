@@ -15,6 +15,9 @@ public class Level1 extends ICWarsArea {
         return new DiscreteCoordinates(2,5);
     }
 
+    @Override
+    public DiscreteCoordinates getEnemySpawnPosition() {return new DiscreteCoordinates(17,5);}
+
     protected void createArea() {
         // Base
         registerActor(new Background(this));
