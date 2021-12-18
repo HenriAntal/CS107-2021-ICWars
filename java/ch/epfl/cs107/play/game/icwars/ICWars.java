@@ -123,7 +123,7 @@ public class ICWars extends AreaGame {
 //            ((RealPlayer)player).selectUnit(0); // 0, 1 ...
 //            player.gogoSetter();
 //            player.gogoReset();
-//        }
+//        }x
 
         if (units1.length == 0) {
             System.out.println("Enemy Won!");
