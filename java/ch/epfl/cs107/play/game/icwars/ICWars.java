@@ -26,6 +26,7 @@ public class ICWars extends AreaGame {
     private ArrayList<ICWarsPlayer> playersWaitingCurrent = new ArrayList<ICWarsPlayer>();
     private ArrayList<ICWarsPlayer> playersWaitingNext = new ArrayList<ICWarsPlayer>();
     private ICWarsPlayer activePlayer;
+    private int activePlayerOrder;
 
     private final String[] areas = {"icwars/Level0", "icwars/Level1"};
     private int areaIndex;
@@ -74,8 +75,6 @@ public class ICWars extends AreaGame {
         players.get(1).enterArea(area, enemyCoords);
 
         players.get(0).centerCamera();
-        players.get(0).startTurn();
-        activePlayer = players.get(0);
 //        player[0].s = ICWarsPlayer.State.NORMAL;
 
     }
@@ -87,6 +86,10 @@ public class ICWars extends AreaGame {
         switch (d) {
             case INIT:
                 //TODO all players in the list
+                initArea(areas[0]);
+                playersWaitingCurrent = players;
+                playersWaitingNext = null;
+                d = Dynamics.CHOOSE_PLAYER;
                 break;
 
             case CHOOSE_PLAYER:
@@ -94,37 +97,62 @@ public class ICWars extends AreaGame {
                 //switch to the stateEND_TURN (end of round); otherwise choose the new active player
                 //and remove it from the list of players waiting to play the current round; and go to the
                 //state START_PLAYER_TURN;
+                if (playersWaitingCurrent.isEmpty()) {
+                    d = Dynamics.END_TURN;
+                } else {
+                    activePlayer = playersWaitingCurrent.get(0);
+                    playersWaitingCurrent.remove(0);
+                    d = Dynamics.START_PLAYER_TURN;
+                }
                 break;
 
             case START_PLAYER_TURN:
-
                 //TODO START_PLAYER_TURN invoke method start_turn on the currently active player and
                 //switch to the state PLAYER_TURN
+                players.get(0).startTurn();
+                d = Dynamics.PLAYER_TURN;
                 break;
 
             case PLAYER_TURN:
-
                 // TODO PLAYER_TURN if the currently active player has finished his turn (his status is changed
                 //to IDLE), change to stateEND_PLAYER_TURN;
+                if (activePlayer.s.equals(ICWarsPlayer.State.IDLE)) {
+                    d = Dynamics.PLAYER_TURN;
+                }
                 break;
 
             case END_PLAYER_TURN:
-
                 // TODO If the currently active player is defeated, remove him from the playing area, other-
                 //wise add him to the list of players waiting to play the next round and go to the
                 //state CHOOSE_PLAYER ; It will be necessary to ensure that all its units become usable
                 //again (from a visualization aspect in particular);
-
+                if (activePlayer.getUnits().length == 0) {
+                    activePlayer.leaveArea();
+                } else if (activePlayer.getUnits().length != 0) {
+                    playersWaitingNext.add(activePlayer);
+                }
+                d = Dynamics.CHOOSE_PLAYER;
                 break;
 
             case END_TURN:
-
                 // TODO END_TURN remove all defeated players (from the list of players waiting to play the
                 //next round and from the game in general). If there is only one player left in the list
                 //of players waiting for to play in the next round, go to the status END, otherwise move
                 //all the players on the list waiting to play the next round to the one waiting to play
                 //the current round and return to the state CHOOSE_PLAYER
-
+                for (int i = 0; i < playersWaitingNext.size(); ++i) {
+                    if (playersWaitingNext.get(i).playerDefeated()) {
+                        playersWaitingNext.remove(i);
+                    }
+                }
+                if (playersWaitingNext.size() < 2) {
+                    d = Dynamics.END;
+                } else {
+                    for (ICWarsPlayer player : playersWaitingNext) {
+                        playersWaitingCurrent.add(player);
+                        d = Dynamics.CHOOSE_PLAYER;
+                    }
+                }
 
                 // checks if one player doesn't have any Unit's left
                 if(checkForWin() && players.size() == 1){
@@ -133,8 +161,8 @@ public class ICWars extends AreaGame {
                 break;
 
             case END:
-
                 // TODO manage the end of the game
+                switchArea();
                 break;
         }
 

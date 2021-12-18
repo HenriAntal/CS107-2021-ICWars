@@ -27,7 +27,6 @@ public class RealPlayer extends ICWarsPlayer {
 //    private Unit selectedUnit;
     private ICWarsPlayerInteractionHandler handler = new ICWarsPlayerInteractionHandler();
     // FRANCE is stupid
-    ArrayList<Unit> usedNumbers = new ArrayList<>();
 
 
 
@@ -186,12 +185,6 @@ public class RealPlayer extends ICWarsPlayer {
         return Collections.singletonList(getCurrentMainCellCoordinates());
     }
 
-    @Override
-    public void acceptInteraction(AreaInteractionVisitor v) {
-
-    }
-
-
     public void interactWith(){
 
     }
@@ -208,27 +201,6 @@ public class RealPlayer extends ICWarsPlayer {
         if(getCurrentMainCellCoordinates().equals(units[0].getCurrentCells().get(0))){ return true;}
         if(getCurrentMainCellCoordinates().equals(units[1].getCurrentCells().get(0))){ return true;}
 
-        return false;
-    }
-
-    public boolean notAlreadyUsed(Unit unit){
-        if(usedNumbers.size() == 0){
-            usedNumbers.add(unit);
-            return true;
-        }
-        usedNumbers.add(unit);
-        if(doubleUsed(unit)){
-            return false;
-        }
-        return true;
-    }
-
-    public boolean doubleUsed(Unit unit){
-        for(int k = 0; k < usedNumbers.size()-1; ++k){
-            if(unit == usedNumbers.get(k)){
-                return true;
-            }
-        }
         return false;
     }
 
