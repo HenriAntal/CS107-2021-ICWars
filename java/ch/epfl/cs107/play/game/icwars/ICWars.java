@@ -81,31 +81,50 @@ public class ICWars extends AreaGame {
 
         switch (d) {
             case INIT:
-
+                //TODO all players in the list
                 break;
 
             case CHOOSE_PLAYER:
-
+                // TODO CHOOSE_PLAYER If the list of players waiting to play the current round is empty,
+                //switch to the stateEND_TURN (end of round); otherwise choose the new active player
+                //and remove it from the list of players waiting to play the current round; and go to the
+                //state START_PLAYER_TURN;
                 break;
 
             case START_PLAYER_TURN:
 
+                //TODO START_PLAYER_TURN invoke method start_turn on the currently active player and
+                //switch to the state PLAYER_TURN
                 break;
 
             case PLAYER_TURN:
 
+                // TODO PLAYER_TURN if the currently active player has finished his turn (his status is changed
+                //to IDLE), change to stateEND_PLAYER_TURN;
                 break;
 
             case END_PLAYER_TURN:
+
+                // TODO If the currently active player is defeated, remove him from the playing area, other-
+                //wise add him to the list of players waiting to play the next round and go to the
+                //state CHOOSE_PLAYER ; It will be necessary to ensure that all its units become usable
+                //again (from a visualization aspect in particular);
 
                 break;
 
             case END_TURN:
 
+                // TODO END_TURN remove all defeated players (from the list of players waiting to play the
+                //next round and from the game in general). If there is only one player left in the list
+                //of players waiting for to play in the next round, go to the status END, otherwise move
+                //all the players on the list waiting to play the next round to the one waiting to play
+                //the current round and return to the state CHOOSE_PLAYER
+
                 break;
 
             case END:
 
+                // TODO manage the end of the game
                 break;
         }
 
