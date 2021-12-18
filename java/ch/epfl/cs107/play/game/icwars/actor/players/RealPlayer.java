@@ -24,7 +24,8 @@ public class RealPlayer extends ICWarsPlayer {
     private final static int MOVE_DURATION = 2;
     private ICWarsPlayerGUI gui = new ICWarsPlayerGUI(getOwnerArea().getCameraScaleFactor(), this);
     private int order;
-    private Unit selectedUnit;
+//    private Unit selectedUnit;
+    private ICWarsPlayerInteractionHandler handler = new ICWarsPlayerInteractionHandler();
     // FRANCE is stupid
     ArrayList<Unit> usedNumbers = new ArrayList<>();
 
@@ -85,11 +86,12 @@ public class RealPlayer extends ICWarsPlayer {
             case SELECT_CELL:
                 getUnitNr();
                 if (notAlreadyUsed(units[order])){
-                    selectUnit();
+//                    selectUnit();
+                    handler.interactWith(selectUnit());
                     s = State.MOVE_UNIT;
                 }
                 if(!playerOnUnit()) {
-                 s = State.NORMAL;
+                    s = State.NORMAL;
                 }
                 break;
             case MOVE_UNIT:
@@ -100,13 +102,10 @@ public class RealPlayer extends ICWarsPlayer {
 //                    ICWarsRange newRange = new ICWarsRange();
 //                    units[order].createRange(getOwnerArea(),getCurrentMainCellCoordinates(), units[order].maxRange, newRange);
 //                    units[order].range = newRange;
-
-
                 } else if(keyboard.get(Keyboard.TAB).isReleased() || !gogoInRange()){
                     s = State.NORMAL;
                     usedNumbers.remove(usedNumbers.size()-1);
                 }
-
 
                 break;
             case ACTION_SELECTION:
@@ -247,8 +246,8 @@ public class RealPlayer extends ICWarsPlayer {
     public Unit selectUnit() {
 
 //            gui.draw(canvas, (super.units)[this.order]);
-            gui.setSelectedUnit((super.units)[this.order]);
-            return (super.units)[this.order];
+        gui.setSelectedUnit((super.units)[this.order]);
+        return (super.units)[this.order];
 
     }
 
@@ -263,15 +262,12 @@ public class RealPlayer extends ICWarsPlayer {
 
         @Override
         public void interactWith(Unit unit) {
-            if (s.equals(State.SELECT_CELL) && belongs.equals(unit.belongs)) {
+            if (!isDisplacementOccurs() && s.equals(State.SELECT_CELL) && belongs.equals(unit.belongs)) {
                 selectedUnit = selectUnit();
-                gui.setSelectedUnit(selectedUnit);
+            } else {
+                selectedUnit = null;
             }
-        }
-
-//        @Override
-        public void acceptInteraction() {
-
+            gui.setSelectedUnit(selectedUnit);
         }
     }
 }

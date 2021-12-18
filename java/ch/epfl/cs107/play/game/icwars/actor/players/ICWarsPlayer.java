@@ -13,6 +13,7 @@ public class ICWarsPlayer extends ICWarsActor implements Interactor, Interactabl
 
     private Sprite sprite;
     protected Unit[] units = new Unit[2];
+    protected Unit selectedUnit;
     protected ArrayList<RealPlayer> realPlayers = new ArrayList<RealPlayer>();
     public enum State {IDLE, NORMAL, SELECT_CELL, MOVE_UNIT, ACTION_SELECTION, ACTION}
     public State s;

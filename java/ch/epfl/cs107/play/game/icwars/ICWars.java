@@ -135,6 +135,7 @@ public class ICWars extends AreaGame {
         }
 
         super.update(deltaTime);
+
     }
 
 
@@ -151,7 +152,7 @@ public class ICWars extends AreaGame {
     protected void switchArea() {
 
         player[0].leaveArea();
-        //player[1].leaveArea();
+//        player[1].leaveArea();
 
         if (areaIndex == areas.length - 1) {
             System.out.println("GAME OVER BABEEEE");
