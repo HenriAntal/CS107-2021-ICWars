@@ -11,6 +11,8 @@ import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Keyboard;
 import ch.epfl.cs107.play.window.Window;
 
+import java.util.ArrayList;
+
 public class ICWars extends AreaGame {
 
     public final static float CAMERA_SCALE_FACTOR = 14.f;
@@ -18,21 +20,20 @@ public class ICWars extends AreaGame {
     public Unit[] units2 = new Unit[2];
 
     public enum Dynamics {INIT, CHOOSE_PLAYER, START_PLAYER_TURN, PLAYER_TURN, END_PLAYER_TURN, END_TURN, END}
-
     public Dynamics d;
-    //public ArrayList<Unit> units2 = new ArrayList<Unit>();
 
-    private RealPlayer[] player = new RealPlayer[2];
+    private ArrayList<ICWarsPlayer> players = new ArrayList<ICWarsPlayer>();
+    private ArrayList<ICWarsPlayer> playersWaitingCurrent = new ArrayList<ICWarsPlayer>();
+    private ArrayList<ICWarsPlayer> playersWaitingNext = new ArrayList<ICWarsPlayer>();
+    private ICWarsPlayer activePlayer;
 
     private final String[] areas = {"icwars/Level0", "icwars/Level1"};
-
     private int areaIndex;
 
     /**
      * Add all the areas
      */
     private void createAreas() {
-
         addArea(new Level0());
         addArea(new Level1());
     }
@@ -43,6 +44,7 @@ public class ICWars extends AreaGame {
             createAreas();
             areaIndex = 0;
             initArea(areas[areaIndex]);
+            d = Dynamics.INIT;
             return true;
         }
         return false;
@@ -62,17 +64,20 @@ public class ICWars extends AreaGame {
         units1[0] = new Soldier(area, new DiscreteCoordinates(3, 5), "ally");
         units1[1] = new Tank(area, new DiscreteCoordinates(2, 5), "ally");
 
-        units2[0] = new Soldier(area, new DiscreteCoordinates(8, 5), "enemy");
-        units2[1] = new Tank(area, new DiscreteCoordinates(9, 5), "enemy");
+        units2[0] = new Soldier(area, new DiscreteCoordinates(9, 5), "enemy");
+        units2[1] = new Tank(area, new DiscreteCoordinates(8, 5), "enemy");
 
-        player[0] = new RealPlayer(area, coords, "ally", units1);
-        player[1] = new RealPlayer(area, enemyCoords, "enemy", units2);
+        players.add(new RealPlayer(area, coords, "ally", units1));
+        players.add(new RealPlayer(area, enemyCoords, "enemy", units2));
 
-        player[0].enterArea(area, coords);
-        //player[1].enterArea(area, enemyCoords);
+        players.get(0).enterArea(area, coords);
+        players.get(1).enterArea(area, enemyCoords);
 
-        player[0].centerCamera();
-        player[0].s = ICWarsPlayer.State.NORMAL;
+        players.get(0).centerCamera();
+        players.get(0).startTurn();
+        activePlayer = players.get(0);
+//        player[0].s = ICWarsPlayer.State.NORMAL;
+
     }
 
     @Override
@@ -122,7 +127,7 @@ public class ICWars extends AreaGame {
 
 
                 // checks if one player doesn't have any Unit's left
-                if(checkForWin() && player.length == 1){
+                if(checkForWin() && players.size() == 1){
                     d = Dynamics.END;
                 }
                 break;
@@ -172,8 +177,9 @@ public class ICWars extends AreaGame {
 
     protected void switchArea() {
 
-        player[0].leaveArea();
-//        player[1].leaveArea();
+        for (ICWarsPlayer player : players) {
+            player.leaveArea();
+        }
 
         if (areaIndex == areas.length - 1) {
             System.out.println("GAME OVER BABEEEE");
