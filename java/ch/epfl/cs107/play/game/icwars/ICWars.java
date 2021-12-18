@@ -16,6 +16,10 @@ public class ICWars extends AreaGame {
     public final static float CAMERA_SCALE_FACTOR = 14.f;
     public Unit[] units1 = new Unit[2];
     public Unit[] units2 = new Unit[2];
+
+    public enum Dynamics {INIT, CHOOSE_PLAYER, START_PLAYER_TURN, PLAYER_TURN, END_PLAYER_TURN, END_TURN, END}
+
+    public Dynamics d;
     //public ArrayList<Unit> units2 = new ArrayList<Unit>();
 
     private RealPlayer[] player = new RealPlayer[2];
@@ -73,6 +77,38 @@ public class ICWars extends AreaGame {
 
     @Override
     public void update(float deltaTime) {
+
+
+        switch (d) {
+            case INIT:
+
+                break;
+
+            case CHOOSE_PLAYER:
+
+                break;
+
+            case START_PLAYER_TURN:
+
+                break;
+
+            case PLAYER_TURN:
+
+                break;
+
+            case END_PLAYER_TURN:
+
+                break;
+
+            case END_TURN:
+
+                break;
+
+            case END:
+
+                break;
+        }
+
         Keyboard keyboard = getKeyboard();
 
         if (keyboard.get(Keyboard.R).isReleased()) {
@@ -99,7 +135,6 @@ public class ICWars extends AreaGame {
         }
 
         super.update(deltaTime);
-
     }
 
 
@@ -116,7 +151,7 @@ public class ICWars extends AreaGame {
     protected void switchArea() {
 
         player[0].leaveArea();
-        player[1].leaveArea();
+        //player[1].leaveArea();
 
         if (areaIndex == areas.length - 1) {
             System.out.println("GAME OVER BABEEEE");
