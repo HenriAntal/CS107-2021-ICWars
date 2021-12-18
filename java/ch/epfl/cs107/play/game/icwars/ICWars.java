@@ -44,7 +44,7 @@ public class ICWars extends AreaGame {
         if (super.begin(window, fileSystem)) {
             createAreas();
             areaIndex = 0;
-            initArea(areas[areaIndex]);
+//            initArea(areas[areaIndex]);
             d = Dynamics.INIT;
             return true;
         }
@@ -88,7 +88,7 @@ public class ICWars extends AreaGame {
         switch (d) {
             case INIT:
                 //TODO all players in the list
-                initArea(areas[0]);
+                initArea(areas[areaIndex]);
                 playersWaitingCurrent = players;
                 playersWaitingForNext = null;
                 d = Dynamics.CHOOSE_PLAYER;
@@ -129,6 +129,7 @@ public class ICWars extends AreaGame {
                 //state CHOOSE_PLAYER ; It will be necessary to ensure that all its units become usable
                 //again (from a visualization aspect in particular);
                 if (activePlayer.getUnits().length == 0) {
+                    //TODO units leaveArea() (not necessarily here)
                     activePlayer.leaveArea();
                 } else if (activePlayer.getUnits().length != 0) {
                     playersWaitingForNext.add(activePlayer);
@@ -147,7 +148,8 @@ public class ICWars extends AreaGame {
                         playersWaitingForNext.remove(i);
                     }
                 }
-                if (players.size() < 2) {
+
+                if (playersWaitingForNext.size() < 2) {
                     d = Dynamics.END;
                 } else {
                     for (ICWarsPlayer player : playersWaitingForNext) {
@@ -160,6 +162,7 @@ public class ICWars extends AreaGame {
             case END:
                 // TODO manage the end of the game
                 switchArea();
+                d = Dynamics.INIT;
                 break;
         }
 
@@ -201,9 +204,10 @@ public class ICWars extends AreaGame {
 
     protected void switchArea() {
 
-        for (ICWarsPlayer player : players) {
-            player.leaveArea();
-        }
+//        for (ICWarsPlayer player : players) {
+//            player.leaveArea();
+//        }
+        players.clear();
 
         if (areaIndex == areas.length - 1) {
             System.out.println("GAME OVER BABEEEE");
@@ -214,9 +218,10 @@ public class ICWars extends AreaGame {
         } else {
             areaIndex += 1;
             for (int i = 0; i < units1.length; ++i) {
-                units1[i].leaveArea();
+//                units1[i].leaveArea();
             }
-            initArea(areas[areaIndex]);
+//            initArea(areas[areaIndex]);
+            d = Dynamics.INIT;
         }
 
 
