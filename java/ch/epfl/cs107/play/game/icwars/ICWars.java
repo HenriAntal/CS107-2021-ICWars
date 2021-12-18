@@ -18,7 +18,7 @@ public class ICWars extends AreaGame {
     public Unit[] units2 = new Unit[2];
     //public ArrayList<Unit> units2 = new ArrayList<Unit>();
 
-    private RealPlayer [] player = new RealPlayer[2];
+    private RealPlayer[] player = new RealPlayer[2];
 
     private final String[] areas = {"icwars/Level0", "icwars/Level1"};
 
@@ -55,20 +55,20 @@ public class ICWars extends AreaGame {
         DiscreteCoordinates coords = area.getPlayerSpawnPosition();
         DiscreteCoordinates enemyCoords = area.getEnemySpawnPosition();
 
-        units1[0] = new Soldier(area , new DiscreteCoordinates(3,5),"ally");
-        units1[1] = new Tank(area , new DiscreteCoordinates(2,5),"ally");
+        units1[0] = new Soldier(area, new DiscreteCoordinates(3, 5), "ally");
+        units1[1] = new Tank(area, new DiscreteCoordinates(2, 5), "ally");
 
         units2[0] = new Soldier(area, new DiscreteCoordinates(8, 5), "enemy");
         units2[1] = new Tank(area, new DiscreteCoordinates(9, 5), "enemy");
 
         player[0] = new RealPlayer(area, coords, "ally", units1);
-        player[1] = new RealPlayer(area, enemyCoords, "enemy" ,units2);
+        player[1] = new RealPlayer(area, enemyCoords, "enemy", units2);
 
         player[0].enterArea(area, coords);
         //player[1].enterArea(area, enemyCoords);
 
         player[0].centerCamera();
-        player[0].s = ICWarsPlayer.State.IDLE;
+        player[0].s = ICWarsPlayer.State.NORMAL;
     }
 
     @Override
@@ -89,11 +89,13 @@ public class ICWars extends AreaGame {
 //            player.gogoReset();
 //        }
 
-        if(units1.length == 0){
+        if (units1.length == 0) {
             System.out.println("Enemy Won!");
+            switchArea();
         }
-        if(units2.length == 0){
-
+        if (units2.length == 0) {
+            System.out.println("You Won!");
+            switchArea();
         }
 
         super.update(deltaTime);
@@ -129,7 +131,6 @@ public class ICWars extends AreaGame {
             }
             initArea(areas[areaIndex]);
         }
-
 
 
     }

@@ -1,5 +1,6 @@
 package ch.epfl.cs107.play.game.icwars.actor.players;
 
+import ch.epfl.cs107.play.game.areagame.actor.Sprite;
 import ch.epfl.cs107.play.game.icwars.area.ICWarsRange;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
@@ -20,6 +21,7 @@ public abstract class Unit extends ICWarsActor {
     ICWarsRange range = new ICWarsRange();
     int coordsX, coordsY;
     boolean used = false;
+    protected Sprite sprite;
 
 //    public  int rangeIdentifier(){
 //        if(Hp == 4){    // needs to be changed with getCurrentMainCellCoordinates().equals(units[0].getCurrentCells().get(0))
@@ -99,6 +101,10 @@ public abstract class Unit extends ICWarsActor {
         return true;
     }
 
+    public void changeSprite(float number){
+        sprite.setAlpha(number);
+    }
+
     @Override
     public List<DiscreteCoordinates> getCurrentCells() {
         return Collections.singletonList(getCurrentMainCellCoordinates());
@@ -107,6 +113,7 @@ public abstract class Unit extends ICWarsActor {
     @Override
     public void acceptInteraction(AreaInteractionVisitor v) {
     }
+
 
     @Override
     public boolean changePosition(DiscreteCoordinates newPosition) {

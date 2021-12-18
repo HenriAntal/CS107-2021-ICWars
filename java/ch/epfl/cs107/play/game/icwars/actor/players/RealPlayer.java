@@ -24,7 +24,7 @@ public class RealPlayer extends ICWarsPlayer {
     private ICWarsPlayerGUI gui = new ICWarsPlayerGUI(getOwnerArea().getCameraScaleFactor(), this);
     private int order;
     private Unit selectedUnit;
-    // henri is stupid
+    // FRANCE is stupid
     ArrayList<Unit> usedNumbers = new ArrayList<>();
 
     /**
@@ -70,6 +70,9 @@ public class RealPlayer extends ICWarsPlayer {
                 if (keyboard.get(Keyboard.ENTER).isReleased() && playerOnUnit()) {
                     s = State.SELECT_CELL;
                 } else if (keyboard.get(Keyboard.TAB).isReleased()) {
+                    for(int i = 0; i < units.length; ++i){
+                        units[i].changeSprite(1);
+                    }
                     s = State.IDLE;
                 } else if (keyboard.get(Keyboard.ENTER).isReleased() && !playerOnUnit()) {
                     s = State.NORMAL;
@@ -77,7 +80,7 @@ public class RealPlayer extends ICWarsPlayer {
                 break;
             case SELECT_CELL:
                 getUnitNr();
-                if (alreadyUsed(units[order])){
+                if (notAlreadyUsed(units[order])){
                     selectUnit();
                     s = State.MOVE_UNIT;
                 }
@@ -86,17 +89,21 @@ public class RealPlayer extends ICWarsPlayer {
                 }
                 break;
             case MOVE_UNIT:
-                if (keyboard.get(Keyboard.ENTER).isReleased() && !playerOnUnit() && gogoInRange()) {
+                if (keyboard.get(Keyboard.ENTER).isReleased() && !playerOnUnit()) {
                     units[order].changePosition(getCurrentMainCellCoordinates());
+                    units[order].changeSprite(0.5f);
                     s = State.NORMAL;
 //                    ICWarsRange newRange = new ICWarsRange();
 //                    units[order].createRange(getOwnerArea(),getCurrentMainCellCoordinates(), units[order].maxRange, newRange);
 //                    units[order].range = newRange;
 
-                } else if(keyboard.get(Keyboard.TAB).isReleased()){
+
+                } else if(keyboard.get(Keyboard.TAB).isReleased() || !gogoInRange()){
                     s = State.NORMAL;
                     usedNumbers.remove(usedNumbers.size()-1);
                 }
+
+
                 break;
             case ACTION_SELECTION:
                 //TODO later
@@ -186,6 +193,7 @@ public class RealPlayer extends ICWarsPlayer {
 
     }
 
+    // checks if the RealPlayer is in Range of the selected unit, so it checks if is still on a Node, if not you go back to Normal State.
     public boolean gogoInRange(){
         if(selectUnit().range.nodeExists(getCurrentMainCellCoordinates())){
             return true;
@@ -200,7 +208,7 @@ public class RealPlayer extends ICWarsPlayer {
         return false;
     }
 
-    public boolean alreadyUsed(Unit unit){
+    public boolean notAlreadyUsed(Unit unit){
         if(usedNumbers.size() == 0){
             usedNumbers.add(unit);
             return true;

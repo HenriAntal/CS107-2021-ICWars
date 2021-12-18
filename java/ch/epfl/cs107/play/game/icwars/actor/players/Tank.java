@@ -9,7 +9,6 @@ import ch.epfl.cs107.play.window.Canvas;
 public class Tank extends Unit{
 
     private String name;
-    private Sprite sprite;
 
     public Tank(Area owner, DiscreteCoordinates coordinates, String belongs) {
         super(owner, coordinates, belongs);
@@ -45,6 +44,8 @@ public class Tank extends Unit{
     public void update(float deltaTime) {
 
     }
+
+
 
 
     @Override

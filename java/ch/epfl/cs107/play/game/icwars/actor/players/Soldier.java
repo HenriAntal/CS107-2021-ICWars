@@ -8,7 +8,6 @@ import ch.epfl.cs107.play.window.Canvas;
 
 public class Soldier extends Unit {
     private String name;
-    private Sprite sprite;
 
 
     public Soldier(Area owner, DiscreteCoordinates coordinates, String belongs) {
@@ -42,6 +41,7 @@ public class Soldier extends Unit {
     public int getDamage() {
         return attackDamage;
     }
+
 
     @Override
     public boolean takeCellSpace() {
