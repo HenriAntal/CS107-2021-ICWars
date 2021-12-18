@@ -120,6 +120,11 @@ public class ICWars extends AreaGame {
                 //all the players on the list waiting to play the next round to the one waiting to play
                 //the current round and return to the state CHOOSE_PLAYER
 
+
+                // checks if one player doesn't have any Unit's left
+                if(checkForWin() && player.length == 1){
+                    d = Dynamics.END;
+                }
                 break;
 
             case END:
@@ -144,19 +149,16 @@ public class ICWars extends AreaGame {
 //            player.gogoReset();
 //        }x
 
-        if (units1.length == 0) {
-            System.out.println("Enemy Won!");
-            switchArea();
-        }
-        if (units2.length == 0) {
-            System.out.println("You Won!");
-            switchArea();
-        }
 
         super.update(deltaTime);
 
     }
 
+
+    public boolean checkForWin(){
+
+        return false;
+    }
 
     @Override
     public void end() {
