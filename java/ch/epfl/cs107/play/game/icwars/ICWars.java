@@ -78,7 +78,7 @@ public class ICWars extends AreaGame {
     @Override
     public void update(float deltaTime) {
 
-/*
+
         switch (d) {
             case INIT:
                 //TODO all players in the list
@@ -127,8 +127,6 @@ public class ICWars extends AreaGame {
                 // TODO manage the end of the game
                 break;
         }
-
- */
 
         Keyboard keyboard = getKeyboard();
 
