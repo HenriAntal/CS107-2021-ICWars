@@ -26,7 +26,6 @@ public class ICWars extends AreaGame {
     private ArrayList<ICWarsPlayer> playersWaitingCurrent = new ArrayList<ICWarsPlayer>();
     private ArrayList<ICWarsPlayer> playersWaitingForNext = new ArrayList<ICWarsPlayer>();
     private ICWarsPlayer activePlayer;
-    private int activePlayerOrder;
 
     private final String[] areas = {"icwars/Level0", "icwars/Level1"};
     private int areaIndex;
@@ -149,7 +148,7 @@ public class ICWars extends AreaGame {
                     }
                 }
 
-                if (playersWaitingForNext.size() < 2) {
+                if (playersWaitingForNext.size() == 1) {
                     d = Dynamics.END;
                 } else {
                     for (ICWarsPlayer player : playersWaitingForNext) {
@@ -157,19 +156,24 @@ public class ICWars extends AreaGame {
                         d = Dynamics.CHOOSE_PLAYER;
                     }
                 }
-                
+                break;
 
             case END:
                 // TODO manage the end of the game
                 switchArea();
-                d = Dynamics.INIT;
                 break;
         }
 
         Keyboard keyboard = getKeyboard();
 
         if (keyboard.get(Keyboard.R).isReleased()) {
-            begin(getWindow(), getFileSystem());
+//            begin(getWindow(), getFileSystem());
+            players.clear();
+            for (ICWarsPlayer player : players) {
+                player.clearUsedNumbers();
+            }
+            initArea(areas[0]);
+            d = Dynamics.INIT;
         }
 
         if (keyboard.get(Keyboard.N).isReleased()) {
@@ -217,9 +221,9 @@ public class ICWars extends AreaGame {
 
         } else {
             areaIndex += 1;
-            for (int i = 0; i < units1.length; ++i) {
+//            for (int i = 0; i < units1.length; ++i) {
 //                units1[i].leaveArea();
-            }
+//            }
 //            initArea(areas[areaIndex]);
             d = Dynamics.INIT;
         }

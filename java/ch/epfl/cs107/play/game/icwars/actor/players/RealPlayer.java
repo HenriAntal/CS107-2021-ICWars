@@ -5,12 +5,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import ch.epfl.cs107.play.game.icwars.ICWars;
 import ch.epfl.cs107.play.game.icwars.gui.ICWarsPlayerGUI;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.areagame.actor.Sprite;
-import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
 import ch.epfl.cs107.play.game.icwars.handler.ICWarsInteractionVisitor;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.math.Vector;
@@ -27,9 +25,7 @@ public class RealPlayer extends ICWarsPlayer {
 //    private Unit selectedUnit;
     private ICWarsPlayerInteractionHandler handler = new ICWarsPlayerInteractionHandler();
     // FRANCE is stupid
-    ArrayList<Unit> usedNumbers = new ArrayList<>();
-
-
+    private ArrayList<Unit> usedNumbers = new ArrayList<>();
 
 
     /**
@@ -73,6 +69,7 @@ public class RealPlayer extends ICWarsPlayer {
                 //TODO later
                 break;
             case NORMAL:
+                sprite.setAlpha(1f);
                 if (keyboard.get(Keyboard.ENTER).isReleased() && playerOnUnit()) {
                     s = State.SELECT_CELL;
                 } else if (keyboard.get(Keyboard.TAB).isReleased()) {
@@ -103,7 +100,7 @@ public class RealPlayer extends ICWarsPlayer {
 //                    ICWarsRange newRange = new ICWarsRange();
 //                    units[order].createRange(getOwnerArea(),getCurrentMainCellCoordinates(), units[order].maxRange, newRange);
 //                    units[order].range = newRange;
-                } else if(keyboard.get(Keyboard.TAB).isReleased() || !gogoInRange()){
+                } else if(keyboard.get(Keyboard.TAB).isReleased() || !inRange()){
                     s = State.NORMAL;
                     usedNumbers.remove(usedNumbers.size()-1);
                 }
@@ -192,7 +189,7 @@ public class RealPlayer extends ICWarsPlayer {
     }
 
     // checks if the RealPlayer is in Range of the selected unit, so it checks if is still on a Node, if not you go back to Normal State.
-    public boolean gogoInRange(){
+    public boolean inRange(){
         if(selectUnit().range.nodeExists(getCurrentMainCellCoordinates())){
             return true;
         }
@@ -216,10 +213,6 @@ public class RealPlayer extends ICWarsPlayer {
             return false;
         }
         return true;
-    }
-
-    public void clearUsedNumbers(){
-        usedNumbers.clear();
     }
 
     public boolean doubleUsed(Unit unit){
