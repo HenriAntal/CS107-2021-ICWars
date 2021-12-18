@@ -6,12 +6,14 @@ import ch.epfl.cs107.play.game.areagame.actor.Interactor;
 import ch.epfl.cs107.play.game.areagame.actor.Sprite;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ICWarsPlayer extends ICWarsActor implements Interactor, Interactable {
 
     private Sprite sprite;
     protected Unit[] units = new Unit[2];
+    protected ArrayList<RealPlayer> realPlayers = new ArrayList<RealPlayer>();
     public enum State {IDLE, NORMAL, SELECT_CELL, MOVE_UNIT, ACTION_SELECTION, ACTION}
     public State s;
 
@@ -23,10 +25,13 @@ public class ICWarsPlayer extends ICWarsActor implements Interactor, Interactabl
             s = State.IDLE;
 
 
+
             for (int i = 0; i < units.length; ++i) {
                 (this.units)[i] = units[i];
                 owner.registerActor(units[i]);
             }
+
+
             /*if(belongs.equals("ally")){
                 playerList = allyList;
             } else {
@@ -44,17 +49,17 @@ public class ICWarsPlayer extends ICWarsActor implements Interactor, Interactabl
     }
 
 
-    public boolean playerWon() {
-        if (allyList.isEmpty()) {
-            System.out.println("Allies lost, you lost!");
-            return false;
-        } else if (enemyList.isEmpty()) {
-            System.out.println("Enemies lost, you won!");
-            return false;
-        } else {
-            return true;
-        }
-    }
+//    public boolean playerWon() {
+//        if (allyList.isEmpty()) {
+//            System.out.println("Allies lost, you lost!");
+//            return false;
+//        } else if (enemyList.isEmpty()) {
+//            System.out.println("Enemies lost, you won!");
+//            return false;
+//        } else {
+//            return true;
+//        }
+//    }
 
     /*public void actorAdder(ICWarsPlayer player) {
         playerList.add(player);
