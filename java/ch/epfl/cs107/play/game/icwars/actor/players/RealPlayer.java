@@ -27,6 +27,7 @@ public class RealPlayer extends ICWarsPlayer {
     private ICWarsPlayerInteractionHandler handler = new ICWarsPlayerInteractionHandler();
     // FRANCE is stupid
     private ArrayList<Unit> usedNumbers = new ArrayList<>();
+    boolean freshgame = true;
 
 
     /**
@@ -71,6 +72,10 @@ public class RealPlayer extends ICWarsPlayer {
                 //TODO later
                 break;
             case NORMAL:
+                if(freshgame){
+                    clearUsedNumbers();
+                    freshgame = false;
+                }
                 sprite.setAlpha(1f);
                 if (keyboard.get(Keyboard.ENTER).isReleased() && playerOnUnit()) {
                     s = State.SELECT_CELL;
@@ -133,6 +138,8 @@ public class RealPlayer extends ICWarsPlayer {
             }
         }
     }
+
+
 
     /**
      * Leave an area by unregister this player

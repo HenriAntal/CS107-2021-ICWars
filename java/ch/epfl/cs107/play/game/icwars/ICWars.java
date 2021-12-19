@@ -87,12 +87,13 @@ public class ICWars extends AreaGame {
 //            begin(getWindow(), getFileSystem());
             playersWaitingCurrent.clear();
             playersWaitingForNext.clear();
+            playersWaitingCurrent.addAll(playersAmount);
             areaIndex = 0;
             d = Dynamics.INIT;
         }
 
         if (keyboard.get(Keyboard.N).isReleased()) {
-            switchArea();
+            d = Dynamics.END;
         }
 
 //        if (keyboard.get(Keyboard.U).isReleased()) {
@@ -192,6 +193,10 @@ public class ICWars extends AreaGame {
                 System.out.println("END");
                 // TODO manage the end of the game
                 switchArea();
+                playersWaitingCurrent.clear();
+                playersWaitingForNext.clear();
+                playersWaitingCurrent.addAll(playersAmount);
+
                 d = Dynamics.INIT;
                 break;
         }
