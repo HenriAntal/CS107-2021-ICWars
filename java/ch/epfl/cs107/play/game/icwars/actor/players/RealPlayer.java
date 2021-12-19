@@ -67,7 +67,7 @@ public class RealPlayer extends ICWarsPlayer {
         switch (s) {
             case IDLE:
                 //sprite.setAlpha(0f);
-
+                clearUsedNumbers();
                 //TODO later
                 break;
             case NORMAL:
@@ -78,6 +78,7 @@ public class RealPlayer extends ICWarsPlayer {
                     for(int i = 0; i < units.length; ++i){
                         units[i].changeSprite(1);
                     }
+
                     s = State.IDLE;
                 } else if (keyboard.get(Keyboard.ENTER).isReleased() && !playerOnUnit()) {
                     s = State.NORMAL;
@@ -245,6 +246,10 @@ public class RealPlayer extends ICWarsPlayer {
         gui.setSelectedUnit((super.units)[this.order]);
         return (super.units)[this.order];
 
+    }
+
+    public void clearUsedNumbers(){
+        usedNumbers.clear();
     }
 
     private class ICWarsPlayerInteractionHandler implements ICWarsInteractionVisitor{

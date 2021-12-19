@@ -106,7 +106,6 @@ public class ICWars extends AreaGame {
                 //TODO all players in the list
                 System.out.println("INIT");
                 initArea(areas[areaIndex]);
-                playersWaitingCurrent.addAll(playersAmount);
                 playersWaitingForNext.clear();
                 d = Dynamics.CHOOSE_PLAYER;
                 break;
@@ -173,6 +172,7 @@ public class ICWars extends AreaGame {
                 //of players waiting for to play in the next round, go to the status END, otherwise move
                 //all the players on the list waiting to play the next round to the one waiting to play
                 //the current round and return to the state CHOOSE_PLAYER
+
                 for (int i = 0; i < playersWaitingForNext.size(); ++i) {
                     if (playersWaitingForNext.get(i).playerDefeated()) {
                         playersWaitingForNext.remove(i);

@@ -138,9 +138,6 @@ public class ICWarsPlayer extends ICWarsActor implements Interactor, Interactabl
         }
     }
 
-    public void clearUsedNumbers() {
-        usedNumbers.clear();
-    }
 
 }
 
