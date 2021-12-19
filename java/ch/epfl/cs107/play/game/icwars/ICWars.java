@@ -24,11 +24,12 @@ public class ICWars extends AreaGame {
 
     private ArrayList<ICWarsPlayer> playersWaitingCurrent = new ArrayList<ICWarsPlayer>();
     private ArrayList<ICWarsPlayer> playersWaitingForNext = new ArrayList<ICWarsPlayer>();
-    private ArrayList<ICWarsPlayer> activePlayer = new ArrayList<>();
+//    private ArrayList<ICWarsPlayer> activePlayer = new ArrayList<>();
+    private ICWarsPlayer activePlayer;
     private ArrayList<ICWarsPlayer> playersAmount = new ArrayList<>();
 
     private final String[] areas = {"icwars/Level0", "icwars/Level1"};
-    private int areaIndex;
+    private int areaIndex = 0;
 
     /**
      * Add all the areas
@@ -42,7 +43,6 @@ public class ICWars extends AreaGame {
     public boolean begin(Window window, FileSystem fileSystem) {
         if (super.begin(window, fileSystem)) {
             createAreas();
-            areaIndex = 0;
             d = Dynamics.INIT;
             return true;
         }
@@ -84,10 +84,6 @@ public class ICWars extends AreaGame {
         Keyboard keyboard = getKeyboard();
 
         if (keyboard.get(Keyboard.R).isReleased()) {
-//            begin(getWindow(), getFileSystem());
-            playersWaitingCurrent.clear();
-            playersWaitingForNext.clear();
-            playersWaitingCurrent.addAll(playersAmount);
             areaIndex = 0;
             d = Dynamics.INIT;
         }
@@ -107,7 +103,6 @@ public class ICWars extends AreaGame {
                 //TODO all players in the list
                 System.out.println("INIT");
                 initArea(areas[areaIndex]);
-                playersWaitingForNext.clear();
                 d = Dynamics.CHOOSE_PLAYER;
                 break;
 
@@ -121,7 +116,8 @@ public class ICWars extends AreaGame {
                 if (playersWaitingCurrent.isEmpty()) {
                     d = Dynamics.END_TURN;
                 } else {
-                    activePlayer.add(playersWaitingCurrent.get(0));
+//                    activePlayer.add(playersWaitingCurrent.get(0));
+                    activePlayer = playersWaitingCurrent.get(0);
                     playersWaitingCurrent.remove(0);
                     d = Dynamics.START_PLAYER_TURN;
                 }
@@ -131,15 +127,15 @@ public class ICWars extends AreaGame {
                 //TODO START_PLAYER_TURN invoke method start_turn on the currently active player and
                 //switch to the state PLAYER_TURN
                 System.out.println("Start Player Turn");
-                activePlayer.get(0).startTurn();
-                activePlayer.get(0).centerCamera();
+                activePlayer.startTurn();
+                activePlayer.centerCamera();
                 d = Dynamics.PLAYER_TURN;
                 break;
 
             case PLAYER_TURN:
                 // TODO PLAYER_TURN if the currently active player has finished his turn (his status is changed
                 //to IDLE), change to stateEND_PLAYER_TURN;
-                if (activePlayer.get(0).s.equals(ICWarsPlayer.State.IDLE)) {
+                if (activePlayer.s.equals(ICWarsPlayer.State.IDLE)) {
                     System.out.println("Player Turn");
                     d = Dynamics.END_PLAYER_TURN;
                 }
@@ -155,11 +151,11 @@ public class ICWars extends AreaGame {
                     d = Dynamics.END_TURN;
                 }
 
-                if (activePlayer.get(0).getUnits().length == 0) {
-                    activePlayer.get(0).leaveArea();
+                if (activePlayer.getUnits().length == 0) {
+                    activePlayer.leaveArea();
                 } else {
-                    playersWaitingForNext.add(activePlayer.get(0));
-                    activePlayer.remove(0);
+                    playersWaitingForNext.add(activePlayer);
+                    activePlayer = null;
                     //activePlayer.get(0).s.
 
                 }
@@ -195,7 +191,6 @@ public class ICWars extends AreaGame {
                 switchArea();
                 playersWaitingCurrent.clear();
                 playersWaitingForNext.clear();
-                playersWaitingCurrent.addAll(playersAmount);
 
                 d = Dynamics.INIT;
                 break;
@@ -226,8 +221,8 @@ public class ICWars extends AreaGame {
 //        for (ICWarsPlayer player : players) {
 //            player.leaveArea();
 //        }
-        playersWaitingCurrent.clear();
-        playersWaitingForNext.clear();
+//        playersWaitingCurrent.clear();
+//        playersWaitingForNext.clear();
 
         if (areaIndex == areas.length - 1) {
             System.out.println("GAME OVER BABEEEE");
