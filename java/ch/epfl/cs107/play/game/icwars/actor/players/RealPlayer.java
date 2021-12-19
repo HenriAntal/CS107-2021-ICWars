@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import ch.epfl.cs107.play.game.icwars.ICWars;
 import ch.epfl.cs107.play.game.icwars.gui.ICWarsPlayerGUI;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
@@ -100,8 +99,8 @@ public class RealPlayer extends ICWarsPlayer {
                 break;
             case MOVE_UNIT:
                 if (keyboard.get(Keyboard.ENTER).isReleased() && !playerOnUnit()) {
-                    units[order].changePosition(getCurrentMainCellCoordinates());
-                    if(changePosition(oldPosition, units[order].getCurrentCells().get(0))) {
+                    units[order].hasBeenMoved(getCurrentMainCellCoordinates());
+                    if(hasBeenMoved(oldPosition, units[order].getCurrentCells().get(0))) {
                         units[order].changeSprite(0.5f);
                         s = State.NORMAL;
                     } else {

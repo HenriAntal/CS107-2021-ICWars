@@ -116,8 +116,8 @@ public abstract class Unit extends ICWarsActor {
 
 
     @Override
-    public boolean changePosition(DiscreteCoordinates newPosition) {
-        if (!range.nodeExists(newPosition) || !super.changePosition(newPosition)) {
+    public boolean hasBeenMoved(DiscreteCoordinates newPosition) {
+        if (!range.nodeExists(newPosition) || !super.hasBeenMoved(newPosition)) {
             return false;
         } else {
             ICWarsRange newRange = new ICWarsRange();
