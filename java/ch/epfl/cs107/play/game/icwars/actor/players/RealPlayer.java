@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import ch.epfl.cs107.play.game.icwars.ICWars;
 import ch.epfl.cs107.play.game.icwars.gui.ICWarsPlayerGUI;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
@@ -66,6 +67,7 @@ public class RealPlayer extends ICWarsPlayer {
         switch (s) {
             case IDLE:
                 sprite.setAlpha(0f);
+
                 //TODO later
                 break;
             case NORMAL:

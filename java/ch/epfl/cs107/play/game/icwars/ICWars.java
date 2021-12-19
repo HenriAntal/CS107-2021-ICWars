@@ -25,7 +25,9 @@ public class ICWars extends AreaGame {
     private ArrayList<ICWarsPlayer> players = new ArrayList<ICWarsPlayer>();
     private ArrayList<ICWarsPlayer> playersWaitingCurrent = new ArrayList<ICWarsPlayer>();
     private ArrayList<ICWarsPlayer> playersWaitingForNext = new ArrayList<ICWarsPlayer>();
+
     private ICWarsPlayer activePlayer;
+    private int activePlayerOrder;
 
     private final String[] areas = {"icwars/Level0", "icwars/Level1"};
     private int areaIndex;
@@ -43,7 +45,6 @@ public class ICWars extends AreaGame {
         if (super.begin(window, fileSystem)) {
             createAreas();
             areaIndex = 0;
-//            initArea(areas[areaIndex]);
             d = Dynamics.INIT;
             return true;
         }
@@ -84,6 +85,29 @@ public class ICWars extends AreaGame {
     public void update(float deltaTime) {
 
 
+
+        Keyboard keyboard = getKeyboard();
+
+        if (keyboard.get(Keyboard.R).isReleased()) {
+//            begin(getWindow(), getFileSystem());
+            players.clear();
+            for (ICWarsPlayer player : players) {
+                player.clearUsedNumbers();
+            }
+            areaIndex = 0;
+            d = Dynamics.INIT;
+        }
+
+        if (keyboard.get(Keyboard.N).isReleased()) {
+            switchArea();
+        }
+
+//        if (keyboard.get(Keyboard.U).isReleased()) {
+//            ((RealPlayer)player).selectUnit(0); // 0, 1 ...
+//            player.gogoSetter();
+//            player.gogoReset();
+//        }x
+
         switch (d) {
             case INIT:
                 //TODO all players in the list
@@ -120,6 +144,9 @@ public class ICWars extends AreaGame {
                 if (activePlayer.s.equals(ICWarsPlayer.State.IDLE)) {
                     d = Dynamics.PLAYER_TURN;
                 }
+                if(keyboard.get(Keyboard.Z).isReleased()){
+                    d = Dynamics.END_PLAYER_TURN;
+                }
                 break;
 
             case END_PLAYER_TURN:
@@ -128,9 +155,8 @@ public class ICWars extends AreaGame {
                 //state CHOOSE_PLAYER ; It will be necessary to ensure that all its units become usable
                 //again (from a visualization aspect in particular);
                 if (activePlayer.getUnits().length == 0) {
-                    //TODO units leaveArea() (not necessarily here)
                     activePlayer.leaveArea();
-                } else if (activePlayer.getUnits().length != 0) {
+                } else {
                     playersWaitingForNext.add(activePlayer);
                 }
                 d = Dynamics.CHOOSE_PLAYER;
@@ -148,7 +174,7 @@ public class ICWars extends AreaGame {
                     }
                 }
 
-                if (playersWaitingForNext.size() == 1) {
+                if (playersWaitingForNext.size() < 2) {
                     d = Dynamics.END;
                 } else {
                     for (ICWarsPlayer player : playersWaitingForNext) {
@@ -157,36 +183,12 @@ public class ICWars extends AreaGame {
                     }
                 }
                 break;
-
             case END:
                 // TODO manage the end of the game
                 switchArea();
+                d = Dynamics.INIT;
                 break;
         }
-
-        Keyboard keyboard = getKeyboard();
-
-        if (keyboard.get(Keyboard.R).isReleased()) {
-//            begin(getWindow(), getFileSystem());
-            players.clear();
-            for (ICWarsPlayer player : players) {
-                player.clearUsedNumbers();
-            }
-            initArea(areas[0]);
-            d = Dynamics.INIT;
-        }
-
-        if (keyboard.get(Keyboard.N).isReleased()) {
-            switchArea();
-        }
-
-//        if (keyboard.get(Keyboard.U).isReleased()) {
-//            ((RealPlayer)player).selectUnit(0); // 0, 1 ...
-//            player.gogoSetter();
-//            player.gogoReset();
-//        }x
-
-
         super.update(deltaTime);
 
     }
@@ -206,6 +208,8 @@ public class ICWars extends AreaGame {
         return "ICWars";
     }
 
+
+    // either switches to the next level or ends the game.
     protected void switchArea() {
 
 //        for (ICWarsPlayer player : players) {
