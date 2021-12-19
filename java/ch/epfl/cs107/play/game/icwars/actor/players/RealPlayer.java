@@ -23,28 +23,27 @@ public class RealPlayer extends ICWarsPlayer {
     private final static int MOVE_DURATION = 2;
     private ICWarsPlayerGUI gui = new ICWarsPlayerGUI(getOwnerArea().getCameraScaleFactor(), this);
     private int order;
-//    private Unit selectedUnit;
+    //    private Unit selectedUnit;
     private ICWarsPlayerInteractionHandler handler = new ICWarsPlayerInteractionHandler();
     // FRANCE is stupid
     private ArrayList<Unit> usedNumbers = new ArrayList<>();
-    boolean freshgame = true;
+    private DiscreteCoordinates oldPosition;
+
 
 
     /**
      * Demo actor
-     *
      */
     public RealPlayer(Area owner, DiscreteCoordinates coordinates, String belongs, Unit... units) {
         super(owner, coordinates, belongs, units);
 
         if (belongs.equals("ally")) {
-            sprite = new Sprite("icwars/allyCursor" , 1.f, 1.f, this, null, new Vector(0f, 0f));
+            sprite = new Sprite("icwars/allyCursor", 1.f, 1.f, this, null, new Vector(0f, 0f));
         } else {
-            sprite = new Sprite("icwars/enemyCursor" , 1.f, 1.f, this, null, new Vector(0f, 0f));
+            sprite = new Sprite("icwars/enemyCursor", 1.f, 1.f, this, null, new Vector(0f, 0f));
         }
         resetMotion();
     }
-
 
 
     /**
@@ -72,15 +71,13 @@ public class RealPlayer extends ICWarsPlayer {
                 //TODO later
                 break;
             case NORMAL:
-                if(freshgame){
-                    clearUsedNumbers();
-                    freshgame = false;
-                }
+
                 sprite.setAlpha(1f);
                 if (keyboard.get(Keyboard.ENTER).isReleased() && playerOnUnit()) {
+                    oldPosition = getCurrentMainCellCoordinates();
                     s = State.SELECT_CELL;
-                } else if (keyboard.get(Keyboard.TAB).isReleased()) {
-                    for(int i = 0; i < units.length; ++i){
+                } else if (keyboard.get(Keyboard.TAB).isReleased() || usedNumbers.size() == units.length) {
+                    for (int i = 0; i < units.length; ++i) {
                         units[i].changeSprite(1);
                     }
 
@@ -88,29 +85,34 @@ public class RealPlayer extends ICWarsPlayer {
                 } else if (keyboard.get(Keyboard.ENTER).isReleased() && !playerOnUnit()) {
                     s = State.NORMAL;
                 }
+
                 break;
             case SELECT_CELL:
                 getUnitNr();
-                if (notAlreadyUsed(units[order])){
+                if (notAlreadyUsed(units[order])) {
 //                    selectUnit();
                     handler.interactWith(selectUnit());
                     s = State.MOVE_UNIT;
                 }
-                if(!playerOnUnit()) {
+                if (!playerOnUnit()) {
                     s = State.NORMAL;
                 }
                 break;
             case MOVE_UNIT:
                 if (keyboard.get(Keyboard.ENTER).isReleased() && !playerOnUnit()) {
                     units[order].changePosition(getCurrentMainCellCoordinates());
-                    units[order].changeSprite(0.5f);
-                    s = State.NORMAL;
+                    if(changePosition(oldPosition, units[order].getCurrentCells().get(0))) {
+                        units[order].changeSprite(0.5f);
+                        s = State.NORMAL;
+                    } else {
+                        s = State.MOVE_UNIT;
+                    }
 //                    ICWarsRange newRange = new ICWarsRange();
 //                    units[order].createRange(getOwnerArea(),getCurrentMainCellCoordinates(), units[order].maxRange, newRange);
 //                    units[order].range = newRange;
-                } else if(keyboard.get(Keyboard.TAB).isReleased() || !inRange()){
+                } else if (keyboard.get(Keyboard.TAB).isReleased() || !inRange()) {
                     s = State.NORMAL;
-                    usedNumbers.remove(usedNumbers.size()-1);
+                    usedNumbers.remove(usedNumbers.size() - 1);
                 }
 
                 break;
@@ -125,13 +127,15 @@ public class RealPlayer extends ICWarsPlayer {
         super.update(deltaTime);
 
     }
+
     /**
      * Orientate and Move this player in the given orientation if the given button is down
+     *
      * @param orientation (Orientation): given orientation, not null
-     * @param b (Button): button corresponding to the given orientation, not null
+     * @param b           (Button): button corresponding to the given orientation, not null
      */
-    private void moveIfPressed(Orientation orientation, Button b){
-        if(b.isDown()) {
+    private void moveIfPressed(Orientation orientation, Button b) {
+        if (b.isDown()) {
             if (!isDisplacementOccurs()) {
                 orientate(orientation);
                 move(MOVE_DURATION);
@@ -140,20 +144,18 @@ public class RealPlayer extends ICWarsPlayer {
     }
 
 
-
     /**
      * Leave an area by unregister this player
      */
-    public void leaveArea(){
+    public void leaveArea() {
         getOwnerArea().unregisterActor(this);
     }
 
     /**
-     *
-     * @param area (Area): initial area, not null
+     * @param area     (Area): initial area, not null
      * @param position (DiscreteCoordinates): initial position, not null
      */
-    public void enterArea(Area area, DiscreteCoordinates position){
+    public void enterArea(Area area, DiscreteCoordinates position) {
         area.registerActor(this);
         area.setViewCandidate(this);
         setOwnerArea(area);
@@ -164,7 +166,7 @@ public class RealPlayer extends ICWarsPlayer {
 
     @Override
     public void draw(Canvas canvas) {
-        if(s != State.IDLE){
+        if (s != State.IDLE) {
             sprite.draw(canvas);
         }
 //        step1
@@ -191,52 +193,57 @@ public class RealPlayer extends ICWarsPlayer {
     public boolean isViewInteractable() {
         return true;
     }
+
     @Override
     public List<DiscreteCoordinates> getCurrentCells() {
         return Collections.singletonList(getCurrentMainCellCoordinates());
     }
 
-    public void interactWith(){
+    public void interactWith() {
 
     }
 
     // checks if the RealPlayer is in Range of the selected unit, so it checks if is still on a Node, if not you go back to Normal State.
-    public boolean inRange(){
-        if(selectUnit().range.nodeExists(getCurrentMainCellCoordinates())){
+    public boolean inRange() {
+        if (selectUnit().range.nodeExists(getCurrentMainCellCoordinates())) {
             return true;
         }
         return false;
     }
 
-    private boolean playerOnUnit(){
-        if(getCurrentMainCellCoordinates().equals(units[0].getCurrentCells().get(0))){ return true;}
-        if(getCurrentMainCellCoordinates().equals(units[1].getCurrentCells().get(0))){ return true;}
+    private boolean playerOnUnit() {
+        if (getCurrentMainCellCoordinates().equals(units[0].getCurrentCells().get(0))) {
+            return true;
+        }
+        if (getCurrentMainCellCoordinates().equals(units[1].getCurrentCells().get(0))) {
+            return true;
+        }
 
         return false;
     }
 
-    public boolean notAlreadyUsed(Unit unit){
-        if(usedNumbers.size() == 0){
+    public boolean notAlreadyUsed(Unit unit) {
+        if (usedNumbers.size() == 0) {
             usedNumbers.add(unit);
             return true;
         }
         usedNumbers.add(unit);
-        if(doubleUsed(unit)){
+        if (doubleUsed(unit)) {
             return false;
         }
         return true;
     }
 
-    public boolean doubleUsed(Unit unit){
-        for(int k = 0; k < usedNumbers.size()-1; ++k){
-            if(unit == usedNumbers.get(k)){
+    public boolean doubleUsed(Unit unit) {
+        for (int k = 0; k < usedNumbers.size() - 1; ++k) {
+            if (unit == usedNumbers.get(k)) {
                 return true;
             }
         }
         return false;
     }
 
-    public void getUnitNr(){
+    public void getUnitNr() {
         //        this.getCurrentMainCellCoordinates();
         if (getCurrentMainCellCoordinates().equals(units[0].getCurrentCells().get(0))) {
             // Soldier
@@ -255,11 +262,11 @@ public class RealPlayer extends ICWarsPlayer {
 
     }
 
-    public void clearUsedNumbers(){
+    public void clearUsedNumbers() {
         usedNumbers.clear();
     }
 
-    private class ICWarsPlayerInteractionHandler implements ICWarsInteractionVisitor{
+    private class ICWarsPlayerInteractionHandler implements ICWarsInteractionVisitor {
 
         @Override
         public void interactWith(RealPlayer realPlayer) {

@@ -102,6 +102,10 @@ public class ICWars extends AreaGame {
             case INIT:
                 //TODO all players in the list
                 System.out.println("INIT");
+                playersWaitingCurrent.clear();
+                playersAmount.clear();
+                activePlayer = null;
+                playersWaitingForNext.clear();
                 initArea(areas[areaIndex]);
                 d = Dynamics.CHOOSE_PLAYER;
                 break;
@@ -128,13 +132,13 @@ public class ICWars extends AreaGame {
                 //switch to the state PLAYER_TURN
                 System.out.println("Start Player Turn");
                 activePlayer.startTurn();
-                activePlayer.centerCamera();
                 d = Dynamics.PLAYER_TURN;
                 break;
 
             case PLAYER_TURN:
                 // TODO PLAYER_TURN if the currently active player has finished his turn (his status is changed
                 //to IDLE), change to stateEND_PLAYER_TURN;
+                activePlayer.centerCamera();
                 if (activePlayer.s.equals(ICWarsPlayer.State.IDLE)) {
                     System.out.println("Player Turn");
                     d = Dynamics.END_PLAYER_TURN;

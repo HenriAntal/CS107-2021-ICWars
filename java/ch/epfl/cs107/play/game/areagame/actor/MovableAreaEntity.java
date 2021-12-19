@@ -122,6 +122,13 @@ public abstract class MovableAreaEntity extends AreaEntity {
         return true;
     }
 
+    public boolean changePosition(DiscreteCoordinates newPosition, DiscreteCoordinates oldPosition) {
+        if (newPosition.equals(oldPosition)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
     
     /**
      * Final abortCurrentMove method
