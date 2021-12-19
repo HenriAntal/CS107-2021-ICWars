@@ -12,6 +12,7 @@ import ch.epfl.cs107.play.window.Keyboard;
 import ch.epfl.cs107.play.window.Window;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ICWars extends AreaGame {
 
@@ -69,8 +70,15 @@ public class ICWars extends AreaGame {
         playersWaitingCurrent.add(new RealPlayer(area, coords, "ally", units1));
         playersWaitingCurrent.add(new RealPlayer(area, enemyCoords, "enemy", units2));
 
-        playersWaitingCurrent.get(0).enterArea(area, coords);
-        playersWaitingCurrent.get(1).enterArea(area, enemyCoords);
+        for (ICWarsPlayer player : playersWaitingCurrent) {
+            player.enterArea(area, player.getCurrentCells().get(0));
+            for (int i = 0; i < player.getUnits().length; ++i) {
+                player.getUnits()[i].enterArea(area, player.getUnits()[i].getCurrentCells().get(0));
+            }
+        }
+
+//        playersWaitingCurrent.get(0).enterArea(area, coords);
+//        playersWaitingCurrent.get(1).enterArea(area, enemyCoords);
 
         playersAmount.addAll(playersWaitingCurrent);
 
@@ -85,6 +93,8 @@ public class ICWars extends AreaGame {
 
         if (keyboard.get(Keyboard.R).isReleased()) {
             areaIndex = 0;
+            playersWaitingCurrent = new ArrayList<ICWarsPlayer>();
+            playersWaitingForNext = new ArrayList<ICWarsPlayer>();
             d = Dynamics.INIT;
         }
 
@@ -122,6 +132,8 @@ public class ICWars extends AreaGame {
                 } else {
 //                    activePlayer.add(playersWaitingCurrent.get(0));
                     activePlayer = playersWaitingCurrent.get(0);
+                    activePlayer.centerCamera();
+
                     playersWaitingCurrent.remove(0);
                     d = Dynamics.START_PLAYER_TURN;
                 }
@@ -156,6 +168,7 @@ public class ICWars extends AreaGame {
                 }
 
                 if (activePlayer.getUnits().length == 0) {
+                    unitsLeaveArea(activePlayer);
                     activePlayer.leaveArea();
                 } else {
                     playersWaitingForNext.add(activePlayer);
@@ -174,12 +187,6 @@ public class ICWars extends AreaGame {
                 //all the players on the list waiting to play the next round to the one waiting to play
                 //the current round and return to the state CHOOSE_PLAYER
 
-                for (int i = 0; i < playersWaitingForNext.size(); ++i) {
-                    if (playersWaitingForNext.get(i).playerDefeated()) {
-                        playersWaitingForNext.remove(i);
-                    }
-                }
-
                 if (playersWaitingForNext.size() == 1) {
                     d = Dynamics.END;
                 } else {
@@ -192,9 +199,12 @@ public class ICWars extends AreaGame {
             case END:
                 System.out.println("END");
                 // TODO manage the end of the game
+                playerUnitsLeaveArea(playersWaitingCurrent);
+                playerUnitsLeaveArea(playersWaitingForNext);
+//                playerUnitsLeaveArea(playersAmount);
                 switchArea();
-                playersWaitingCurrent.clear();
-                playersWaitingForNext.clear();
+                playersWaitingCurrent = new ArrayList<ICWarsPlayer>();
+                playersWaitingForNext = new ArrayList<ICWarsPlayer>();
 
                 d = Dynamics.INIT;
                 break;
@@ -243,7 +253,18 @@ public class ICWars extends AreaGame {
             d = Dynamics.INIT;
         }
 
+    }
 
+    public void unitsLeaveArea(ICWarsPlayer player) {
+        for (int j = 0; j < player.getUnits().length; ++j) {
+            player.getUnits()[j].leaveArea();
+        }
+    }
+
+    public void playerUnitsLeaveArea (List<ICWarsPlayer> players) {
+        for (ICWarsPlayer player : players) {
+            unitsLeaveArea(player);
+        }
     }
 
 }
