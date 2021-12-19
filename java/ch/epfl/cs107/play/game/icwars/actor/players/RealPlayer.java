@@ -66,7 +66,7 @@ public class RealPlayer extends ICWarsPlayer {
 
         switch (s) {
             case IDLE:
-                sprite.setAlpha(0f);
+                //sprite.setAlpha(0f);
 
                 //TODO later
                 break;
@@ -156,7 +156,9 @@ public class RealPlayer extends ICWarsPlayer {
 
     @Override
     public void draw(Canvas canvas) {
-        sprite.draw(canvas);
+        if(s != State.IDLE){
+            sprite.draw(canvas);
+        }
 //        step1
 //        if (selectUnit(order) != null && (gogoCase%2) == 1) {
         if (s.equals(State.MOVE_UNIT)) {
