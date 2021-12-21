@@ -13,7 +13,7 @@ import ch.epfl.cs107.play.window.Window;
 import ch.epfl.cs107.play.window.swing.SwingWindow;
 
 /**
- * Main entry point.
+ * Main entry point. PLSPLS
  */
 public class Play {
 
