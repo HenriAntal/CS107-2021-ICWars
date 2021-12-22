@@ -131,6 +131,11 @@ public class ICWarsPlayer extends ICWarsActor implements Interactor, Interactabl
         return false;
     }
 
+    public void addUsedUnit(Unit unit) {
+        usedNumbers.add(unit);
+    }
+
+
     public boolean playerDefeated() {
         if (units.length == 0) {
             return true;

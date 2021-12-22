@@ -69,14 +69,19 @@ public class ICWars extends AreaGame {
         units2[0] = new Soldier(area, new DiscreteCoordinates(9, 5), "enemy");
         units2[1] = new Tank(area, new DiscreteCoordinates(8, 5), "enemy");
 
+//        area.addUnit(new Soldier(area, new DiscreteCoordinates(3,5), "ally"));
+//        area.addUnit(new Tank(area, new DiscreteCoordinates(2, 5), "ally"));
+//        area.addUnit(new Soldier(area, new DiscreteCoordinates(9, 5), "enemy"));
+//        area.addUnit(new Tank(area, new DiscreteCoordinates(8, 5), "enemy"));
+
         playersWaitingCurrent.add(new RealPlayer(area, coords, "ally", units1));
         playersWaitingCurrent.add(new RealPlayer(area, enemyCoords, "enemy", units2));
 
-        for (ICWarsPlayer player : playersWaitingCurrent) {
-            player.enterArea(area, player.getCurrentCells().get(0));
-            for (int i = 0; i < player.getUnits().length; ++i) {
-                player.getUnits()[i].enterArea(area, player.getUnits()[i].getCurrentCells().get(0));
-            }
+        for (int i = 0; i < units1.length; ++i) {
+            area.addUnitToList(units1[i]);
+        }
+        for (int i = 0; i < units2.length; ++i) {
+            area.addUnitToList(units2[i]);
         }
 
 //        playersWaitingCurrent.get(0).enterArea(area, coords);
@@ -118,6 +123,7 @@ public class ICWars extends AreaGame {
                 playersAmount.clear();
                 activePlayer = null;
                 playersWaitingForNext.clear();
+                getCurrentArea().clearUnitList();
                 initArea(areas[areaIndex]);
                 d = Dynamics.CHOOSE_PLAYER;
                 break;

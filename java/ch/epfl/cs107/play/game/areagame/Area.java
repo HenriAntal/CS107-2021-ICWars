@@ -7,6 +7,7 @@ import ch.epfl.cs107.play.game.actor.Actor;
 import ch.epfl.cs107.play.game.actor.Draggable;
 import ch.epfl.cs107.play.game.areagame.actor.Interactable;
 import ch.epfl.cs107.play.game.areagame.actor.Interactor;
+import ch.epfl.cs107.play.game.icwars.actor.unit.Unit;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.math.Transform;
@@ -47,7 +48,32 @@ public abstract class Area implements Playable, PauseMenu.Pausable {
     /// - start indicate if area already begins, paused indicate if we display the pause menu
     private boolean started, paused;
     private AreaPauseMenu menu;
+    private List<Unit> units;
 
+    /**
+     * add unit to the list of units of the area
+     * @param unit
+     */
+    public void addUnitToList(Unit unit) {
+        units.add(unit);
+    }
+
+    public List<Unit> getUnitList() {
+        return units;
+    }
+
+    public void clearUnitList() {
+        units.clear();
+    }
+
+    public void removeUnit(Unit unit) {
+        for (int i = 0; i < units.size(); ++i) {
+            if (units.get(i).equals(unit)) {
+                units.remove(i);
+                return;
+            }
+        }
+    }
 
     /** @return (float): camera scale factor, assume it is the same in x and y direction */
     public abstract float getCameraScaleFactor();

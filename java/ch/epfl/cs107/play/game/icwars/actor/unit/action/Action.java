@@ -9,10 +9,19 @@ import ch.epfl.cs107.play.window.Keyboard;
 
 public class Action implements Graphics {
 
+    private Area area;
+    private Unit unit;
     private String name;
     private int key;
 
-    public Action(Area area, Unit unit) {}
+    public Action(Area area, Unit unit, String name) {
+        this.area = area;
+        this.unit = unit;
+        this.name = name;
+    }
+    public Unit getUnit() {
+        return unit;
+    }
 
     public String getName() {
         return name;
@@ -20,10 +29,6 @@ public class Action implements Graphics {
 
     public int getKey() {
         return key;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public void setKey(int key) {

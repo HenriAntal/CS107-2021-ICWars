@@ -8,9 +8,9 @@ import ch.epfl.cs107.play.window.Keyboard;
 
 public class Attack extends Action {
 
-    public Attack(Area area, Unit unit) {
-        super(area, unit);
-        setKey(0);
+    public Attack(Area area, Unit unit, String name) {
+        super(area, unit, name);
+        setKey(65);
     }
 
     @Override
