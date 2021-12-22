@@ -25,7 +25,6 @@ public class RealPlayer extends ICWarsPlayer {
     private int order;
     //    private Unit selectedUnit;
     private ICWarsPlayerInteractionHandler handler = new ICWarsPlayerInteractionHandler();
-    // FRANCE is stupid
     private ArrayList<Unit> usedNumbers = new ArrayList<>();
     private DiscreteCoordinates oldPosition;
 
