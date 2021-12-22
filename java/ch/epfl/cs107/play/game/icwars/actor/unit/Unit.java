@@ -131,6 +131,10 @@ public abstract class Unit extends ICWarsActor {
         }
     }
 
+    public ICWarsRange getRange(){
+        return range;
+    }
+
     /**
      * Draw the unit's range and a path from the unit position to
      destination

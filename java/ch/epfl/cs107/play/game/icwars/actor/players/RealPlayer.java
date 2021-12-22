@@ -205,7 +205,7 @@ public class RealPlayer extends ICWarsPlayer {
 
     // checks if the RealPlayer is in Range of the selected unit, so it checks if is still on a Node, if not you go back to Normal State.
     public boolean inRange() {
-        if (selectUnit().range.nodeExists(getCurrentMainCellCoordinates())) {
+        if (selectUnit().getRange().nodeExists(getCurrentMainCellCoordinates())) {
             return true;
         }
         return false;
@@ -277,7 +277,7 @@ public class RealPlayer extends ICWarsPlayer {
 
         @Override
         public void interactWith(Unit unit) {
-            if (!isDisplacementOccurs() && s.equals(State.SELECT_CELL) && belongs.equals(unit.belongs)) {
+            if (!isDisplacementOccurs() && s.equals(State.SELECT_CELL) && belongs.equals(unit.getBelongs())) {
                 selectedUnit = selectUnit();
             } else {
                 selectedUnit = null;

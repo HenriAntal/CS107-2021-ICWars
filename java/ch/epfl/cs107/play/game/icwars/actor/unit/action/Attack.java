@@ -10,7 +10,7 @@ public class Attack extends Action {
 
     public Attack(Area area, Unit unit) {
         super(area, unit);
-        setKey();
+        setKey(0);
     }
 
     @Override

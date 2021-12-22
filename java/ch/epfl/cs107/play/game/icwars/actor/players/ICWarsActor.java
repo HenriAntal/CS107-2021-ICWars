@@ -70,4 +70,8 @@ public abstract class ICWarsActor extends MovableAreaEntity{
     public void draw(Canvas canvas) {
 
     }
+
+    public String getBelongs(){
+        return belongs;
+    }
 }
