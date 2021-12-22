@@ -8,14 +8,18 @@ import ch.epfl.cs107.play.window.Keyboard;
 
 public class Attack extends Action {
 
+    private Unit unit;
     public Attack(Area area, Unit unit) {
         super(area, unit);
         setKey(65);
+        this.unit = unit;
         setName("(A)ttack");
     }
 
     @Override
     public void doAction(float dt, ICWarsPlayer player, Keyboard keyboard) {
+        int counter = 0;
+
 
     }
 

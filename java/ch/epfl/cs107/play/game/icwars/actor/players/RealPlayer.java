@@ -105,9 +105,8 @@ public class RealPlayer extends ICWarsPlayer {
                 if (keyboard.get(Keyboard.ENTER).isReleased() && !playerOnUnit()) {
                     units[order].hasBeenMoved(getCurrentMainCellCoordinates());
                     if (hasBeenMoved(oldPosition, units[order].getCurrentCells().get(0))) {
-                        units[order].changeSprite(0.5f);
+//                        s = State.ACTION_SELECTION;
                         s = State.ACTION_SELECTION;
-//                        s = State.NORMAL;
                     } else {
                         s = State.MOVE_UNIT;
                     }
@@ -121,17 +120,23 @@ public class RealPlayer extends ICWarsPlayer {
 
                 break;
             case ACTION_SELECTION:
-                if (keyboard.get(Keyboard.W).isReleased()) {
-//                    s = State.NORMAL;
-                    action = new Wait(getOwnerArea(), selectedUnit);
-                } else if (keyboard.get(Keyboard.A).isReleased()){
-                    action = new Attack(getOwnerArea(), selectedUnit);
+               if (keyboard.get(Keyboard.W).isReleased()) {
+                   units[order].changeSprite(0.5f);
+                   Wait w = new Wait(getOwnerArea(), units[order]);
+                   w.doAction(deltaTime, this, keyboard);
+
+               }
+                if (keyboard.get(Keyboard.A).isReleased()){
+                    units[order].changeSprite(0.5f);
+                    System.out.println("sup");
+                    Attack a = new Attack(getOwnerArea(), units[order]);
+                    a.doAction(deltaTime, this, keyboard);
                 }
+
 
                 break;
             case ACTION:
                 //TODO later
-                action.doAction(deltaTime, this, ??);
                 break;
         }
 
@@ -210,7 +215,7 @@ public class RealPlayer extends ICWarsPlayer {
         return Collections.singletonList(getCurrentMainCellCoordinates());
     }
 
-    public List<Unit> ennemyInRange(ICWarsPlayer player){
+    public List<Unit> enemyInRange(ICWarsPlayer player){
         List<Unit> listOfUnitsInRange = new ArrayList<Unit>();
         for (Unit u : super.getOwnerArea().getUnitList()) {
             if (!u.getBelongs().equals(this.belongs)
