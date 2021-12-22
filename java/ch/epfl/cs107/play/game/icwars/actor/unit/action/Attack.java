@@ -6,6 +6,9 @@ import ch.epfl.cs107.play.game.icwars.actor.unit.Unit;
 import ch.epfl.cs107.play.window.Canvas;
 import ch.epfl.cs107.play.window.Keyboard;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Attack extends Action {
 
     private Unit unit;
@@ -19,7 +22,7 @@ public class Attack extends Action {
     @Override
     public void doAction(float dt, ICWarsPlayer player, Keyboard keyboard) {
         int counter = 0;
-
+        List<Unit> enemyUnitList = player.enemyList;
 
     }
 

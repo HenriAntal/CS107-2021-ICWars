@@ -107,6 +107,7 @@ public class RealPlayer extends ICWarsPlayer {
                     if (hasBeenMoved(oldPosition, units[order].getCurrentCells().get(0))) {
 //                        s = State.ACTION_SELECTION;
                         s = State.ACTION_SELECTION;
+//                        s = State.NORMAL;
                     } else {
                         s = State.MOVE_UNIT;
                     }
@@ -137,6 +138,7 @@ public class RealPlayer extends ICWarsPlayer {
                 break;
             case ACTION:
                 //TODO later
+                action.doAction(deltaTime, this, keyboard);
                 break;
         }
 
@@ -213,30 +215,6 @@ public class RealPlayer extends ICWarsPlayer {
     @Override
     public List<DiscreteCoordinates> getCurrentCells() {
         return Collections.singletonList(getCurrentMainCellCoordinates());
-    }
-
-    public List<Unit> enemyInRange(ICWarsPlayer player){
-        List<Unit> listOfUnitsInRange = new ArrayList<Unit>();
-        for (Unit u : super.getOwnerArea().getUnitList()) {
-            if (!u.getBelongs().equals(this.belongs)
-                    && u.getCurrentCells().get(0) {
-                listOfUnitsInRange.add(u);
-            }
-        }
-        return listOfUnitsInRange;
-
-        Unit selectedUnit = player.selectedUnit;
-        for(int c = 0; c < area.units.size(); ++c) {
-            Unit unit = area.units.get(c);
-            Vector coords = unit.getPosition();
-            if(selectedUnit.getRange().nodeExists(new DiscreteCoordinates((int) coords.x, (int) coords.y))){
-                if ((unit.getCamp().equals(selectedUnit.getCamp()))){
-                    listOfUnitsInRange.add(unit);
-                    System.out.println(unit);
-                }
-            }
-        }
-        return listOfUnitsInRange;
     }
 
     // checks if the RealPlayer is in Range of the selected unit, so it checks if is still on a Node, if not you go back to Normal State.
