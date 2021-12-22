@@ -30,6 +30,10 @@ public class ICWarsBehavior extends AreaBehavior {
                 this.stars = stars;
             }
 
+            public int getStars() {
+                return stars;
+            }
+
             public static ICWarsCellType toType(int type){
                 for(ICWarsCellType ict : ICWarsCellType.values()){
                     if(ict.type == type)

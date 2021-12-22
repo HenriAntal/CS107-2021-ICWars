@@ -119,7 +119,6 @@ public class ICWars extends AreaGame {
                 System.out.println("INIT");
                 playersWaitingCurrent.clear();
                 playersAmount.clear();
-                activePlayer = null;
                 playersWaitingForNext.clear();
                 initArea(areas[areaIndex]);
                 d = Dynamics.CHOOSE_PLAYER;

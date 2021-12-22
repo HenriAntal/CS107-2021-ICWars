@@ -75,4 +75,9 @@ public abstract class ICWarsActor extends MovableAreaEntity {
     public String getBelongs() {
         return belongs;
     }
+
+    public void centerCamera() {
+        getOwnerArea().setViewCandidate(this);
+    }
+
 }

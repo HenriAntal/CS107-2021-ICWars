@@ -38,10 +38,6 @@ public class ICWarsPlayer extends ICWarsActor implements Interactor, Interactabl
 
     public Unit[] getUnits() { return units; }
 
-    public void centerCamera() {
-        getOwnerArea().setViewCandidate(this);
-    }
-
     @Override
     public boolean takeCellSpace() {
         return false;

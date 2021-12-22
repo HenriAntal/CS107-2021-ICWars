@@ -1,12 +1,15 @@
 package ch.epfl.cs107.play.game.icwars.actor.unit;
 
+import ch.epfl.cs107.play.game.areagame.actor.Interactor;
 import ch.epfl.cs107.play.game.areagame.actor.Sprite;
 import ch.epfl.cs107.play.game.icwars.actor.players.ICWarsActor;
+import ch.epfl.cs107.play.game.icwars.area.ICWarsBehavior;
 import ch.epfl.cs107.play.game.icwars.area.ICWarsRange;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.areagame.actor.Path;
 import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
+import ch.epfl.cs107.play.game.icwars.handler.ICWarsInteractionVisitor;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Canvas;
 
@@ -14,7 +17,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Queue;
 
-public abstract class Unit extends ICWarsActor {
+public abstract class Unit extends ICWarsActor implements Interactor {
 
     int Hp;
     int attackDamage;
@@ -23,6 +26,7 @@ public abstract class Unit extends ICWarsActor {
     int coordsX, coordsY;
     boolean used = false;
     protected Sprite sprite;
+    private int cellStars;
 
 //    public  int rangeIdentifier(){
 //        if(Hp == 4){    // needs to be changed with getCurrentMainCellCoordinates().equals(units[0].getCurrentCells().get(0))
@@ -49,7 +53,10 @@ public abstract class Unit extends ICWarsActor {
     }
 
 
-    public int damageTaken(){ return Hp-attackDamage;} //TODO Attack Damage of other unit is the correct variable
+    public int damageTaken(Unit other) {
+        ICWarsPlayerInteractionHandler handler = new ICWarsPlayerInteractionHandler();
+        return Hp - other.attackDamage + cellStars;
+    }
 
     public int healing() { return 1;} // we don't know the healing amount yet.
 
@@ -59,6 +66,14 @@ public abstract class Unit extends ICWarsActor {
 
     public int getDamage(){
         return attackDamage;
+    }
+
+    public void setHp(int newHp) {
+        Hp = newHp;
+    }
+
+    public void setCellStars(int stars) {
+        cellStars = stars;
     }
 
     public ICWarsRange initRange(Area owner, DiscreteCoordinates coordinates, int maxRange) {
@@ -115,7 +130,7 @@ public abstract class Unit extends ICWarsActor {
 
     @Override
     public boolean isViewInteractable() {
-        return true;
+        return false;
     }
 
     public void changeSprite(float number){
@@ -162,6 +177,14 @@ public abstract class Unit extends ICWarsActor {
         //Draw path only if it exists (destination inside the range)
         if (path != null){
             new Path(getCurrentMainCellCoordinates().toVector(), path).draw(canvas);
+        }
+    }
+
+    private class ICWarsPlayerInteractionHandler implements ICWarsInteractionVisitor {
+
+        @Override
+        public void interactWith(ICWarsBehavior.ICWarsCellType cell) {
+            setCellStars(cell.getStars());
         }
     }
 }
