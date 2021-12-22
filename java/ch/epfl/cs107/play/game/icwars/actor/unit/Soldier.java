@@ -71,6 +71,8 @@ public class Soldier extends Unit {
     public void interactWith(Interactable other) {}
     //end methods Interactor
 
+
+
 }
 
 
