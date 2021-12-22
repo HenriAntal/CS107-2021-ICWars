@@ -2,12 +2,14 @@ package ch.epfl.cs107.play.game.icwars;
 
 import ch.epfl.cs107.play.game.icwars.actor.players.*;
 import ch.epfl.cs107.play.game.areagame.AreaGame;
+import ch.epfl.cs107.play.game.icwars.actor.unit.Soldier;
+import ch.epfl.cs107.play.game.icwars.actor.unit.Tank;
+import ch.epfl.cs107.play.game.icwars.actor.unit.Unit;
 import ch.epfl.cs107.play.game.icwars.area.ICWarsArea;
 import ch.epfl.cs107.play.game.icwars.area.Level0;
 import ch.epfl.cs107.play.game.icwars.area.Level1;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
-import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Keyboard;
 import ch.epfl.cs107.play.window.Window;
 

@@ -1,7 +1,7 @@
 package ch.epfl.cs107.play.game.icwars.gui;
 
 import ch.epfl.cs107.play.game.icwars.actor.players.ICWarsPlayer;
-import ch.epfl.cs107.play.game.icwars.actor.players.Unit;
+import ch.epfl.cs107.play.game.icwars.actor.unit.Unit;
 import ch.epfl.cs107.play.game.actor.Graphics;
 import ch.epfl.cs107.play.window.Canvas;
 

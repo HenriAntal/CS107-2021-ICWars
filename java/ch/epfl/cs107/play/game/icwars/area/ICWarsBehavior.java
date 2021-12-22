@@ -30,8 +30,8 @@ public class ICWarsBehavior extends AreaBehavior {
                 this.stars = stars;
             }
 
-            public static ICWarsBehavior.ICWarsCellType toType(int type){
-                for(ICWarsBehavior.ICWarsCellType ict : ch.epfl.cs107.play.game.icwars.area.ICWarsBehavior.ICWarsCellType.values()){
+            public static ICWarsCellType toType(int type){
+                for(ICWarsCellType ict : ICWarsCellType.values()){
                     if(ict.type == type)
                         return ict;
                 }
