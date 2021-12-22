@@ -69,12 +69,10 @@ public class RealPlayer extends ICWarsPlayer {
 
         switch (s) {
             case IDLE:
-                //sprite.setAlpha(0f);
                 clearUsedNumbers();
                 //TODO later
                 break;
             case NORMAL:
-
                 sprite.setAlpha(1f);
                 if (keyboard.get(Keyboard.ENTER).isReleased() && playerOnUnit()) {
                     oldPosition = getCurrentMainCellCoordinates();
@@ -121,13 +119,13 @@ public class RealPlayer extends ICWarsPlayer {
 
                 break;
             case ACTION_SELECTION:
-               if (keyboard.get(Keyboard.W).isReleased()) {
-                   units[order].changeSprite(0.5f);
-                   Wait w = new Wait(getOwnerArea(), units[order]);
-                   w.doAction(deltaTime, this, keyboard);
+                if (keyboard.get(Keyboard.W).isReleased()) {
+                    units[order].changeSprite(0.5f);
+                    Wait w = new Wait(getOwnerArea(), units[order]);
+                    w.doAction(deltaTime, this, keyboard);
 
-               }
-                if (keyboard.get(Keyboard.A).isReleased()){
+                }
+                if (keyboard.get(Keyboard.A).isReleased()) {
                     units[order].changeSprite(0.5f);
                     System.out.println("sup");
                     Attack a = new Attack(getOwnerArea(), units[order]);

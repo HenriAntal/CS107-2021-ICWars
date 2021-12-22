@@ -1,7 +1,6 @@
 package ch.epfl.cs107.play.game.icwars.actor.unit.action;
 
 import ch.epfl.cs107.play.game.areagame.Area;
-import ch.epfl.cs107.play.game.areagame.actor.Interactor;
 import ch.epfl.cs107.play.game.icwars.actor.players.ICWarsPlayer;
 import ch.epfl.cs107.play.game.icwars.actor.unit.Unit;
 import ch.epfl.cs107.play.window.Canvas;
@@ -25,7 +24,12 @@ public class Attack extends Action {
     @Override
     public void doAction(float dt, ICWarsPlayer player, Keyboard keyboard) {
         int counter = 0;
+        player.addUsedUnit(unit);
+        boolean checka = false;
         List<Unit> enemyUnitList = player.enemyList;
+        System.out.println("supper");
+
+
         if (keyboard.get(Keyboard.LEFT).isReleased()) {
             --counter;
             if (counter < 0) {
@@ -33,18 +37,19 @@ public class Attack extends Action {
             }
         } else if (keyboard.get(Keyboard.RIGHT).isReleased()) {
             ++counter;
-            if (counter >= enemyUnitList.size()) {
+            System.out.println("sucker");
+            if (counter > enemyUnitList.size() - 1) {
                 counter = 0;
             }
         }
-        attackedUnit = enemyUnitList.get(counter);
-        attackedUnit.centerCamera();
-        if (keyboard.get(Keyboard.ENTER).isReleased()) {
-            attackedUnit.damageTaken(unit);
-            player.addUsedUnit(attackedUnit);
-            player.centerCamera();
+        if (keyboard.get(Keyboard.ENTER).isPressed()) {
+            checka = true;
+            System.out.println("This Bitch got attacked");
             player.s = ICWarsPlayer.State.NORMAL;
         }
+
+        //DamageConversion in here
+
     }
 
     @Override
