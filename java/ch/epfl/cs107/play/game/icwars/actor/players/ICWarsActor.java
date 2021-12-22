@@ -15,9 +15,6 @@ import java.util.List;
 public abstract class ICWarsActor extends MovableAreaEntity {
 
     String belongs;
-    public ArrayList<Unit> allyList = new ArrayList<Unit>();
-    public ArrayList<Unit> enemyList = new ArrayList<Unit>();
-
 
     public ICWarsActor(Area owner, DiscreteCoordinates coordinates, String belongs) {
         super(owner, Orientation.UP, coordinates);

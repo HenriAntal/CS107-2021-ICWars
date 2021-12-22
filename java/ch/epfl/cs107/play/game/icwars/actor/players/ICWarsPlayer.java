@@ -141,7 +141,11 @@ public class ICWarsPlayer extends ICWarsActor implements Interactor, Interactabl
         }
     }
 
-    public List<Unit> enemyInRange(ICWarsPlayer player){
+    /**
+     *
+     * @return a list with all units from the opposite faction of this player
+     */
+    public List<Unit> enemyInRange(){
         List<Unit> listOfUnitsInRange = new ArrayList<Unit>();
         for (Unit u : super.getOwnerArea().getUnitList()) {
             if (!u.getBelongs().equals(this.belongs)
