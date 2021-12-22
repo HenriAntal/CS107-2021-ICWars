@@ -8,9 +8,10 @@ import ch.epfl.cs107.play.window.Keyboard;
 
 public class Wait extends Action {
 
-    public Wait(Area area, Unit unit, String name) {
-        super(area, unit, name);
+    public Wait(Area area, Unit unit) {
+        super(area, unit);
         setKey(87);
+        setName("(W)ait");
     }
 
     @Override

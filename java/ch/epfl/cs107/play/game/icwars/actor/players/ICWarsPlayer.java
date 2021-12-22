@@ -130,7 +130,7 @@ public class ICWarsPlayer extends ICWarsActor implements Interactor, Interactabl
         }
         return false;
     }
-
+    
     public void addUsedUnit(Unit unit) {
         usedNumbers.add(unit);
     }

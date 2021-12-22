@@ -14,10 +14,9 @@ public class Action implements Graphics {
     private String name;
     private int key;
 
-    public Action(Area area, Unit unit, String name) {
+    public Action(Area area, Unit unit) {
         this.area = area;
         this.unit = unit;
-        this.name = name;
     }
     public Unit getUnit() {
         return unit;
@@ -33,6 +32,10 @@ public class Action implements Graphics {
 
     public void setKey(int key) {
         this.key = key;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void doAction(float dt, ICWarsPlayer player, Keyboard keyboard) {}

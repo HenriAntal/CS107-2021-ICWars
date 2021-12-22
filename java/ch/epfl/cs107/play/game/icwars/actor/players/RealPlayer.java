@@ -25,6 +25,7 @@ public class RealPlayer extends ICWarsPlayer {
     private int order;
     //    private Unit selectedUnit;
     private ICWarsPlayerInteractionHandler handler = new ICWarsPlayerInteractionHandler();
+    // FRANCE is stupid
     private ArrayList<Unit> usedNumbers = new ArrayList<>();
     private DiscreteCoordinates oldPosition;
 
@@ -211,17 +212,11 @@ public class RealPlayer extends ICWarsPlayer {
     }
 
     private boolean playerOnUnit() {
-//        if (getCurrentMainCellCoordinates().equals(units[0].getCurrentCells().get(0))) {
-//            return true;
-//        }
-//        if (getCurrentMainCellCoordinates().equals(units[1].getCurrentCells().get(0))) {
-//            return true;
-//        }
-        for (Unit u : getOwnerArea().getUnitList()) {
-            if (getCurrentMainCellCoordinates().equals(u.getCurrentCells().get(0))) {
-                return true;
-            }
-            return false;
+        if (getCurrentMainCellCoordinates().equals(units[0].getCurrentCells().get(0))) {
+            return true;
+        }
+        if (getCurrentMainCellCoordinates().equals(units[1].getCurrentCells().get(0))) {
+            return true;
         }
 
         return false;
