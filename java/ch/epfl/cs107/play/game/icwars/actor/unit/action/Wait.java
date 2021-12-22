@@ -23,5 +23,6 @@ public class Wait extends Action {
     @Override
     public void draw(Canvas canvas) {
 
+        //player.s = ICWarsPlayer.State.NORMAL;
     }
 }

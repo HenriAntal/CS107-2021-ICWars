@@ -6,6 +6,9 @@ import java.util.Collections;
 import java.util.List;
 
 import ch.epfl.cs107.play.game.icwars.actor.unit.Unit;
+import ch.epfl.cs107.play.game.icwars.actor.unit.action.Action;
+import ch.epfl.cs107.play.game.icwars.actor.unit.action.Attack;
+import ch.epfl.cs107.play.game.icwars.actor.unit.action.Wait;
 import ch.epfl.cs107.play.game.icwars.gui.ICWarsPlayerGUI;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
@@ -28,7 +31,6 @@ public class RealPlayer extends ICWarsPlayer {
     // FRANCE is stupid
     private ArrayList<Unit> usedNumbers = new ArrayList<>();
     private DiscreteCoordinates oldPosition;
-
 
 
     /**
@@ -101,9 +103,9 @@ public class RealPlayer extends ICWarsPlayer {
             case MOVE_UNIT:
                 if (keyboard.get(Keyboard.ENTER).isReleased() && !playerOnUnit()) {
                     units[order].hasBeenMoved(getCurrentMainCellCoordinates());
-                    if(hasBeenMoved(oldPosition, units[order].getCurrentCells().get(0))) {
+                    if (hasBeenMoved(oldPosition, units[order].getCurrentCells().get(0))) {
                         units[order].changeSprite(0.5f);
-                        s = State.NORMAL;
+                        s = State.ACTION_SELECTION;
                     } else {
                         s = State.MOVE_UNIT;
                     }
@@ -117,7 +119,14 @@ public class RealPlayer extends ICWarsPlayer {
 
                 break;
             case ACTION_SELECTION:
-                //TODO later
+                if (keyboard.get(Keyboard.W).isReleased()) {
+                    s = State.NORMAL;
+                }
+                if (keyboard.get(Keyboard.A).isReleased()){
+                    new Attack(getOwnerArea(), units[order]);
+                }
+                s = State.ACTION;
+
                 break;
             case ACTION:
                 //TODO later
