@@ -78,7 +78,7 @@ public class ICWars extends AreaGame {
             player.enterArea(area, player.getCurrentCells().get(0));
             for (int i = 0; i < player.getUnits().length; ++i) {
                 player.getUnits()[i].enterArea(area, player.getUnits()[i].getCurrentCells().get(0));
-                area.addUnit(player.getUnits()[i]);
+                area.addUnitToList(player.getUnits()[i]);
             }
         }
 

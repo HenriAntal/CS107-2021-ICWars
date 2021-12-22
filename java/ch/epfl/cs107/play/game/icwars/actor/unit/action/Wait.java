@@ -7,16 +7,16 @@ import ch.epfl.cs107.play.window.Canvas;
 import ch.epfl.cs107.play.window.Keyboard;
 
 public class Wait extends Action {
-
+    private Unit unit;
     public Wait(Area area, Unit unit) {
         super(area, unit);
+        this.unit = unit;
         setKey(87);
         setName("(W)ait");
     }
 
-    @Override
     public void doAction(float dt, ICWarsPlayer player, Keyboard keyboard) {
-        player.addUsedUnit(getUnit());
+        player.addUsedUnit(unit);
         player.s = ICWarsPlayer.State.NORMAL;
     }
 

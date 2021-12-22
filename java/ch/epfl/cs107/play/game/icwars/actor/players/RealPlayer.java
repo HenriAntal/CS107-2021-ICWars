@@ -106,6 +106,7 @@ public class RealPlayer extends ICWarsPlayer {
                     if (hasBeenMoved(oldPosition, units[order].getCurrentCells().get(0))) {
                         units[order].changeSprite(0.5f);
                         s = State.ACTION_SELECTION;
+//                        s = State.NORMAL;
                     } else {
                         s = State.MOVE_UNIT;
                     }
@@ -119,13 +120,13 @@ public class RealPlayer extends ICWarsPlayer {
 
                 break;
             case ACTION_SELECTION:
-                if (keyboard.get(Keyboard.W).isReleased()) {
-                    s = State.NORMAL;
-                }
-                if (keyboard.get(Keyboard.A).isReleased()){
-                    new Attack(getOwnerArea(), units[order]);
-                }
-                s = State.ACTION;
+//                if (keyboard.get(Keyboard.W).isReleased()) {
+//                    s = State.NORMAL;
+//                }
+//                if (keyboard.get(Keyboard.A).isReleased()){
+//                    new Attack(getOwnerArea(), units[order]);
+//                }
+//                s = State.ACTION;
 
                 break;
             case ACTION:

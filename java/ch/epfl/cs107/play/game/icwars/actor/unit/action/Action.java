@@ -7,7 +7,7 @@ import ch.epfl.cs107.play.game.icwars.actor.unit.Unit;
 import ch.epfl.cs107.play.window.Canvas;
 import ch.epfl.cs107.play.window.Keyboard;
 
-public class Action implements Graphics {
+public abstract class Action implements Graphics {
 
     private Area area;
     private Unit unit;
@@ -17,9 +17,6 @@ public class Action implements Graphics {
     public Action(Area area, Unit unit) {
         this.area = area;
         this.unit = unit;
-    }
-    public Unit getUnit() {
-        return unit;
     }
 
     public String getName() {
@@ -38,7 +35,7 @@ public class Action implements Graphics {
         this.name = name;
     }
 
-    public void doAction(float dt, ICWarsPlayer player, Keyboard keyboard) {}
+    public abstract void doAction(float dt, ICWarsPlayer player, Keyboard keyboard);
 
     @Override
     public void draw(Canvas canvas) {}

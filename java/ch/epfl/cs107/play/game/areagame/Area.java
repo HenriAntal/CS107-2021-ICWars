@@ -51,7 +51,7 @@ public abstract class Area implements Playable, PauseMenu.Pausable {
      * add unit to the list of units of the area
      * @param unit
      */
-    public void addUnit(Unit unit) {
+    public void addUnitToList(Unit unit) {
         units.add(unit);
     }
 
