@@ -105,8 +105,8 @@ public class RealPlayer extends ICWarsPlayer {
                     units[order].hasBeenMoved(getCurrentMainCellCoordinates());
                     if (hasBeenMoved(oldPosition, units[order].getCurrentCells().get(0))) {
                         units[order].changeSprite(0.5f);
-                        s = State.ACTION_SELECTION;
-//                        s = State.NORMAL;
+//                        s = State.ACTION_SELECTION;
+                        s = State.NORMAL;
                     } else {
                         s = State.MOVE_UNIT;
                     }
