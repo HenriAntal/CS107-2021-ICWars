@@ -44,17 +44,6 @@ public class ICWarsPlayer extends ICWarsActor implements Interactor, Interactabl
     }
 
 
-//    public boolean playerWon() {
-//        if (allyList.isEmpty()) {
-//            System.out.println("Allies lost, you lost!");
-//            return false;
-//        } else if (enemyList.isEmpty()) {
-//            System.out.println("Enemies lost, you won!");
-//            return false;
-//        } else {
-//            return true;
-//        }
-//    }
 
     /*public void actorAdder(ICWarsPlayer player) {
         playerList.add(player);

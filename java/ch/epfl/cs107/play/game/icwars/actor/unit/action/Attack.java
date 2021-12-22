@@ -6,6 +6,7 @@ import ch.epfl.cs107.play.game.areagame.io.ResourcePath;
 import ch.epfl.cs107.play.game.icwars.actor.players.ICWarsPlayer;
 import ch.epfl.cs107.play.game.icwars.actor.unit.Unit;
 import ch.epfl.cs107.play.math.RegionOfInterest;
+import ch.epfl.cs107.play.window.Button;
 import ch.epfl.cs107.play.window.Canvas;
 import ch.epfl.cs107.play.window.Keyboard;
 
@@ -35,28 +36,36 @@ public class Attack extends Action {
         System.out.println("supper");
 
 
-        if (keyboard.get(Keyboard.LEFT).isReleased()) {
-            --counter;
-            if (counter < 0) {
-                counter = enemyUnitList.size() - 1;
+        while (!checka) {
+
+            if (enemyUnitList.size() == 0) {
+                player.s = ICWarsPlayer.State.NORMAL;
+                break;uper.update(dt);
             }
-        } else if (keyboard.get(Keyboard.RIGHT).isReleased()) {
-            ++counter;
-            System.out.println("sucker");
-            if (counter > enemyUnitList.size() - 1) {
-                counter = 0;
+            if (keyboard.equals(Keyboard.LEFT)) {
+                --counter;
+                if (counter < 0) {
+                    counter = enemyUnitList.size() - 1;
+                }
+            } else if (keyboard.equals(Keyboard.RIGHT)) {
+                ++counter;
+                System.out.println("sucker");
+                if (counter > enemyUnitList.size() - 1) {
+                    counter = 0;
+                }
             }
+
+            attackedUnit = enemyUnitList.get(counter);
+
+            if (keyboard.equals(Keyboard.ENTER)) {
+                System.out.println("This Bitch got attacked");
+                player.s = ICWarsPlayer.State.NORMAL;
+                break;
+            }
+
+            //DamageConversion in here
+
         }
-        attackedUnit = enemyUnitList.get(counter);
-
-        if (keyboard.get(Keyboard.ENTER).isPressed()) {
-            checka = true;
-            System.out.println("This Bitch got attacked");
-            player.s = ICWarsPlayer.State.NORMAL;
-        }
-
-        //DamageConversion in here
-
     }
 
     @Override
