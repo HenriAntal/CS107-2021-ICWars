@@ -1,6 +1,6 @@
-# Read-Me for the Mini-Projét 2
+# Read-Me for the Mini-Projet 2
 Hello, thank you for checking out our game! It is a remake of the 
-original Advance Wars for the Game Boy Advance. I hope you will fun 
+original Advance Wars for the Game Boy Advance. I hope you will have fun 
 playing our game. 
 
 In this document we will explain to you how the game works, what it's 
@@ -10,7 +10,7 @@ process you can write us an e-mail at: france.lu@epfl.ch
 
 ### Goal
 
-- The Goal of this game is to beat your opponent by using your Units and defeating his Units. In your arsenal you have Soldiers and Tanks.
+- The goal of this game is to beat your opponent by using your units and defeating his units. In your arsenal you have soldiers and tanks.
 
 
     Soldier -   Low range and low damage.
@@ -18,8 +18,8 @@ process you can write us an e-mail at: france.lu@epfl.ch
     Tank    -   High range and high damage.
 
 
-- Once you've destroyed all of his Units you win. And you can therefore go to the next Level. If you lose, you have to repeat
-the Level. 
+- Once you've destroyed all his units you win. If this is the case, you go to the next level. Otherwise, you have to restart
+the level. 
 
 
 ### Navigation
@@ -27,13 +27,13 @@ the Level.
 
 - You move your cursor with the arrow-keys (```↑ ↓ ← →```).
 
-- You can select one of your units with the ```Enter``` Key. (Deselecting happens with the ```Tab``` key.)
+- You can select one of your units with the ```Enter``` key. (Deselecting happens with the ```Tab``` key.)
 
-- Once you have picked your unit, you then see the range they have. You can move the unit anywhere in the white space.
+- Once you have picked your unit, you will see the range they have. You can move the unit anywhere in the white space.
 
 - When pressing ```Enter``` again you move your Unit to the position where your cursor is appearing.
 
-- To attack you will need to select an enemy unit with the left and right arrow key (```← →```).
+- To attack you will need to select an enemy unit with the left and right arrow keys (```← →```).
 
 - Once selected you can either wait ```W``` or attack ```A```.
 
