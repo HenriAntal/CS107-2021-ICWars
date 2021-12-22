@@ -72,7 +72,7 @@ public class ICWars extends AreaGame {
         playersWaitingCurrent.add(new RealPlayer(area, coords, "ally", units1));
         playersWaitingCurrent.add(new RealPlayer(area, enemyCoords, "enemy", units2));
 
-        area.clearUnitList();
+        area.resetUnitList();
 
         for (ICWarsPlayer player : playersWaitingCurrent) {
             player.enterArea(area, player.getCurrentCells().get(0));

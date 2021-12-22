@@ -16,10 +16,7 @@ import ch.epfl.cs107.play.window.Keyboard;
 import ch.epfl.cs107.play.window.Mouse;
 import ch.epfl.cs107.play.window.Window;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -62,8 +59,8 @@ public abstract class Area implements Playable, PauseMenu.Pausable {
         return units;
     }
 
-    public void clearUnitList() {
-        units.clear();
+    public void resetUnitList() {
+        units = new ArrayList<Unit>();
     }
 
     public void removeUnit(Unit unit) {
