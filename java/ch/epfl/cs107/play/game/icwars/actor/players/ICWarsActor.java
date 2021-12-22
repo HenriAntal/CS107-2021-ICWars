@@ -5,23 +5,24 @@ import ch.epfl.cs107.play.game.areagame.actor.MovableAreaEntity;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
 import ch.epfl.cs107.play.game.icwars.actor.unit.Unit;
+import ch.epfl.cs107.play.game.icwars.area.ICWarsRange;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Canvas;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class ICWarsActor extends MovableAreaEntity{
+public abstract class ICWarsActor extends MovableAreaEntity {
 
     String belongs;
     public ArrayList<Unit> allyList = new ArrayList<Unit>();
     public ArrayList<Unit> enemyList = new ArrayList<Unit>();
 
 
-    public ICWarsActor(Area owner, DiscreteCoordinates coordinates, String belongs){
+    public ICWarsActor(Area owner, DiscreteCoordinates coordinates, String belongs) {
         super(owner, Orientation.UP, coordinates);
 
-        if(belongs.equals("ally")){
+        if (belongs.equals("ally")) {
             this.belongs = "ally";
         } else {
             this.belongs = "enemy";
@@ -56,13 +57,13 @@ public abstract class ICWarsActor extends MovableAreaEntity{
 
     }
 
-    public void enterArea(Area area, DiscreteCoordinates position){
+    public void enterArea(Area area, DiscreteCoordinates position) {
         area.registerActor(this);
         setOwnerArea(area);
         setCurrentPosition(position.toVector());
     }
 
-    public void leaveArea(){
+    public void leaveArea() {
         getOwnerArea().unregisterActor(this);
     }
 
@@ -71,7 +72,7 @@ public abstract class ICWarsActor extends MovableAreaEntity{
 
     }
 
-    public String getBelongs(){
+    public String getBelongs() {
         return belongs;
     }
 }

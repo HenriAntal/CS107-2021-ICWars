@@ -6,6 +6,7 @@ import ch.epfl.cs107.play.game.areagame.actor.Interactor;
 import ch.epfl.cs107.play.game.areagame.actor.Sprite;
 import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
 import ch.epfl.cs107.play.game.icwars.actor.unit.Unit;
+import ch.epfl.cs107.play.game.icwars.area.ICWarsRange;
 import ch.epfl.cs107.play.game.icwars.handler.ICWarsInteractionVisitor;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 
@@ -130,7 +131,7 @@ public class ICWarsPlayer extends ICWarsActor implements Interactor, Interactabl
         }
         return false;
     }
-    
+
     public void addUsedUnit(Unit unit) {
         usedNumbers.add(unit);
     }
@@ -144,6 +145,16 @@ public class ICWarsPlayer extends ICWarsActor implements Interactor, Interactabl
         }
     }
 
+    public List<Unit> enemyInRange(ICWarsPlayer player){
+        List<Unit> listOfUnitsInRange = new ArrayList<Unit>();
+        for (Unit u : super.getOwnerArea().getUnitList()) {
+            if (!u.getBelongs().equals(this.belongs)
+                    && selectedUnit.getRange().nodeExists(u.getCurrentCells().get(0))) {
+                listOfUnitsInRange.add(u);
+            }
+        }
+        return listOfUnitsInRange;
+    }
 
 }
 

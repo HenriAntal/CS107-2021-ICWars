@@ -31,6 +31,7 @@ public class RealPlayer extends ICWarsPlayer {
     // FRANCE is stupid
     private ArrayList<Unit> usedNumbers = new ArrayList<>();
     private DiscreteCoordinates oldPosition;
+    private Action action;
 
 
     /**
@@ -105,8 +106,8 @@ public class RealPlayer extends ICWarsPlayer {
                     units[order].hasBeenMoved(getCurrentMainCellCoordinates());
                     if (hasBeenMoved(oldPosition, units[order].getCurrentCells().get(0))) {
                         units[order].changeSprite(0.5f);
-//                        s = State.ACTION_SELECTION;
-                        s = State.NORMAL;
+                        s = State.ACTION_SELECTION;
+//                        s = State.NORMAL;
                     } else {
                         s = State.MOVE_UNIT;
                     }
@@ -120,17 +121,17 @@ public class RealPlayer extends ICWarsPlayer {
 
                 break;
             case ACTION_SELECTION:
-//                if (keyboard.get(Keyboard.W).isReleased()) {
+                if (keyboard.get(Keyboard.W).isReleased()) {
 //                    s = State.NORMAL;
-//                }
-//                if (keyboard.get(Keyboard.A).isReleased()){
-//                    new Attack(getOwnerArea(), units[order]);
-//                }
-//                s = State.ACTION;
+                    action = new Wait(getOwnerArea(), selectedUnit);
+                } else if (keyboard.get(Keyboard.A).isReleased()){
+                    action = new Attack(getOwnerArea(), selectedUnit);
+                }
 
                 break;
             case ACTION:
                 //TODO later
+                action.doAction(deltaTime, this, ??);
                 break;
         }
 
@@ -209,8 +210,28 @@ public class RealPlayer extends ICWarsPlayer {
         return Collections.singletonList(getCurrentMainCellCoordinates());
     }
 
-    public void interactWith() {
+    public List<Unit> ennemyInRange(ICWarsPlayer player){
+        List<Unit> listOfUnitsInRange = new ArrayList<Unit>();
+        for (Unit u : super.getOwnerArea().getUnitList()) {
+            if (!u.getBelongs().equals(this.belongs)
+                    && u.getCurrentCells().get(0) {
+                listOfUnitsInRange.add(u);
+            }
+        }
+        return listOfUnitsInRange;
 
+        Unit selectedUnit = player.selectedUnit;
+        for(int c = 0; c < area.units.size(); ++c) {
+            Unit unit = area.units.get(c);
+            Vector coords = unit.getPosition();
+            if(selectedUnit.getRange().nodeExists(new DiscreteCoordinates((int) coords.x, (int) coords.y))){
+                if ((unit.getCamp().equals(selectedUnit.getCamp()))){
+                    listOfUnitsInRange.add(unit);
+                    System.out.println(unit);
+                }
+            }
+        }
+        return listOfUnitsInRange;
     }
 
     // checks if the RealPlayer is in Range of the selected unit, so it checks if is still on a Node, if not you go back to Normal State.

@@ -1,6 +1,5 @@
 package ch.epfl.cs107.play.game.icwars.actor.unit;
 
-import ch.epfl.cs107.play.game.areagame.actor.Interactable;
 import ch.epfl.cs107.play.game.areagame.actor.Sprite;
 import ch.epfl.cs107.play.game.icwars.actor.players.ICWarsActor;
 import ch.epfl.cs107.play.game.icwars.area.ICWarsRange;
@@ -49,31 +48,6 @@ public abstract class Unit extends ICWarsActor {
 
     }
 
-    public ICWarsRange createRange(Area owner, DiscreteCoordinates coordinates, int maxRange, ICWarsRange range) {
-
-        for (int x = -maxRange; x <= maxRange; ++x) {
-            for (int y = -maxRange; y <= maxRange; ++y) {
-                int newX = coordinates.x + x;
-                int newY = coordinates.y + y;
-
-                if (newX < 0) { continue; }
-                if (newY > owner.getHeight() - 1) { continue; }
-                if (newX > owner.getWidth() - 1) { continue; }
-                if (newY < 0) { continue; }
-
-                boolean left = true, up = true, right = true, down = true;
-                if (newX == 0 || x == -maxRange) { left = false; }
-                if (newY == owner.getHeight() - 1 || y == maxRange) { up = false; }
-                if (newX == owner.getWidth() - 1 || x == maxRange) { right = false; }
-                if (newY == 0 || y == -maxRange) { down = false; }
-
-//                System.out.println("added");
-                range.addNode(new DiscreteCoordinates(coordinates.x + x, coordinates.y + y),
-                        left, up, right, down);
-            }
-        }
-        return range;
-    }
 
     public int damageTaken(){ return Hp-attackDamage;} //TODO Attack Damage of other unit is the correct variable
 
@@ -87,6 +61,47 @@ public abstract class Unit extends ICWarsActor {
         return attackDamage;
     }
 
+    public ICWarsRange initRange(Area owner, DiscreteCoordinates coordinates, int maxRange) {
+
+        for (int x = -maxRange; x <= maxRange; ++x) {
+            for (int y = -maxRange; y <= maxRange; ++y) {
+                int newX = coordinates.x + x;
+                int newY = coordinates.y + y;
+
+                if (newX < 0) {
+                    continue;
+                }
+                if (newY > owner.getHeight() - 1) {
+                    continue;
+                }
+                if (newX > owner.getWidth() - 1) {
+                    continue;
+                }
+                if (newY < 0) {
+                    continue;
+                }
+
+                boolean left = true, up = true, right = true, down = true;
+                if (newX == 0 || x == -maxRange) {
+                    left = false;
+                }
+                if (newY == owner.getHeight() - 1 || y == maxRange) {
+                    up = false;
+                }
+                if (newX == owner.getWidth() - 1 || x == maxRange) {
+                    right = false;
+                }
+                if (newY == 0 || y == -maxRange) {
+                    down = false;
+                }
+
+//                System.out.println("added");
+                range.addNode(new DiscreteCoordinates(coordinates.x + x, coordinates.y + y),
+                        left, up, right, down);
+            }
+        }
+        return range;
+    }
 
     @Override
     public boolean takeCellSpace() {
@@ -123,7 +138,7 @@ public abstract class Unit extends ICWarsActor {
             return false;
         } else {
             ICWarsRange newRange = new ICWarsRange();
-            newRange = createRange(getOwnerArea(), newPosition, maxRange, newRange);
+            newRange = initRange(getOwnerArea(), newPosition, maxRange);
             range = newRange;
             coordsX = newPosition.x;
             coordsY = newPosition.y;

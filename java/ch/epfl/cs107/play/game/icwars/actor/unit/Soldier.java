@@ -2,7 +2,6 @@ package ch.epfl.cs107.play.game.icwars.actor.unit;
 
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.Sprite;
-import ch.epfl.cs107.play.game.icwars.actor.unit.Unit;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Canvas;
@@ -17,7 +16,7 @@ public class Soldier extends Unit {
         attackDamage = 2;
         Hp = 5;
 
-        createRange(owner, coordinates, super.maxRange, range);
+        range = initRange(owner, coordinates, super.maxRange);
 
         if (belongs.equals("ally")) {
             name = "icwars/friendlySoldier";

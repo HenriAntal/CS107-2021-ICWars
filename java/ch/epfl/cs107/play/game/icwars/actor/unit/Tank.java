@@ -2,7 +2,6 @@ package ch.epfl.cs107.play.game.icwars.actor.unit;
 
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.Sprite;
-import ch.epfl.cs107.play.game.icwars.actor.unit.Unit;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Canvas;
@@ -17,7 +16,7 @@ public class Tank extends Unit {
         int attackDamage = 7;
         Hp = 10;
 
-        createRange(owner, coordinates, super.maxRange, range);
+        range = initRange(owner, coordinates, super.maxRange);
 
 
         if (belongs.equals("ally")) {
