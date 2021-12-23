@@ -31,12 +31,8 @@ public class Attack extends Action {
     @Override
     public void doAction(float dt, ICWarsPlayer player, Keyboard keyboard) {
         player.addUsedUnitChecked(unit);
-//        boolean checka = false;
         enemyUnitList = unit.enemyInRangeList();
         System.out.println("supper");
-//        for (Unit u : enemyUnitList) {
-//            u.changeSprite(0.5f);
-//        }
 
         if (keyboard.get(Keyboard.LEFT).isReleased()) {
             --counter;

@@ -38,7 +38,7 @@ public class Tuto1 extends AreaGame {
 			areaIndex = 0;
 			Area area = setCurrentArea(areas[areaIndex], true);
 
-			player = new SimpleGhost(new Vector(18, 7), "ghost.1");
+			player = new SimpleGhost(new Vector(18, 7), "icwars/index");
 			area.registerActor(player);
 			area.setViewCandidate(player);
 			return true;

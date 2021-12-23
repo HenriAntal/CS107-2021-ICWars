@@ -27,7 +27,7 @@ public class Village extends Tuto2Area {
 	
         registerActor(new Background(this)) ;
         registerActor(new Foreground(this)) ;
-        registerActor(new SimpleGhost(new Vector(20, 10), "ghost.2"));
+        registerActor(new SimpleGhost(new Vector(20, 10), "icwars/index"));
         }
 	
 	
