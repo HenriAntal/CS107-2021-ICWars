@@ -3,6 +3,9 @@ package ch.epfl.cs107.play.game.icwars.actor.unit;
 import ch.epfl.cs107.play.game.areagame.actor.Interactor;
 import ch.epfl.cs107.play.game.areagame.actor.Sprite;
 import ch.epfl.cs107.play.game.icwars.actor.players.ICWarsActor;
+import ch.epfl.cs107.play.game.icwars.actor.unit.action.Action;
+import ch.epfl.cs107.play.game.icwars.actor.unit.action.Attack;
+import ch.epfl.cs107.play.game.icwars.actor.unit.action.Wait;
 import ch.epfl.cs107.play.game.icwars.area.ICWarsBehavior;
 import ch.epfl.cs107.play.game.icwars.area.ICWarsRange;
 import ch.epfl.cs107.play.game.areagame.Area;
@@ -13,6 +16,7 @@ import ch.epfl.cs107.play.game.icwars.handler.ICWarsInteractionVisitor;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Canvas;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Queue;
@@ -28,13 +32,6 @@ public abstract class Unit extends ICWarsActor implements Interactor {
     protected Sprite sprite;
     private int cellStars;
 
-//    public  int rangeIdentifier(){
-//        if(Hp == 4){    // needs to be changed with getCurrentMainCellCoordinates().equals(units[0].getCurrentCells().get(0))
-//                        // it checks for the position of units and also the position of the player.
-//            return Tank.getRange();
-//        }
-//        return Soldier.getRange();
-//    }
 
     public Unit(Area owner, DiscreteCoordinates coordinates, String belongs ){
         super(owner, coordinates, belongs);

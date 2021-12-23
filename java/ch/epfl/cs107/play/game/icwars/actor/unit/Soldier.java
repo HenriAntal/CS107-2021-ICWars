@@ -3,23 +3,29 @@ package ch.epfl.cs107.play.game.icwars.actor.unit;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.Interactable;
 import ch.epfl.cs107.play.game.areagame.actor.Sprite;
+import ch.epfl.cs107.play.game.icwars.actor.unit.action.Action;
+import ch.epfl.cs107.play.game.icwars.actor.unit.action.Attack;
+import ch.epfl.cs107.play.game.icwars.actor.unit.action.Wait;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Canvas;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Soldier extends Unit {
     private String name;
-
+    private List<Action> actions = new ArrayList<Action>();
 
     public Soldier(Area owner, DiscreteCoordinates coordinates, String belongs) {
         super(owner, coordinates, belongs);
         super.maxRange = 2;
         attackDamage = 2;
         Hp = 5;
-
         range = initRange(owner, coordinates, super.maxRange);
+        actions.add(new Wait(getOwnerArea(), this));
+        actions.add(new Attack(getOwnerArea(), this));
+
 
         if (belongs.equals("ally")) {
             name = "icwars/friendlySoldier";

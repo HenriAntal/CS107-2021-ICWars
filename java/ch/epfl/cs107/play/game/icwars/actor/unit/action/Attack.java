@@ -17,8 +17,9 @@ public class Attack extends Action {
 
     private Unit unit;
     private Unit attackedUnit;
+    private List<Unit> enemyUnitList;
     private ImageGraphics cursor = new ImageGraphics(ResourcePath.getSprite("icwars/UIpackSheet"), 1f, 1f,
-            new RegionOfInterest(4*18, 26*18, 16, 16));
+            new RegionOfInterest(4 * 18, 26 * 18, 16, 16));
 
     public Attack(Area area, Unit unit) {
         super(area, unit);
@@ -31,48 +32,48 @@ public class Attack extends Action {
     public void doAction(float dt, ICWarsPlayer player, Keyboard keyboard) {
         int counter = 0;
         player.addUsedUnit(unit);
-        boolean checka = false;
         List<Unit> enemyUnitList = player.enemyInRange();
         System.out.println("supper");
 
-
-        while (!checka) {
-
-            if (enemyUnitList.size() == 0) {
-                player.s = ICWarsPlayer.State.NORMAL;
-                break;uper.update(dt);
+        if (keyboard.equals(Keyboard.LEFT)) {
+            --counter;
+            if (counter < 0) {
+                counter = enemyUnitList.size() - 1;
             }
-            if (keyboard.equals(Keyboard.LEFT)) {
-                --counter;
-                if (counter < 0) {
-                    counter = enemyUnitList.size() - 1;
-                }
-            } else if (keyboard.equals(Keyboard.RIGHT)) {
-                ++counter;
-                System.out.println("sucker");
-                if (counter > enemyUnitList.size() - 1) {
-                    counter = 0;
-                }
+        } else if (keyboard.equals(Keyboard.RIGHT)) {
+            ++counter;
+            System.out.println("sucker");
+            if (counter > enemyUnitList.size() - 1) {
+                counter = 0;
             }
-
-            attackedUnit = enemyUnitList.get(counter);
-
-            if (keyboard.equals(Keyboard.ENTER)) {
-                System.out.println("This Bitch got attacked");
-                player.s = ICWarsPlayer.State.NORMAL;
-                break;
-            }
-
-            //DamageConversion in here
-
         }
+
+        attackedUnit = enemyUnitList.get(counter);
+
+        if (keyboard.get(Keyboard.ENTER).isPressed()) {
+            System.out.println("This Bitch got attacked");
+            attackedUnit.damageTaken(unit);
+            player.addUsedUnit(attackedUnit);
+            player.centerCamera();
+            player.s = ICWarsPlayer.State.NORMAL;
+        }
+
+        //DamageConversion in here
+
+
     }
 
     @Override
     public void draw(Canvas canvas) {
-        if (!attackedUnit.equals(null)) {
+        boolean hasTargetUnit = false;
+        for (Unit u : enemyUnitList) {
+            if (attackedUnit.equals(u)) {
+                hasTargetUnit = true;
+            }
+        }
+        if (hasTargetUnit) {
             attackedUnit.centerCamera();
-            cursor.setAnchor(canvas.getPosition().add(1,0));
+            cursor.setAnchor(canvas.getPosition().add(1, 0));
             cursor.draw(canvas);
         }
     }
