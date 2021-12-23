@@ -16,6 +16,8 @@ public class Attack extends Action {
     private Unit unit;
     private Unit attackedUnit;
     private List<Unit> enemyUnitList;
+    private int counter = 1;
+
     private ImageGraphics cursor = new ImageGraphics(ResourcePath.getSprite("icwars/UIpackSheet"), 1f, 1f,
             new RegionOfInterest(4*18, 26*18, 16, 16));
 
@@ -28,7 +30,6 @@ public class Attack extends Action {
 
     @Override
     public void doAction(float dt, ICWarsPlayer player, Keyboard keyboard) {
-        int counter = 0;
         player.addUsedUnitChecked(unit);
 //        boolean checka = false;
         enemyUnitList = unit.enemyInRangeList();
@@ -51,6 +52,7 @@ public class Attack extends Action {
         }
 
         attackedUnit = enemyUnitList.get(counter);
+        attackedUnit.centerCamera();
 
         if (keyboard.get(Keyboard.ENTER).isReleased()) {
             System.out.println("This Bitch got attacked");
@@ -72,14 +74,14 @@ public class Attack extends Action {
 
     @Override
     public void draw(Canvas canvas) {
-        boolean hasTargetUnit = false;
-        for (Unit u : enemyUnitList) {
-            if (attackedUnit.equals(u)) {
-                hasTargetUnit = true;
-            }
-        }
+//        boolean hasTargetUnit = false;
+//        for (Unit u : enemyUnitList) {
+//            if (attackedUnit.equals(u)) {
+//                hasTargetUnit = true;
+//            }
+//        }
 //        if (hasTargetUnit) {
-        if (enemyUnitList.size() > 0) {
+        if (enemyUnitList.size() > 0 && enemyUnitList != null) {
             attackedUnit.centerCamera();
             cursor.setAnchor(canvas.getPosition().add(1,0));
             cursor.draw(canvas);

@@ -99,7 +99,6 @@ public class RealPlayer extends ICWarsPlayer {
 
             case NORMAL:
                 sprite.setAlpha(1f);
-                System.out.println("hmm");
                 if (keyboard.get(Keyboard.ENTER).isReleased() && playerOnUnit()) {
 
                     //stores the Position of the RealPlayer when you select a unit
@@ -164,7 +163,8 @@ public class RealPlayer extends ICWarsPlayer {
 
             case ACTION:
                 //TODO later
-                s = State.NORMAL;
+                action.doAction(deltaTime, this, this.getOwnerArea().getKeyboard());
+
                 break;
         }
 
