@@ -107,7 +107,7 @@ public abstract class MovableAreaEntity extends AreaEntity {
      */
 
 
-    public boolean hasBeenMoved(DiscreteCoordinates newPosition) {
+    public boolean changePosition(DiscreteCoordinates newPosition) {
         if (newPosition.equals(getCurrentMainCellCoordinates()))
             return true;
 
@@ -122,7 +122,7 @@ public abstract class MovableAreaEntity extends AreaEntity {
         return true;
     }
 
-    public boolean hasBeenMoved(DiscreteCoordinates newPosition, DiscreteCoordinates oldPosition) {
+    public boolean changePostion(DiscreteCoordinates newPosition, DiscreteCoordinates oldPosition) {
         if (newPosition.equals(oldPosition)) {
             return false;
         } else {

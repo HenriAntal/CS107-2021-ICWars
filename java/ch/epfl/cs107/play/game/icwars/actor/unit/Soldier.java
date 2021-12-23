@@ -17,6 +17,13 @@ public class Soldier extends Unit {
     private String name;
     private List<Action> actions = new ArrayList<Action>();
 
+
+    /**
+     * Constructor for the Unit -> Soldier
+     * @param owner
+     * @param coordinates
+     * @param belongs
+     */
     public Soldier(Area owner, DiscreteCoordinates coordinates, String belongs) {
         super(owner, coordinates, belongs);
         super.maxRange = 2;
@@ -35,7 +42,6 @@ public class Soldier extends Unit {
         this.sprite = new Sprite(name, 1.5f, 1.5f, this, null, new Vector(-0.25f, -0.25f));
     }
 
-    // TODO not sure if these 2 methods below work.
     @Override
     public int getHp() {
         return Hp;

@@ -19,7 +19,7 @@ public class Attack extends Action {
     private Unit attackedUnit;
     private List<Unit> enemyUnitList;
     private ImageGraphics cursor = new ImageGraphics(ResourcePath.getSprite("icwars/UIpackSheet"), 1f, 1f,
-            new RegionOfInterest(4 * 18, 26 * 18, 16, 16));
+            new RegionOfInterest(4*18, 26*18, 16, 16));
 
     public Attack(Area area, Unit unit) {
         super(area, unit);
@@ -32,6 +32,7 @@ public class Attack extends Action {
     public void doAction(float dt, ICWarsPlayer player, Keyboard keyboard) {
         int counter = 0;
         player.addUsedUnit(unit);
+        boolean checka = false;
         List<Unit> enemyUnitList = player.enemyInRange();
         System.out.println("supper");
 
@@ -73,7 +74,7 @@ public class Attack extends Action {
         }
         if (hasTargetUnit) {
             attackedUnit.centerCamera();
-            cursor.setAnchor(canvas.getPosition().add(1, 0));
+            cursor.setAnchor(canvas.getPosition().add(1,0));
             cursor.draw(canvas);
         }
     }
