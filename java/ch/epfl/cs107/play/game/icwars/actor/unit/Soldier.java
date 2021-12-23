@@ -58,6 +58,7 @@ public class Soldier extends Unit {
     }
 
 
+
     @Override
     public boolean takeCellSpace() {
         return true;
@@ -83,7 +84,10 @@ public class Soldier extends Unit {
     public void interactWith(Interactable other) {}
     //end methods Interactor
 
-
+    @Override
+    public List<Action> getActions() {
+        return actions;
+    }
 
 }
 

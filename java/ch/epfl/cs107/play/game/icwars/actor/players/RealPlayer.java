@@ -7,8 +7,6 @@ import java.util.List;
 
 import ch.epfl.cs107.play.game.icwars.actor.unit.Unit;
 import ch.epfl.cs107.play.game.icwars.actor.unit.action.Action;
-import ch.epfl.cs107.play.game.icwars.actor.unit.action.Attack;
-import ch.epfl.cs107.play.game.icwars.actor.unit.action.Wait;
 import ch.epfl.cs107.play.game.icwars.gui.ICWarsPlayerGUI;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
@@ -98,8 +96,8 @@ public class RealPlayer extends ICWarsPlayer {
                 clearUsedNumbers();
                 //TODO later
                 break;
-            case NORMAL:
 
+            case NORMAL:
                 sprite.setAlpha(1f);
                 if (keyboard.get(Keyboard.ENTER).isReleased() && playerOnUnit()) {
 
@@ -115,8 +113,8 @@ public class RealPlayer extends ICWarsPlayer {
                 } else if (keyboard.get(Keyboard.ENTER).isReleased() && !playerOnUnit()) {
                     s = State.NORMAL;
                 }
-
                 break;
+
             case SELECT_CELL:
                 getUnitNr();
                 if (notAlreadyUsed(units[order])) {
@@ -128,41 +126,36 @@ public class RealPlayer extends ICWarsPlayer {
                     s = State.NORMAL;
                 }
                 break;
+
             case MOVE_UNIT:
-                if (keyboard.get(Keyboard.ENTER).isReleased() && !playerOnUnit()) {
+                if (keyboard.get(Keyboard.ENTER).isReleased() && !playerOnUnit()
+                        && changedPosition(selectedUnit.getCurrentCells().get(0), getCurrentMainCellCoordinates())) {
                     units[order].changePosition(getCurrentMainCellCoordinates());
                     //here we check if the old position and the current position of the Unit are the same, if that is the case
                     //then we stay in the MOVE_UNIT state.
-                    if (changePostion(oldPosition, units[order].getCurrentCells().get(0))) {
+//                    if (changedPosition(oldPosition, units[order].getCurrentCells().get(0))) {
 //                        s = State.ACTION_SELECTION;
-                        s = State.ACTION_SELECTION;
-                    } else {
-                        s = State.MOVE_UNIT;
-                    }
+                        s = State.SELECTION_ACTION;
+//                    } else {
+//                        s = State.MOVE_UNIT;
+//                    }
 
                 } else if (keyboard.get(Keyboard.TAB).isReleased() || !inRange()) {
                     s = State.NORMAL;
                     usedNumbers.remove(usedNumbers.size() - 1);
                 }
-
                 break;
-            case ACTION_SELECTION:
+
+            case SELECTION_ACTION:
                 //If the user presses W we get the Wait Action
-               if (keyboard.get(Keyboard.W).isReleased()) {
-                   units[order].changeSprite(0.5f);
-                   Wait w = new Wait(getOwnerArea(), units[order]);
-                   w.doAction(deltaTime, this, keyboard);
-
-               }
-                if (keyboard.get(Keyboard.A).isReleased()){
-                    units[order].changeSprite(0.5f);
-                    System.out.println("sup");
-                    Attack a = new Attack(getOwnerArea(), units[order]);
-                    a.doAction(deltaTime, this, keyboard);
+                for (Action a : selectedUnit.getActions()) {
+                    if (keyboard.get(a.getKey()).isReleased()) {
+                        action = a;
+                        s = State.ACTION;
+                    }
                 }
-
-
                 break;
+
             case ACTION:
                 //TODO later
                 action.doAction(deltaTime, this, keyboard);
@@ -331,6 +324,15 @@ public class RealPlayer extends ICWarsPlayer {
     public void clearUsedNumbers() {
         usedNumbers.clear();
     }
+
+    public boolean changedPosition(DiscreteCoordinates newPosition, DiscreteCoordinates oldPosition) {
+        if (newPosition.equals(oldPosition)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 
     /**
      * handles Interactions TODO

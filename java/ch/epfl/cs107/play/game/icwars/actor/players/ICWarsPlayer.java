@@ -20,7 +20,7 @@ public class ICWarsPlayer extends ICWarsActor implements Interactor, Interactabl
     protected Unit selectedUnit;
     protected ArrayList<RealPlayer> realPlayers = new ArrayList<RealPlayer>();
     protected ArrayList<Unit> usedNumbers = new ArrayList<>();
-    public enum State {IDLE, NORMAL, SELECT_CELL, MOVE_UNIT, ACTION_SELECTION, ACTION}
+    public enum State {IDLE, NORMAL, SELECT_CELL, MOVE_UNIT, SELECTION_ACTION, ACTION}
     public State s;
 
 

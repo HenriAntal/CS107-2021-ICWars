@@ -23,14 +23,15 @@ import java.util.Queue;
 
 public abstract class Unit extends ICWarsActor implements Interactor {
 
-    int Hp;
-    int attackDamage;
-    int maxRange;
+    static int Hp;
+    static int attackDamage;
+    static int maxRange;
     ICWarsRange range = new ICWarsRange();
     int coordsX, coordsY;
     boolean used = false;
     protected Sprite sprite;
     private int cellStars;
+    private List<Action> actions;
 
 
     public Unit(Area owner, DiscreteCoordinates coordinates, String belongs ){
@@ -169,6 +170,11 @@ public abstract class Unit extends ICWarsActor implements Interactor {
     public ICWarsRange getRange(){
         return range;
     }
+
+    public List<Action> getActions() {
+        return actions;
+    }
+
 
     /**
      * Draw the unit's range and a path from the unit position to

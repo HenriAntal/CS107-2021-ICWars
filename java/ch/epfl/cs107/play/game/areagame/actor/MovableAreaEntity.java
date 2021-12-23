@@ -122,14 +122,7 @@ public abstract class MovableAreaEntity extends AreaEntity {
         return true;
     }
 
-    public boolean changePostion(DiscreteCoordinates newPosition, DiscreteCoordinates oldPosition) {
-        if (newPosition.equals(oldPosition)) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-    
+
     /**
      * Final abortCurrentMove method
      * If a displacement occurs and if the displacement is not end,

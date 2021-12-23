@@ -6,11 +6,9 @@ import ch.epfl.cs107.play.game.areagame.io.ResourcePath;
 import ch.epfl.cs107.play.game.icwars.actor.players.ICWarsPlayer;
 import ch.epfl.cs107.play.game.icwars.actor.unit.Unit;
 import ch.epfl.cs107.play.math.RegionOfInterest;
-import ch.epfl.cs107.play.window.Button;
 import ch.epfl.cs107.play.window.Canvas;
 import ch.epfl.cs107.play.window.Keyboard;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Attack extends Action {
@@ -32,7 +30,7 @@ public class Attack extends Action {
     public void doAction(float dt, ICWarsPlayer player, Keyboard keyboard) {
         int counter = 0;
         player.addUsedUnit(unit);
-        boolean checka = false;
+//        boolean checka = false;
         List<Unit> enemyUnitList = player.enemyInRange();
         System.out.println("supper");
 
@@ -57,6 +55,11 @@ public class Attack extends Action {
             player.addUsedUnit(attackedUnit);
             player.centerCamera();
             player.s = ICWarsPlayer.State.NORMAL;
+        }
+
+        if (enemyUnitList.isEmpty() || keyboard.get(Keyboard.TAB).isReleased()) {
+            player.centerCamera();
+            player.s = ICWarsPlayer.State.SELECTION_ACTION;
         }
 
         //DamageConversion in here
