@@ -31,7 +31,7 @@ public class Attack extends Action {
         int counter = 0;
         player.addUsedUnit(unit);
 //        boolean checka = false;
-        List<Unit> enemyUnitList = player.enemyInRange();
+        enemyUnitList = player.enemyInRange();
         System.out.println("supper");
 
         if (keyboard.equals(Keyboard.LEFT)) {
@@ -62,10 +62,10 @@ public class Attack extends Action {
             player.s = ICWarsPlayer.State.SELECTION_ACTION;
         }
 
-        //DamageConversion in here
+            //DamageConversion in here
 
+        }
 
-    }
 
     @Override
     public void draw(Canvas canvas) {

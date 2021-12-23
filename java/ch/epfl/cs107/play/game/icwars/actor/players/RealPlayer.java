@@ -151,14 +151,17 @@ public class RealPlayer extends ICWarsPlayer {
                 for (Action a : selectedUnit.getActions()) {
                     if (keyboard.get(a.getKey()).isReleased()) {
                         action = a;
+                        action.doAction(deltaTime, this, keyboard);
                         s = State.ACTION;
                     }
                 }
+
+
                 break;
 
             case ACTION:
                 //TODO later
-                action.doAction(deltaTime, this, keyboard);
+
                 break;
         }
 
@@ -215,6 +218,10 @@ public class RealPlayer extends ICWarsPlayer {
 
         if (s.equals(State.MOVE_UNIT)) {
             gui.draw(canvas);
+        }
+
+        if (s.equals(State.ACTION)){
+            action.draw(canvas);
         }
     }
 

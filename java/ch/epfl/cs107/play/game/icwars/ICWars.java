@@ -52,11 +52,20 @@ public class ICWars extends AreaGame {
         return false;
     }
 
-    // N and R to restart or skip levels
+    /**
+     * Keyboards for Inputs
+     * @return
+     */
     public final Keyboard getKeyboard() {
         return super.getWindow().getKeyboard();
     }
 
+
+    /**
+     * we call the initArea to get the Area setup to work properly, we can also adjust the amount of units aswell the amount
+     * of RealPlayers in here
+     * @param areaKey
+     */
     private void initArea(String areaKey) {
 
         ICWarsArea area = (ICWarsArea) setCurrentArea(areaKey, true);
@@ -82,8 +91,6 @@ public class ICWars extends AreaGame {
             }
         }
 
-//        playersWaitingCurrent.get(0).enterArea(area, coords);
-//        playersWaitingCurrent.get(1).enterArea(area, enemyCoords);
 
         playersAmount.addAll(playersWaitingCurrent);
 

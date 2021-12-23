@@ -13,7 +13,7 @@ import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ICWarsPlayer extends ICWarsActor implements Interactor, Interactable {
+abstract public class ICWarsPlayer extends ICWarsActor implements Interactor, Interactable {
 
     private Sprite sprite;
     protected Unit[] units = new Unit[2];
@@ -24,7 +24,13 @@ public class ICWarsPlayer extends ICWarsActor implements Interactor, Interactabl
     public State s;
 
 
-    //TODO
+    /**
+     * Constructor for the ICWarsPlayer, the parent class of the RealPlayer
+     * @param owner
+     * @param coordinates
+     * @param belongs
+     * @param units
+     */
         public ICWarsPlayer(Area owner, DiscreteCoordinates coordinates, String belongs, Unit... units){
             super(owner, coordinates, belongs);
 
@@ -44,26 +50,13 @@ public class ICWarsPlayer extends ICWarsActor implements Interactor, Interactabl
     }
 
 
-
-    /*public void actorAdder(ICWarsPlayer player) {
-        playerList.add(player);
-    }*/
-
-    @Override
-    public void onLeaving(List<DiscreteCoordinates> coordinates) {
-//        super.onLeaving(coordinates);
-//        if (haveSelectedUnit == null)
-//            s = State.NORMAL;
-    }
-
+    /**
+     * if the State is equal to IDLE then we cna change it to NORMAL with this method.
+     */
     public void startTurn() {
         if (s.equals(State.IDLE)) {
             s = State.NORMAL;
         }
-    }
-
-    public void startNormal() {
-        s = State.NORMAL;
     }
 
 
@@ -96,6 +89,12 @@ public class ICWarsPlayer extends ICWarsActor implements Interactor, Interactabl
         ((ICWarsInteractionVisitor)v).interactWith(this);
     }
 
+    /**
+     * This method works together with the doubleUsed method. We basically add the Units that already got moved onto to the list. When we select a new
+     * Unit we check if that Unit is already in the List if the return value is true then we are not allowed to move or use the Unit again.
+     * @param unit
+     * @return
+     */
     public boolean notAlreadyUsed(Unit unit){
         if(usedNumbers.size() == 0){
             usedNumbers.add(unit);
@@ -121,14 +120,6 @@ public class ICWarsPlayer extends ICWarsActor implements Interactor, Interactabl
         usedNumbers.add(unit);
     }
 
-
-    public boolean playerDefeated() {
-        if (units.length == 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 
     /**
      *
