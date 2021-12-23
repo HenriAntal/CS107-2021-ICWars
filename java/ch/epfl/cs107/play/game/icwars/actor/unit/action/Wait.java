@@ -7,7 +7,9 @@ import ch.epfl.cs107.play.window.Canvas;
 import ch.epfl.cs107.play.window.Keyboard;
 
 public class Wait extends Action {
+
     private Unit unit;
+
     public Wait(Area area, Unit unit) {
         super(area, unit);
         this.unit = unit;
@@ -16,8 +18,9 @@ public class Wait extends Action {
     }
 
     public void doAction(float dt, ICWarsPlayer player, Keyboard keyboard) {
-        player.addUsedUnit(unit);
+        player.addUsedUnitChecked(unit);
         player.s = ICWarsPlayer.State.NORMAL;
+        System.out.println("wait to normal");
     }
 
     @Override

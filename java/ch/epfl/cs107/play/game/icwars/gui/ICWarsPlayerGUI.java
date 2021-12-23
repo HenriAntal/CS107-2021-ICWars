@@ -16,9 +16,9 @@ public class ICWarsPlayerGUI implements Graphics {
 
     public ICWarsPlayerGUI (float cameraScaleFactor, ICWarsPlayer player) {
         this.player = player;
+        FONT_SIZE = 20.f;
         actionsPanel = new ICWarsActionsPanel(cameraScaleFactor);
         infoPanel = new ICWarsInfoPanel(cameraScaleFactor);
-        FONT_SIZE = 20.f;
     }
 
     public void setSelectedUnit(Unit selectedUnit) {
@@ -27,8 +27,10 @@ public class ICWarsPlayerGUI implements Graphics {
 
     @Override
     public void draw (Canvas canvas) {
-        selectedUnit.drawRangeAndPathTo(player.getCurrentCells().get(0), canvas);
-        if (player.s.equals(ICWarsPlayer.State.SELECT_CELL)) {
+        if (player.s.equals(ICWarsPlayer.State.MOVE_UNIT)) {
+            selectedUnit.drawRangeAndPathTo(player.getCurrentCells().get(0), canvas);
+        }
+        if (player.s.equals(ICWarsPlayer.State.SELECTION_ACTION)) {
             actionsPanel.setActions(selectedUnit.getActions());
             actionsPanel.draw(canvas);
         }

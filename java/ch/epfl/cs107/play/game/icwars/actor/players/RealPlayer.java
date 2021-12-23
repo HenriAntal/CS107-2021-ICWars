@@ -27,7 +27,7 @@ public class RealPlayer extends ICWarsPlayer {
     //    private Unit selectedUnit;
     private ICWarsPlayerInteractionHandler handler = new ICWarsPlayerInteractionHandler();
     // FRANCE is stupid
-    private ArrayList<Unit> usedNumbers = new ArrayList<>();
+    private ArrayList<Unit> usedUnits = new ArrayList<>();
     private DiscreteCoordinates oldPosition;
     private Action action;
 
@@ -99,19 +99,20 @@ public class RealPlayer extends ICWarsPlayer {
 
             case NORMAL:
                 sprite.setAlpha(1f);
+                System.out.println("hmm");
                 if (keyboard.get(Keyboard.ENTER).isReleased() && playerOnUnit()) {
 
                     //stores the Position of the RealPlayer when you select a unit
                     oldPosition = getCurrentMainCellCoordinates();
                     s = State.SELECT_CELL;
-                } else if (keyboard.get(Keyboard.TAB).isReleased() || usedNumbers.size() == units.length) {
+                } else if (keyboard.get(Keyboard.TAB).isReleased() || usedUnits.size() == units.length) {
                     for (int i = 0; i < units.length; ++i) {
                         units[i].changeSprite(1);
                     }
 
                     s = State.IDLE;
-                } else if (keyboard.get(Keyboard.ENTER).isReleased() && !playerOnUnit()) {
-                    s = State.NORMAL;
+//                } else if (keyboard.get(Keyboard.ENTER).isReleased() && !playerOnUnit()) {
+//                    s = State.NORMAL;
                 }
                 break;
 
@@ -135,14 +136,14 @@ public class RealPlayer extends ICWarsPlayer {
                     //then we stay in the MOVE_UNIT state.
 //                    if (changedPosition(oldPosition, units[order].getCurrentCells().get(0))) {
 //                        s = State.ACTION_SELECTION;
-                        s = State.SELECTION_ACTION;
+                    s = State.SELECTION_ACTION;
 //                    } else {
 //                        s = State.MOVE_UNIT;
 //                    }
 
                 } else if (keyboard.get(Keyboard.TAB).isReleased() || !inRange()) {
                     s = State.NORMAL;
-                    usedNumbers.remove(usedNumbers.size() - 1);
+                    usedUnits.remove(usedUnits.size() - 1);
                 }
                 break;
 
@@ -161,7 +162,8 @@ public class RealPlayer extends ICWarsPlayer {
 
             case ACTION:
                 //TODO later
-
+                sprite.setAlpha(0f);
+                s = State.NORMAL;
                 break;
         }
 
@@ -212,13 +214,11 @@ public class RealPlayer extends ICWarsPlayer {
      */
     @Override
     public void draw(Canvas canvas) {
-        if (s != State.IDLE) {
+        if (s != State.IDLE && s != State.ACTION) {
             sprite.draw(canvas);
         }
 
-        if (s.equals(State.MOVE_UNIT)) {
-            gui.draw(canvas);
-        }
+        gui.draw(canvas);
 
         if (s.equals(State.ACTION)){
             action.draw(canvas);
@@ -277,11 +277,11 @@ public class RealPlayer extends ICWarsPlayer {
      * @return
      */
     public boolean notAlreadyUsed(Unit unit) {
-        if (usedNumbers.size() == 0) {
-            usedNumbers.add(unit);
+        if (usedUnits.size() == 0) {
+            usedUnits.add(unit);
             return true;
         }
-        usedNumbers.add(unit);
+        usedUnits.add(unit);
         if (doubleUsed(unit)) {
             return false;
         }
@@ -289,8 +289,8 @@ public class RealPlayer extends ICWarsPlayer {
     }
 
     public boolean doubleUsed(Unit unit) {
-        for (int k = 0; k < usedNumbers.size() - 1; ++k) {
-            if (unit == usedNumbers.get(k)) {
+        for (int k = 0; k < usedUnits.size() - 1; ++k) {
+            if (unit == usedUnits.get(k)) {
                 return true;
             }
         }
@@ -329,7 +329,7 @@ public class RealPlayer extends ICWarsPlayer {
      * Units which got moved in the last Turn gets emptied.
      */
     public void clearUsedNumbers() {
-        usedNumbers.clear();
+        usedUnits.clear();
     }
 
     public boolean changedPosition(DiscreteCoordinates newPosition, DiscreteCoordinates oldPosition) {

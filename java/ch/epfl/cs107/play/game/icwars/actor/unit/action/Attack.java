@@ -29,10 +29,13 @@ public class Attack extends Action {
     @Override
     public void doAction(float dt, ICWarsPlayer player, Keyboard keyboard) {
         int counter = 0;
-        player.addUsedUnit(unit);
+        player.addUsedUnitChecked(unit);
 //        boolean checka = false;
         enemyUnitList = unit.enemyInRangeList();
         System.out.println("supper");
+//        for (Unit u : enemyUnitList) {
+//            u.changeSprite(0.5f);
+//        }
 
         if (keyboard.get(Keyboard.LEFT).isReleased()) {
             --counter;
@@ -52,7 +55,7 @@ public class Attack extends Action {
         if (keyboard.get(Keyboard.ENTER).isReleased()) {
             System.out.println("This Bitch got attacked");
             attackedUnit.damageTaken(unit);
-            player.addUsedUnit(attackedUnit);
+            player.addUsedUnitChecked(attackedUnit);
             player.centerCamera();
             player.s = ICWarsPlayer.State.NORMAL;
         }
@@ -75,7 +78,8 @@ public class Attack extends Action {
                 hasTargetUnit = true;
             }
         }
-        if (hasTargetUnit) {
+//        if (hasTargetUnit) {
+        if (enemyUnitList.size() > 0) {
             attackedUnit.centerCamera();
             cursor.setAnchor(canvas.getPosition().add(1,0));
             cursor.draw(canvas);

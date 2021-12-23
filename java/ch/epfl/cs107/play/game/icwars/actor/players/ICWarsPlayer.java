@@ -19,7 +19,7 @@ abstract public class ICWarsPlayer extends ICWarsActor implements Interactor, In
     protected Unit[] units = new Unit[2];
     protected Unit selectedUnit;
     protected ArrayList<RealPlayer> realPlayers = new ArrayList<RealPlayer>();
-    protected ArrayList<Unit> usedNumbers = new ArrayList<>();
+    protected ArrayList<Unit> usedUnits = new ArrayList<>();
     public enum State {IDLE, NORMAL, SELECT_CELL, MOVE_UNIT, SELECTION_ACTION, ACTION}
     public State s;
 
@@ -96,11 +96,11 @@ abstract public class ICWarsPlayer extends ICWarsActor implements Interactor, In
      * @return
      */
     public boolean notAlreadyUsed(Unit unit){
-        if(usedNumbers.size() == 0){
-            usedNumbers.add(unit);
+        if(usedUnits.size() == 0){
+            usedUnits.add(unit);
             return true;
         }
-        usedNumbers.add(unit);
+        usedUnits.add(unit);
         if(doubleUsed(unit)){
             return false;
         }
@@ -108,16 +108,26 @@ abstract public class ICWarsPlayer extends ICWarsActor implements Interactor, In
     }
 
     public boolean doubleUsed(Unit unit){
-        for(int k = 0; k < usedNumbers.size()-1; ++k){
-            if(unit == usedNumbers.get(k)){
+        for(int k = 0; k < usedUnits.size()-1; ++k){
+            if(unit == usedUnits.get(k)){
                 return true;
             }
         }
         return false;
     }
 
-    public void addUsedUnit(Unit unit) {
-        usedNumbers.add(unit);
+    /**
+     * This method checks in the arrayList of the used units if the one we want to add isn't already in it.
+     * If it isn't in it, it will add it, otherwise not.
+     * @param other
+     */
+    public void addUsedUnitChecked(Unit other) {
+        for (Unit u : usedUnits) {
+            if (u.equals(other)) {
+                return;
+            }
+        }
+        usedUnits.add(other);
     }
 
 }
