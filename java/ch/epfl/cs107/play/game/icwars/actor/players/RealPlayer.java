@@ -148,11 +148,13 @@ public class RealPlayer extends ICWarsPlayer {
                 break;
 
             case SELECTION_ACTION:
+                sprite.setAlpha(0f);
                 //If the user presses W we get the Wait Action
                 for (Action a : selectedUnit.getActions()) {
                     if (keyboard.get(a.getKey()).isReleased()) {
                         action = a;
                         action.doAction(deltaTime, this, this.getOwnerArea().getKeyboard());
+                        selectedUnit.changeSprite(0.5f);
                         s = State.ACTION;
                     }
                 }
@@ -162,7 +164,6 @@ public class RealPlayer extends ICWarsPlayer {
 
             case ACTION:
                 //TODO later
-                sprite.setAlpha(0f);
                 s = State.NORMAL;
                 break;
         }
