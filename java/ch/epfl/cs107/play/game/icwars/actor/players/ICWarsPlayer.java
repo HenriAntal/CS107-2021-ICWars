@@ -120,22 +120,6 @@ abstract public class ICWarsPlayer extends ICWarsActor implements Interactor, In
         usedNumbers.add(unit);
     }
 
-
-    /**
-     *
-     * @return a list with all units from the opposite faction of this player
-     */
-    public List<Unit> enemyInRange(){
-        List<Unit> listOfUnitsInRange = new ArrayList<Unit>();
-        for (Unit u : super.getOwnerArea().getUnitList()) {
-            if (!u.getBelongs().equals(this.belongs)
-                    && selectedUnit.getRange().nodeExists(u.getCurrentCells().get(0))) {
-                listOfUnitsInRange.add(u);
-            }
-        }
-        return listOfUnitsInRange;
-    }
-
 }
 
 

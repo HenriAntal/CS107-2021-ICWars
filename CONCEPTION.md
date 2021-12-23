@@ -1,2 +1,5 @@
-###### We don't have any extensions yet.
-###### The code was created how it was intended in the assignment.
+###Conception
+
+Although we didn't finish the third Part and have no Extensions. 
+We would still like to comment on how we fixed a bug in 
+

@@ -4,8 +4,6 @@ import ch.epfl.cs107.play.game.areagame.actor.Interactor;
 import ch.epfl.cs107.play.game.areagame.actor.Sprite;
 import ch.epfl.cs107.play.game.icwars.actor.players.ICWarsActor;
 import ch.epfl.cs107.play.game.icwars.actor.unit.action.Action;
-import ch.epfl.cs107.play.game.icwars.actor.unit.action.Attack;
-import ch.epfl.cs107.play.game.icwars.actor.unit.action.Wait;
 import ch.epfl.cs107.play.game.icwars.area.ICWarsBehavior;
 import ch.epfl.cs107.play.game.icwars.area.ICWarsRange;
 import ch.epfl.cs107.play.game.areagame.Area;
@@ -175,6 +173,20 @@ public abstract class Unit extends ICWarsActor implements Interactor {
         return actions;
     }
 
+    /**
+     * //TODO explains
+     * @return a list with all units from the opposite faction of this player
+     */
+    public List<Unit> enemyInRangeList(){
+        List<Unit> listOfUnitsInRange = new ArrayList<Unit>();
+        for (Unit u : super.getOwnerArea().getUnitList()) {
+            if (!u.getBelongs().equals(super.getBelongs())
+                    && getRange().nodeExists(u.getCurrentCells().get(0))) {
+                listOfUnitsInRange.add(u);
+            }
+        }
+        return listOfUnitsInRange;
+    }
 
     /**
      * Draw the unit's range and a path from the unit position to

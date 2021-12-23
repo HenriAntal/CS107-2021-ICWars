@@ -31,15 +31,15 @@ public class Attack extends Action {
         int counter = 0;
         player.addUsedUnit(unit);
 //        boolean checka = false;
-        enemyUnitList = player.enemyInRange();
+        enemyUnitList = unit.enemyInRangeList();
         System.out.println("supper");
 
-        if (keyboard.equals(Keyboard.LEFT)) {
+        if (keyboard.get(Keyboard.LEFT).isReleased()) {
             --counter;
             if (counter < 0) {
                 counter = enemyUnitList.size() - 1;
             }
-        } else if (keyboard.equals(Keyboard.RIGHT)) {
+        } else if (keyboard.get(Keyboard.RIGHT).isReleased()) {
             ++counter;
             System.out.println("sucker");
             if (counter > enemyUnitList.size() - 1) {
@@ -49,7 +49,7 @@ public class Attack extends Action {
 
         attackedUnit = enemyUnitList.get(counter);
 
-        if (keyboard.get(Keyboard.ENTER).isPressed()) {
+        if (keyboard.get(Keyboard.ENTER).isReleased()) {
             System.out.println("This Bitch got attacked");
             attackedUnit.damageTaken(unit);
             player.addUsedUnit(attackedUnit);

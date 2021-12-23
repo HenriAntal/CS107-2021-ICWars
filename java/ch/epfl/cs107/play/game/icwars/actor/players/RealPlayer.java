@@ -151,7 +151,7 @@ public class RealPlayer extends ICWarsPlayer {
                 for (Action a : selectedUnit.getActions()) {
                     if (keyboard.get(a.getKey()).isReleased()) {
                         action = a;
-                        action.doAction(deltaTime, this, keyboard);
+                        action.doAction(deltaTime, this, this.getOwnerArea().getKeyboard());
                         s = State.ACTION;
                     }
                 }
