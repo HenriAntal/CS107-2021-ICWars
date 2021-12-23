@@ -15,7 +15,6 @@ import java.util.List;
 
 public class Tank extends Unit {
 
-    private String name;
     private List<Action> actions = new ArrayList<Action>();
 
     /**
@@ -33,14 +32,7 @@ public class Tank extends Unit {
         actions.add(new Wait(getOwnerArea(), this));
         actions.add(new Attack(getOwnerArea(), this));
 
-
-
-        if (belongs.equals("ally")) {
-            name = "icwars/friendlyTank";
-        } else {
-            name = "icwars/enemyTank";
-        }
-        this.sprite = new Sprite(name, 1.5f, 1.5f, this, null, new Vector(-0.25f, -0.25f));
+        this.sprite = new Sprite(getName(), 1.5f, 1.5f, this, null, new Vector(-0.25f, -0.25f));
 
 
     }

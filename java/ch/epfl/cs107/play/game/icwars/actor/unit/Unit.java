@@ -14,7 +14,6 @@ import ch.epfl.cs107.play.game.icwars.handler.ICWarsInteractionVisitor;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Canvas;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Queue;
@@ -26,10 +25,10 @@ public abstract class Unit extends ICWarsActor implements Interactor {
     static int maxRange;
     ICWarsRange range = new ICWarsRange();
     int coordsX, coordsY;
-    boolean used = false;
     protected Sprite sprite;
     private int cellStars;
     private List<Action> actions;
+    private String name;
 
 
     public Unit(Area owner, DiscreteCoordinates coordinates, String belongs ){
@@ -37,12 +36,21 @@ public abstract class Unit extends ICWarsActor implements Interactor {
         coordsX = coordinates.x;
         coordsY = coordinates.y;
 
+        if (belongs.equals("ally")) {
+            name = "icwars/friendlyTank";
+        } else {
+            name = "icwars/enemyTank";
+        }
 
         // somehow need to include damage taken (- Hp)
         // also need to include healing (+ Hp)
 
     }
 
+
+    public String getName() {
+        return name;
+    }
 
     public int damageTaken(Unit other) {
         ICWarsPlayerInteractionHandler handler = new ICWarsPlayerInteractionHandler();
@@ -207,7 +215,7 @@ public abstract class Unit extends ICWarsActor implements Interactor {
 
         @Override
         public void interactWith(ICWarsBehavior.ICWarsCellType cell) {
-            setCellStars(cell.getStars());
+            setCellStars(cell.getDefenseStar());
         }
     }
 }

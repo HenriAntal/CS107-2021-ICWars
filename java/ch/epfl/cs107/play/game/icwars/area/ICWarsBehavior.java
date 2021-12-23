@@ -30,7 +30,7 @@ public class ICWarsBehavior extends AreaBehavior {
                 this.stars = stars;
             }
 
-            public int getStars() {
+            public int getDefenseStar() {
                 return stars;
             }
 
@@ -43,6 +43,29 @@ public class ICWarsBehavior extends AreaBehavior {
                 System.out.println(type);
                 return NONE;
             }
+
+            //TODO describe
+            public String typeToString() {
+                switch(this) {
+                    case NONE:
+                        return "None";
+                    case ROAD:
+                        return "Road";
+                    case PLAIN:
+                        return "Plain";
+                    case WOOD:
+                        return "Wood";
+                    case RIVER:
+                        return "River";
+                    case MOUNTAIN:
+                        return "Mountain";
+                    case CITY:
+                        return "City";
+                    default:
+                        return null;
+                }
+            }
+
         }
 
         /**
