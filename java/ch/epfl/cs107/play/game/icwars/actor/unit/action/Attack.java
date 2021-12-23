@@ -59,6 +59,7 @@ public class Attack extends Action {
             attackedUnit.damageTaken(unit);
             player.addUsedUnitChecked(attackedUnit);
             player.centerCamera();
+            unit.clearRange();
             player.s = ICWarsPlayer.State.NORMAL;
         }
 

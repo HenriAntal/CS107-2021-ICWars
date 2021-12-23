@@ -7,6 +7,7 @@ import java.util.List;
 
 import ch.epfl.cs107.play.game.icwars.actor.unit.Unit;
 import ch.epfl.cs107.play.game.icwars.actor.unit.action.Action;
+import ch.epfl.cs107.play.game.icwars.area.ICWarsRange;
 import ch.epfl.cs107.play.game.icwars.gui.ICWarsPlayerGUI;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
@@ -155,6 +156,7 @@ public class RealPlayer extends ICWarsPlayer {
                         action.doAction(deltaTime, this, this.getOwnerArea().getKeyboard());
                         selectedUnit.changeSprite(0.5f);
                         s = State.ACTION;
+
                     }
                 }
 
@@ -164,6 +166,7 @@ public class RealPlayer extends ICWarsPlayer {
             case ACTION:
                 //TODO later
                 action.doAction(deltaTime, this, this.getOwnerArea().getKeyboard());
+//                selectedUnit.clearRange();
 
                 break;
         }

@@ -178,6 +178,10 @@ public abstract class Unit extends ICWarsActor implements Interactor {
         return range;
     }
 
+    public void clearRange() {
+        range = new ICWarsRange();
+    }
+
     public List<Action> getActions() {
         return actions;
     }

@@ -35,7 +35,9 @@ public abstract class Action implements Graphics {
         this.name = name;
     }
 
-    public abstract void doAction(float dt, ICWarsPlayer player, Keyboard keyboard);
+    public void doAction(float dt, ICWarsPlayer player, Keyboard keyboard) {
+        unit.clearRange();
+    }
 
     @Override
     public void draw(Canvas canvas) {}
