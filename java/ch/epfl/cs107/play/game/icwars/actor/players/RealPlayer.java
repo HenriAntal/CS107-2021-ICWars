@@ -35,7 +35,11 @@ public class RealPlayer extends ICWarsPlayer {
 
 
     /**
-     * Demo actor
+     * Constructor for the RealPlayer if belongs is equal to ally the friendly cursor gets spawned otherwise it is the enemy cursor.
+     * @param owner
+     * @param coordinates
+     * @param belongs
+     * @param units
      */
     public RealPlayer(Area owner, DiscreteCoordinates coordinates, String belongs, Unit... units) {
         super(owner, coordinates, belongs, units);
@@ -60,6 +64,9 @@ public class RealPlayer extends ICWarsPlayer {
     public void update(float deltaTime) {
         Keyboard keyboard = getOwnerArea().getKeyboard();
 
+        /**
+         * Movement so we can move the RealPlayer around with the Arrow-Keys.
+         */
         if (s.equals(State.NORMAL) || s.equals(State.SELECT_CELL) || s.equals(State.MOVE_UNIT)) {
             moveIfPressed(Orientation.LEFT, keyboard.get(Keyboard.LEFT));
             moveIfPressed(Orientation.UP, keyboard.get(Keyboard.UP));
@@ -67,6 +74,24 @@ public class RealPlayer extends ICWarsPlayer {
             moveIfPressed(Orientation.DOWN, keyboard.get(Keyboard.DOWN));
         }
 
+        /**
+         * The Switch cases for the RealPlayer's turn.
+         *
+         * IDLE - clearing all information used earlier and initializing for the NORMAL movement.
+         *
+         * NORMAL - The mode where the RealPlayer can freely roam the Area and can select his Unit he wants to
+         *          move by going over it and pressing ENTER.
+         *
+         * SELECT_CELL - Affirming that we selected a Unit and putting it on the used List.
+         *
+         * MOVE_UNIT -  In this state we can move around in the white square, if we move outside the square or if we press TAB we go back to NORMAL
+         *              mode and remove the used Status from the Unit. The other possibility is to click ENTER, therefore the position of the Unit changes
+         *              to the new position, and we get into ACTION_SELECT.
+         *
+         * ACTION_SELECT - In this State we can choose which kind of action we want to take with our Unit.
+         *
+         * ACTION - Here the action gets executed
+         */
         switch (s) {
             case IDLE:
                 //sprite.setAlpha(0f);
@@ -77,6 +102,8 @@ public class RealPlayer extends ICWarsPlayer {
 
                 sprite.setAlpha(1f);
                 if (keyboard.get(Keyboard.ENTER).isReleased() && playerOnUnit()) {
+
+                    //stores the Position of the RealPlayer when you select a unit
                     oldPosition = getCurrentMainCellCoordinates();
                     s = State.SELECT_CELL;
                 } else if (keyboard.get(Keyboard.TAB).isReleased() || usedNumbers.size() == units.length) {
@@ -104,16 +131,15 @@ public class RealPlayer extends ICWarsPlayer {
             case MOVE_UNIT:
                 if (keyboard.get(Keyboard.ENTER).isReleased() && !playerOnUnit()) {
                     units[order].changePosition(getCurrentMainCellCoordinates());
+                    //here we check if the old position and the current position of the Unit are the same, if that is the case
+                    //then we stay in the MOVE_UNIT state.
                     if (changePostion(oldPosition, units[order].getCurrentCells().get(0))) {
 //                        s = State.ACTION_SELECTION;
                         s = State.ACTION_SELECTION;
-//                        s = State.NORMAL;
                     } else {
                         s = State.MOVE_UNIT;
                     }
-//                    ICWarsRange newRange = new ICWarsRange();
-//                    units[order].createRange(getOwnerArea(),getCurrentMainCellCoordinates(), units[order].maxRange, newRange);
-//                    units[order].range = newRange;
+
                 } else if (keyboard.get(Keyboard.TAB).isReleased() || !inRange()) {
                     s = State.NORMAL;
                     usedNumbers.remove(usedNumbers.size() - 1);
@@ -121,6 +147,7 @@ public class RealPlayer extends ICWarsPlayer {
 
                 break;
             case ACTION_SELECTION:
+                //If the user presses W we get the Wait Action
                if (keyboard.get(Keyboard.W).isReleased()) {
                    units[order].changeSprite(0.5f);
                    Wait w = new Wait(getOwnerArea(), units[order]);
@@ -170,6 +197,8 @@ public class RealPlayer extends ICWarsPlayer {
     }
 
     /**
+     * with this method it is possible to enter the area with a RealPlayer, we use it to switch between ally and enemy so
+     * the RealPlayer we don't need anymore leaves the are and the new one enters the area.
      * @param area     (Area): initial area, not null
      * @param position (DiscreteCoordinates): initial position, not null
      */
@@ -181,21 +210,20 @@ public class RealPlayer extends ICWarsPlayer {
         resetMotion();
     }
 
-
+    /**
+     * draws the RealPlayers Sprite.
+     * @param canvas
+     */
     @Override
     public void draw(Canvas canvas) {
         if (s != State.IDLE) {
             sprite.draw(canvas);
         }
-//        step1
-//        if (selectUnit(order) != null && (gogoCase%2) == 1) {
+
         if (s.equals(State.MOVE_UNIT)) {
             gui.draw(canvas);
         }
     }
-
-
-    ///Ghost implements Interactable
 
     @Override
     public boolean takeCellSpace() {
@@ -217,7 +245,9 @@ public class RealPlayer extends ICWarsPlayer {
         return Collections.singletonList(getCurrentMainCellCoordinates());
     }
 
-    // checks if the RealPlayer is in Range of the selected unit, so it checks if is still on a Node, if not you go back to Normal State.
+    /**
+     *     checks if the RealPlayer is in Range of the selected unit, so it checks if is still on a Node, if not you go back to Normal State.
+     */
     public boolean inRange() {
         if (selectUnit().getRange().nodeExists(getCurrentMainCellCoordinates())) {
             return true;
@@ -225,6 +255,10 @@ public class RealPlayer extends ICWarsPlayer {
         return false;
     }
 
+    /**
+     * checks if the RealPlayer is currently standing on top of a unit.
+     * @return
+     */
     private boolean playerOnUnit() {
         if (getCurrentMainCellCoordinates().equals(units[0].getCurrentCells().get(0))) {
             return true;
@@ -236,6 +270,12 @@ public class RealPlayer extends ICWarsPlayer {
         return false;
     }
 
+    /**
+     * This method works together with the doubleUsed method. We basically add the Units that already got moved onto to the list. When we select a new
+     * Unit we check if that Unit is already in the List if the return value is true then we are not allowed to move or use the Unit again.
+     * @param unit
+     * @return
+     */
     public boolean notAlreadyUsed(Unit unit) {
         if (usedNumbers.size() == 0) {
             usedNumbers.add(unit);
@@ -257,6 +297,10 @@ public class RealPlayer extends ICWarsPlayer {
         return false;
     }
 
+    /**
+     * This method sets the value "order" according to the correct Unit. So when we pick up a Unit we want to know it's kind
+     * we do this with this method.
+     */
     public void getUnitNr() {
         //        this.getCurrentMainCellCoordinates();
         if (getCurrentMainCellCoordinates().equals(units[0].getCurrentCells().get(0))) {
@@ -268,24 +312,35 @@ public class RealPlayer extends ICWarsPlayer {
         }
     }
 
+    /**
+     * Similar to getUnitNr but it doesn't set the order to the correct value, it returns the whole Unit, but the order
+     * had to be already set for this function to works
+     * @return
+     */
     public Unit selectUnit() {
 
-//            gui.draw(canvas, (super.units)[this.order]);
         gui.setSelectedUnit((super.units)[this.order]);
         return (super.units)[this.order];
 
     }
 
+    /**
+     * Once a player starts his turn he has to be able to move his units again so. So the ArrayList that stored the
+     * Units which got moved in the last Turn gets emptied.
+     */
     public void clearUsedNumbers() {
         usedNumbers.clear();
     }
 
+    /**
+     * handles Interactions TODO
+     */
     private class ICWarsPlayerInteractionHandler implements ICWarsInteractionVisitor {
 
         @Override
         public void interactWith(RealPlayer realPlayer) {
             if (!isDisplacementOccurs()) {
-                //TODO sth
+                // this method doesn't get used because we used the a different approach in the State.MOVE_UNIT.
             }
         }
 
