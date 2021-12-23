@@ -40,7 +40,7 @@ public class Attack extends Action {
 
             if (enemyUnitList.size() == 0) {
                 player.s = ICWarsPlayer.State.NORMAL;
-                break;uper.update(dt);
+                break;
             }
             if (keyboard.equals(Keyboard.LEFT)) {
                 --counter;

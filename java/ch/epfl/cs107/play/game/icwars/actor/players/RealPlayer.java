@@ -103,8 +103,8 @@ public class RealPlayer extends ICWarsPlayer {
                 break;
             case MOVE_UNIT:
                 if (keyboard.get(Keyboard.ENTER).isReleased() && !playerOnUnit()) {
-                    units[order].hasBeenMoved(getCurrentMainCellCoordinates());
-                    if (hasBeenMoved(oldPosition, units[order].getCurrentCells().get(0))) {
+                    units[order].changePosition(getCurrentMainCellCoordinates());
+                    if (changePostion(oldPosition, units[order].getCurrentCells().get(0))) {
 //                        s = State.ACTION_SELECTION;
                         s = State.ACTION_SELECTION;
 //                        s = State.NORMAL;

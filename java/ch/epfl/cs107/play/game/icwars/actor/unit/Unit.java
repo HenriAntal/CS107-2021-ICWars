@@ -28,23 +28,11 @@ public abstract class Unit extends ICWarsActor implements Interactor {
     protected Sprite sprite;
     private int cellStars;
 
-//    public  int rangeIdentifier(){
-//        if(Hp == 4){    // needs to be changed with getCurrentMainCellCoordinates().equals(units[0].getCurrentCells().get(0))
-//                        // it checks for the position of units and also the position of the player.
-//            return Tank.getRange();
-//        }
-//        return Soldier.getRange();
-//    }
 
     public Unit(Area owner, DiscreteCoordinates coordinates, String belongs ){
         super(owner, coordinates, belongs);
         coordsX = coordinates.x;
         coordsY = coordinates.y;
-
-
-//        range.addNode(new DiscreteCoordinates(6,4), true, true, true, true);
-
-//        createRange(owner, coordinates);
 
 
         // somehow need to include damage taken (- Hp)
@@ -76,6 +64,15 @@ public abstract class Unit extends ICWarsActor implements Interactor {
         cellStars = stars;
     }
 
+
+    /**
+     * This method initalizes the Range in which the Unit can move. It also prints out the white square as well as the red line.
+     * The method adds nodes to the grid which are the Positions to which the Unit is allowed to move to.
+     * @param owner
+     * @param coordinates
+     * @param maxRange
+     * @return
+     */
     public ICWarsRange initRange(Area owner, DiscreteCoordinates coordinates, int maxRange) {
 
         for (int x = -maxRange; x <= maxRange; ++x) {
@@ -146,10 +143,14 @@ public abstract class Unit extends ICWarsActor implements Interactor {
     public void acceptInteraction(AreaInteractionVisitor v) {
     }
 
-
+    /**
+     * The Unit get's moved to the new Position where the RealPlayer is staying.
+     * @param newPosition new unit's position
+     * @return
+     */
     @Override
-    public boolean hasBeenMoved(DiscreteCoordinates newPosition) {
-        if (!range.nodeExists(newPosition) || !super.hasBeenMoved(newPosition)) {
+    public boolean changePosition(DiscreteCoordinates newPosition) {
+        if (!range.nodeExists(newPosition) || !super.changePosition(newPosition)) {
             return false;
         } else {
             ICWarsRange newRange = new ICWarsRange();

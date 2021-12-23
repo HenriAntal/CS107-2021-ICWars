@@ -13,6 +13,12 @@ public class Tank extends Unit {
 
     private String name;
 
+    /**
+     * Constructor for the Unit -> Tank
+     * @param owner
+     * @param coordinates
+     * @param belongs
+     */
     public Tank(Area owner, DiscreteCoordinates coordinates, String belongs) {
         super(owner, coordinates, belongs);
         super.maxRange = 4;
