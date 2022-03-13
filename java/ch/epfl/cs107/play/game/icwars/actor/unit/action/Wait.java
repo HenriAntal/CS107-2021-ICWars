@@ -20,7 +20,6 @@ public class Wait extends Action {
     public void doAction(float dt, ICWarsPlayer player, Keyboard keyboard) {
         player.addUsedUnitChecked(unit);
         player.s = ICWarsPlayer.State.NORMAL;
-        System.out.println("wait to normal");
     }
 
     @Override

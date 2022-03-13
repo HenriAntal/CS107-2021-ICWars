@@ -32,7 +32,6 @@ public class Attack extends Action {
     public void doAction(float dt, ICWarsPlayer player, Keyboard keyboard) {
         player.addUsedUnitChecked(unit);
         enemyUnitList = unit.enemyInRangeList();
-        System.out.println("supper");
 
         if (keyboard.get(Keyboard.LEFT).isReleased()) {
             --counter;
@@ -51,7 +50,6 @@ public class Attack extends Action {
         attackedUnit.centerCamera();
 
         if (keyboard.get(Keyboard.ENTER).isReleased()) {
-            System.out.println("This Bitch got attacked");
             attackedUnit.damageTaken(unit);
             player.addUsedUnitChecked(attackedUnit);
             player.centerCamera();

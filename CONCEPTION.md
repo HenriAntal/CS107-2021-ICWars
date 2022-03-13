@@ -11,3 +11,6 @@ the next round. All one has to do, is click on `P` when in the action menu and t
 begins. Thank you for playing our game and for reading through our work!
 
 Best Regards `FLU` and `ANTAL`
+
+PS:: the action did work but it removed the soldiers and we weren't able to fix it in time, so we just reverted but left
+this Conception as a reminder of our great ideas but bad execution.
